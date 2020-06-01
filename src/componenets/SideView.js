@@ -61,37 +61,38 @@ export class SideView extends Component {
     }
 
     updateState(newProps){
-
+        
         const {selectedCourse, prereq, coreq} = newProps;
 
-        if (selectedCourse !== null){
-            let selectedPrereqList = prereq[selectedCourse.code];
-            if (!selectedPrereqList){
-                selectedPrereqList = [];
-            }
+        if (selectedCourse === null) return;
 
-            //console.log(selectedPrereqList);
-            
-            let selectedCoreqIndex = coreq
-            .findIndex(cl => (cl.findIndex(c => c === selectedCourse.code) >= 0));
-            
-
-            let selectedCoreqList;
-            if (selectedCoreqIndex < 0){
-                selectedCoreqList = [];
-            }else{
-                selectedCoreqList = coreq[selectedCoreqIndex];
-            }
-
-
-                if (!this.equal(this.props, newProps)){
-                    this.setState({
-                        prereqCourses: selectedPrereqList,
-                        coreqCourses: selectedCoreqList,
-                    });
-                }
-            
+        let selectedPrereqList = prereq[selectedCourse.code];
+        if (!selectedPrereqList){
+            selectedPrereqList = [];
         }
+
+        //console.log(selectedPrereqList);
+        
+        let selectedCoreqIndex = coreq
+        .findIndex(cl => (cl.findIndex(c => c === selectedCourse.code) >= 0));
+        
+
+        let selectedCoreqList;
+        if (selectedCoreqIndex < 0){
+            selectedCoreqList = [];
+        }else{
+            selectedCoreqList = coreq[selectedCoreqIndex];
+        }
+
+
+        if (!this.equal(this.props, newProps)){
+            this.setState({
+                prereqCourses: selectedPrereqList,
+                coreqCourses: selectedCoreqList,
+            });
+        }
+            
+        
     }
 
     componentWillReceiveProps(newProps){
@@ -123,7 +124,7 @@ export class SideView extends Component {
             selectedPrereqList = [];
         }
 
-        console.log(selectedPrereqList);
+        //console.log(selectedPrereqList);
         
         let selectedCoreqIndex = coreq
         .findIndex(cl => cl.includes(selectedCourse.code));
@@ -135,7 +136,7 @@ export class SideView extends Component {
         }else{
             selectedCoreqList = coreq[selectedCoreqIndex];
         }
-        console.log(selectedCoreqList);
+        //console.log(selectedCoreqList);
 
 
         

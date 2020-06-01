@@ -68,10 +68,8 @@ Term.propType = {
 }
 
 const termDisplayStyle = {
-    //borderBottom: '5px',
-    //position:'fixed',
-    height:'',
-    width:''
+    textAlign:'center',
+    height:'250px'
 };
 
 export default Term

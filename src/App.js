@@ -220,25 +220,35 @@ class App extends Component {
 
   // Same as above except with corequisites
   handleClickEditCoreq = (courseCode, coreqCourses) => {
-    if (coreqCourses.length === 0){
-      let copy = this.state.coreq.slice();
-      // we want to delete the entry with the courseCode entirely
-      let index = copy.findIndex(cList => cList.includes(courseCode));
-      if (index >= 0){
-        copy.splice(index, 1);
-        this.setState({
-          coreq: copy,
-        });
-      }
-      return;
-    }
+    
     console.log("Setting coreq of course: " + courseCode + " to " + coreqCourses);
     let coreqcopy = this.state.coreq.slice();
     let index = coreqcopy.findIndex(cList => cList.includes(courseCode));
     console.log(index);
-    console.log(coreqCourses);
+    
+    if (coreqCourses.length === 0){
+      // if there are no coreq courses
+      // we want to delete the entry with the courseCode
+      if (index >= 0){
+        coreqcopy[index].splice(coreqcopy[index].findIndex(c => c.code === courseCode), 1);
+        if (coreqcopy[index].length === 0 || coreqcopy[index].length === 1){
+          coreqcopy.splice(index, 1);
+        }
+        
+        console.log(coreqcopy);
+        this.setState({
+          coreq: coreqcopy,
+        });
+      }
+      return;
+    }
+    
+    // if there supplied coreqCourses
+
+
+    // if the course is not in the coreq list
     if (index < 0){
-      // check if any of the coreq courses are already listed 
+      // check if any of the coreq courses are already in the list 
       for (let i = 0; i < coreqcopy.length; i++){
         if (coreqcopy[i].findIndex(c => coreqCourses.includes(c)) >= 0){
           index = i;
@@ -247,7 +257,6 @@ class App extends Component {
         }
       }
     }
-    //index = coreqcopy.findIndex(cList => cList.findIndex(c => coreqCourses.includes(c)) >= 0);
     
     if (index < 0){
       // not in the list
@@ -257,20 +266,56 @@ class App extends Component {
       // if within the list
       // concat the coreqlist 
 
-      //coreqcopy[index].push(...coreqCourses);
       //coreqcopy[index].push(...coreqCourses, courseCode); // behaviour 1 (if a coreq b & a coreq c then b coreq c) 
       coreqcopy[index] = [...coreqCourses, courseCode]; // behaviour 2 (allows for deleting courses not in coreCourses)
       
       // remove duplicate values
-      //.filter((v, i, a) => a.indexOf(v) === i); // same effect as below code
       coreqcopy[index] = [...new Set(coreqcopy[index])];
     }
 
+
+
     console.log(coreqcopy);
     this.setState({
-      coreq: coreqcopy,
+      // function directly below helps prevent double entries
+      // if there are two sets that intersect,it will combine them
+      // (if you combine a set with a single course, the set will be destroyed)
+      // this function could behave weirdly with the code above that looks like:
+      // coreqcopy[index] = [...coreqCourses, courseCode]
+      // as that code deletes the previous set
+      coreq: this.combineCoreqSets(coreqcopy), 
     });
+    
+    
   }
+
+  // Goes through each of the sets in the coreq and combines them if they intersects with another
+  combineCoreqSets(inputCoreq){
+    if (inputCoreq === null || inputCoreq.length === 0) return [];
+    let allcoreq = inputCoreq.slice();
+    
+    for (let i = 0; i < allcoreq.length; i++){
+      let first = allcoreq[i];
+      
+      for (let j = allcoreq.length - 1; j > i; j--){
+        let second = allcoreq[j];
+        if (this.intersects(first, second)){
+          allcoreq[i] = [...new Set(first.concat(second))];
+          allcoreq.splice(j,1);
+        }
+      }
+    }
+    console.log("all coreq are:");
+    console.log(allcoreq);
+    return allcoreq;
+  }
+
+  intersects(first, second){
+    if (first === null || second === null) return false;
+    return first.findIndex(value => second.includes(value)) !== -1;
+  }
+
+
 
 
 
