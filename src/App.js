@@ -9,6 +9,7 @@ import About from './componenets/pages/About';
 import SaveChanges from './componenets/SaveChanges';
 import GradeFilter from './componenets/GradeFilter';
 import SideView from './componenets/SideView';
+import ResetChanges from './componenets/ResetChanges';
 
 class App extends Component {
   static apiurlpartial = '';
@@ -28,6 +29,15 @@ class App extends Component {
 
   componentDidMount(){
     this.populateCourseData();
+  }
+
+  resetChanges(){
+    this.populateCourseData();
+    this.setState({
+      filteredCourses: [],
+      selectedCourse: null,
+      selectedTerm: null
+    });
   }
 
 
@@ -385,9 +395,13 @@ class App extends Component {
                         <SaveChanges
                           onSaveClick={() => this.saveCourseData()}
                         />
+                        <ResetChanges 
+                          onResetClick={() => this.resetChanges()}
+                        />
                         <GradeFilter
                           onClickFilterByCategory={this.handleOnClickFilterByCategory}
                         />
+                        
                       </div>
                       <SideView 
                         handleClickEditCourse={this.handleClickEditCourse}

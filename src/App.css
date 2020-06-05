@@ -73,6 +73,10 @@ a {
   background: rgb(130, 197, 252);
 }
 
+.btn-reset:hover {
+  background: rgb(228, 27, 27);
+}
+
 
 .courseTable{
   border: 4px double black;
@@ -92,9 +96,9 @@ a {
 }
 
 .highlighted{
-  outline:7px dashed rgb(243, 215, 59);
+  outline:7px solid rgb(243, 215, 59);
 }
 
 .selected{
-  outline:7px dashed rgb(102, 11, 11);
+  outline:7px solid rgb(102, 11, 11);
 }

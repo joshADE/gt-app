@@ -5,19 +5,12 @@ export class SideView extends Component {
 
     constructor(props){
         super(props);
-
-        
         this.state = {
             prereqCourses:[],
             coreqCourses:[],
 
         };
-
-      
-
     }
-
-
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
     getSelectedOptions(sel) {
@@ -40,7 +33,6 @@ export class SideView extends Component {
         this.setState({
             [e.target.name]: this.getSelectedOptions(e.target) 
         });
-    
     }
 
     onSubmit = (e) => {
@@ -108,7 +100,6 @@ export class SideView extends Component {
         if (!shouldShow){
             return (
                 <div style={sideViewStyle}>
-                    
                     <h2>Advanced Course Edit</h2>
                     <p>You must select a course first</p>
                 </div>

@@ -8,6 +8,6 @@ export default class CourseClass {
 
   static EmptyCourse()
   {
-      return new CourseClass('', '', 0.0);
+      return new CourseClass('NA', 'NA', 0.0);
   }
 };
