@@ -32,6 +32,10 @@ class App extends Component {
   }
 
   resetChanges(){
+    let confirmed = window.confirm("Are you sure you want to reset to the last saved changes?");
+    if (!confirmed){
+      return;
+    }
     this.populateCourseData();
     this.setState({
       filteredCourses: [],
@@ -65,6 +69,10 @@ class App extends Component {
   }
 
   saveCourseData(){
+    let confirmed = window.confirm("Are you sure you want to save all the changes?");
+    if (!confirmed){
+      return;
+    }
     //alert("saving " + JSON.stringify(this.state.courses) + " into localStorage.");
     localStorage.setItem(App.localStorageKey, JSON.stringify(this.state.courses));
     localStorage.setItem(App.localStorageKey+"prereq", JSON.stringify(this.state.prereq));

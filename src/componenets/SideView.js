@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import Select from 'react-select'
 
 export class SideView extends Component {
 
@@ -11,8 +12,16 @@ export class SideView extends Component {
 
         };
     }
-    onChange = (e) => this.setState({[e.target.name]: e.target.value });
+    // Old onChange(for standard text inputs)
+    //onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
+    // Old onChange(for standard select inputs)
+    /*
+    onChangeList = (e) => {
+        this.setState({
+            [e.target.name]: this.getSelectedOptions(e.target) 
+        });
+    }
     getSelectedOptions(sel) {
         var opts = [],
             opt;
@@ -28,23 +37,65 @@ export class SideView extends Component {
       
         return opts;
       }
+    */
 
-    onChangeList = (e) => {
-        this.setState({
-            [e.target.name]: this.getSelectedOptions(e.target) 
+    // New onChange(for 'react-select' component)
+    onChange = (value, { name, action, removedValue }) => {
+        switch (action) {
+          case 'remove-value':
+          case 'pop-value':
+            break;
+          case 'clear':
+            break;
+        }
+        
+        this.setState({ 
+            [name]: value 
         });
+    }
+
+    // Transforms a course into a format used by 'react-select'
+    getSelectOption = (course) => {
+        return {value: course.code, label: course.code };
+    }
+    // Transforms from 'react-select' option format to course code
+    getValueFromSelectOption = (option) => {
+        return option.value;
     }
 
     onSubmit = (e) => {
         e.preventDefault();
+
+        // Old onSubmit code
+        /*
         const prs = this.state.prereqCourses;
         const crs = this.state.coreqCourses;
         const code = this.props.selectedCourse.code;
         
-        this.props.handleClickEditPrereq(code, prs);
         
+        this.props.handleClickEditPrereq(code, prs);
         this.props.handleClickEditCoreq(code, crs);
+        */
+
+        // New onSubmit code
+        // must extract the value from the react-select components
+        const code = this.props.selectedCourse.code;
+        console.log("submitted");
+        if (this.state.prereqCourses){
+            console.log("prereq");
+            const prs = this.state.prereqCourses.map(option => this.getValueFromSelectOption(option));
+            console.log(prs);
+            this.props.handleClickEditPrereq(code, prs);
+        }
+
+        if(this.state.coreqCourses){
+            const crs = this.state.coreqCourses.map(option => this.getValueFromSelectOption(option));
+            console.log("coreq");
+            console.log(crs);
+            this.props.handleClickEditCoreq(code, crs);
+        }
     }
+
 
     equal(first, second){
         const result = JSON.stringify(first) === JSON.stringify(second);
@@ -52,19 +103,34 @@ export class SideView extends Component {
         return result;
     }
 
+    
+
     updateState(newProps){
         
-        const {selectedCourse, prereq, coreq} = newProps;
+        const {selectedCourse, prereq, coreq, courses, selectedTerm} = newProps;
 
-        if (selectedCourse === null) return;
+        
+        if (!selectedCourse) return;
 
         let selectedPrereqList = prereq[selectedCourse.code];
         if (!selectedPrereqList){
             selectedPrereqList = [];
         }
 
-        //console.log(selectedPrereqList);
+        console.log("selectedPrereqList");
+        console.log(selectedPrereqList);
         
+        let selectPrereq = courses.slice(0, selectedTerm);
+        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatted the 2d array
+        
+        // get the full course details of the courses that are prereq
+        selectOptionsPrereq = selectOptionsPrereq
+        .filter(course => {
+            return course.code !== selectedCourse.code && selectedPrereqList.includes(course.code);
+        });
+        
+
+
         let selectedCoreqIndex = coreq
         .findIndex(cl => (cl.findIndex(c => c === selectedCourse.code) >= 0));
         
@@ -76,11 +142,22 @@ export class SideView extends Component {
             selectedCoreqList = coreq[selectedCoreqIndex];
         }
 
+        console.log("selectedCoreqList");
+        console.log(selectedCoreqList);
+
+        
+        // get the full course details of the courses that are coreq
+        let selectOptionsCoreq = courses[selectedTerm];
+        selectOptionsCoreq = selectOptionsCoreq
+        .filter(course => {
+            return course.code !== selectedCourse.code && selectedCoreqList.includes(course.code) ;
+        });
+        
 
         if (!this.equal(this.props, newProps)){
             this.setState({
-                prereqCourses: selectedPrereqList,
-                coreqCourses: selectedCoreqList,
+                prereqCourses: selectOptionsPrereq.map(c => this.getSelectOption(c)),
+                coreqCourses: selectOptionsCoreq.map(c => this.getSelectOption(c)),
             });
         }
             
@@ -93,46 +170,15 @@ export class SideView extends Component {
        this.updateState(newProps);
     }
 
+    unusedCode(){
 
-    render() {
         const shouldShow = (this.props.selectedCourse !== null);
-        
-        if (!shouldShow){
-            return (
-                <div style={sideViewStyle}>
-                    <h2>Advanced Course Edit</h2>
-                    <p>You must select a course first</p>
-                </div>
-            );
-        }
-        
         
         const {courses, selectedTerm, selectedCourse, prereq, coreq} = this.props;
 
-        
-        let selectedPrereqList = prereq[selectedCourse.code];
-        if (!selectedPrereqList){
-            selectedPrereqList = [];
-        }
-
-        //console.log(selectedPrereqList);
-        
-        let selectedCoreqIndex = coreq
-        .findIndex(cl => cl.includes(selectedCourse.code));
-        
-
-        let selectedCoreqList;
-        if (selectedCoreqIndex < 0){
-            selectedCoreqList = [];
-        }else{
-            selectedCoreqList = coreq[selectedCoreqIndex];
-        }
-        //console.log(selectedCoreqList);
-
-
-        
-        let selectOptionsPrereq = courses.slice(0, selectedTerm);
-        selectOptionsPrereq = [].concat.apply([], selectOptionsPrereq);
+         
+        let selectPrereq = courses.slice(0, selectedTerm);
+        let selectOptionsPrereq = [].concat.apply([], selectPrereq);
         if (shouldShow){
             selectOptionsPrereq = selectOptionsPrereq
             .filter(course => {
@@ -162,7 +208,98 @@ export class SideView extends Component {
                 </option>
             });
         }
+return (
+        <div>
+            <select 
+            size={4}        
+            id="prereq-courses"
+            name="prereqCourses"
+            onChange={this.onChangeList}
+            onLoad={this.onChangeList}
+            multiple={true}
+            value={this.state.prereqCourses}
+            //value={selectedPrereqList}
+            //defaultValue={new Array(...selectedPrereqList)}
+            >
+            {selectOptionsPrereq}
+            </select>
 
+            <select 
+            size={4}        
+            id="coreq-courses"
+            name="coreqCourses"
+            onChange={this.onChangeList}
+            onLoad={this.onChangeList}
+            multiple={true}
+            value={this.state.coreqCourses}
+            //value={selectedCoreqList}
+            //defaultValue={new Array(...selectedCoreqList)}
+            >
+            {selectOptionsCoreq}
+            </select>
+        </div>);
+    }
+
+
+    render() {
+        const shouldShow = (this.props.selectedCourse !== null);
+        
+        if (!shouldShow){
+            return (
+                <div style={sideViewStyle}>
+                    <h2>Advanced Course Edit</h2>
+                    <p>You must select a course first</p>
+                </div>
+            );
+        }
+        
+        
+        const {courses, selectedTerm, selectedCourse, prereq, coreq} = this.props;
+
+        // Prerequisites
+        let selectedPrereqList = prereq[selectedCourse.code];
+        if (!selectedPrereqList){
+            selectedPrereqList = [];
+        }
+
+        let selectPrereq = courses.slice(0, selectedTerm);
+        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatted the 2d array
+        if (shouldShow){
+            selectOptionsPrereq = selectOptionsPrereq
+            .filter(course => {
+                return course.code !== selectedCourse.code;
+            })
+            .map((course) =>{
+                return this.getSelectOption(course);
+            });
+        }
+        
+        // Corequisites
+        let selectedCoreqIndex = coreq
+        .findIndex(cl => cl.includes(selectedCourse.code));
+        let selectedCoreqList;
+        if (selectedCoreqIndex < 0){
+            selectedCoreqList = [];
+        }else{
+            selectedCoreqList = coreq[selectedCoreqIndex];
+           
+        }
+
+
+
+        let selectOptionsCoreq = courses[selectedTerm];
+        if (shouldShow){
+            selectOptionsCoreq = selectOptionsCoreq
+            .filter(course => {
+                return course.code !== selectedCourse.code;
+            })
+            .map(course =>{
+                return this.getSelectOption(course);
+            });
+        }
+
+
+       
         const form = 
                 <form
                 onSubmit={this.onSubmit}
@@ -174,8 +311,6 @@ export class SideView extends Component {
                     <table style={tableStyle}>
                         <thead>
                             <tr>
-                                
-                                
                                 <th>
                                     <label>Pre-Requisites</label>
                                 </th>
@@ -214,38 +349,28 @@ export class SideView extends Component {
                             </tr>
                             <tr>
                                 <td>
-
-                                    <select 
-                                    size={4}        
-                                    id="prereq-courses"
-                                    name="prereqCourses"
-                                    onChange={this.onChangeList}
-                                    onLoad={this.onChangeList}
-                                    multiple={true}
-                                    value={this.state.prereqCourses}
-                                    //value={selectedPrereqList}
-                                    //defaultValue={new Array(...selectedPrereqList)}
-                                    >
-                                    {selectOptionsPrereq}}
-                                    </select>
+                                    <Select 
+                                        styles={customStyles}
+                                        onChange={this.onChange}
+                                        name="prereqCourses"
+                                        isMulti 
+                                        options={selectOptionsPrereq}
+                                        value={this.state.prereqCourses}
+                                    />
                                 </td>
                                 <td></td>
                                 <td>
-                                    <select 
-                                    size={4}        
-                                    id="coreq-courses"
-                                    name="coreqCourses"
-                                    onChange={this.onChangeList}
-                                    onLoad={this.onChangeList}
-                                    multiple={true}
-                                    value={this.state.coreqCourses}
-                                    //value={selectedCoreqList}
-                                    //defaultValue={new Array(...selectedCoreqList)}
-                                    >
-                                    {selectOptionsCoreq}
-                                    </select>
+                                    <Select 
+                                        styles={customStyles}
+                                        onChange={this.onChange}
+                                        name="coreqCourses"
+                                        isMulti 
+                                        options={selectOptionsCoreq}
+                                        value={this.state.coreqCourses}
+                                    />
                                 </td>
                             </tr>
+
                         </tbody>
                     </table>
                     
@@ -255,12 +380,12 @@ export class SideView extends Component {
 
 
 
-        
 
         return (
             <div style={sideViewStyle}>
                 
                 <h2>Advanced Course Edit</h2>
+                
                 {
                     form
                 }
@@ -299,6 +424,23 @@ const tableStyle = {
 
 const formStyle = {
     border: 'none',
+}
+
+const customStyles = {
+    container: (provided, state) => ({
+        ...provided,
+        // none of react-select's styles are passed to <Control />
+        width: 250,
+      }),
+
+      control: (provided, state) => ({
+        ...provided,
+        // none of react-select's styles are passed to <Control />
+        overflowY: 'scroll',
+        height: 70,
+      }),
+
+
 }
 
 /*

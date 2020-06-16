@@ -119,11 +119,10 @@ const inputStyle = {
 const courseStyle = {
     display:'flex', 
     flexDirection:'column',
-    background: '#fff',
     border: '1px solid #999',
     fontWeight: 'bold',
     height: 'auto',
-    width: '10vw',
+    width: '15vw',
     padding: '0', 
 };
 

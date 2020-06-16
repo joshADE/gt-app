@@ -96,9 +96,12 @@ a {
 }
 
 .highlighted{
-  outline:7px solid rgb(243, 215, 59);
+  outline:4px solid rgb(243, 215, 59);
+  background-color: rgb(243, 215, 59);
 }
 
 .selected{
-  outline:7px solid rgb(102, 11, 11);
+  outline:4px solid rgb(102, 11, 11);
+  background-color: rgb(180, 123, 123);
+  overflow-y: scroll;
 }
