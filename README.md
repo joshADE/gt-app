@@ -1,5 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Grade-Tracker
+
+This is an web app meant to help track GPA scores of individual courses throughout a student's program. Currently, it can keep track of the prerequisite and courequesite courses as well as find the specific courses with certain GPAs. 
+
+Please note that I am still working on this application and will add the ability to track CGPA's up to a certain term and ultimately be able to recommend courses that a student might need to study more for given that they have poor performance in prerequisite/correquisite courses.
+(Screenshots below)
+
+#### To-do (Features Not Yet Implemented)
+
+-   [ ] Track CGPA's up to a certain term
+-   [ ] Analyze the courses to find which course a student will need help in based on prereq
+-   [ ] Make it easier to see which term a course belongs to if there are many courses in a specific term
+
 ## Available Scripts
 
 In the project directory, you can run:
