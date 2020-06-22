@@ -2,9 +2,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Grade-Tracker
 
-This is an web app meant to help track GPA scores of individual courses throughout a student's program. Currently, it can keep track of the prerequisite and courequesite courses as well as find the specific courses with certain GPAs. 
+This is an web app meant to help track GPA scores of individual courses throughout a student's program. Currently, it can keep track of the prerequisite and corequisite courses as well as find the specific courses with certain GPAs. 
 
-Please note that I am still working on this application and will add the ability to track CGPA's up to a certain term and ultimately be able to recommend courses that a student might need to study more for given that they have poor performance in prerequisite/correquisite courses.
+Please note that I am still working on this application and will add the ability to track CGPA's up to a certain term and ultimately be able to recommend courses that a student might need to study more for given that they have poor performance in prerequisite/corequisite courses.
 (Screenshots below)
 
 #### To-do (Features Not Yet Implemented)
