@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-//import CourseClass from './data/CourseClass';
 import AddCourse from './AddCourse';
 import Course from './Course';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import CourseClass from './data/CourseClass';
+import CourseClass from './model/CourseClass';
 
 export class Course extends Component{
     constructor(props){
@@ -8,6 +8,7 @@ export class Course extends Component{
         this.state = {
             courseName: this.props.course.name,
             grade: this.props.course.grade,
+            credits:this.props.course.credits,
         }
     }
 
@@ -15,7 +16,7 @@ export class Course extends Component{
     onSubmit = (e) => {
         e.preventDefault();
         let editedCourse = 
-        new CourseClass(this.state.courseName, this.props.course.code, this.state.grade);
+        new CourseClass(this.state.courseName, this.props.course.code, this.state.grade, this.state.credits);
         
         this.props.handleClickEditCourse(this.props.term, editedCourse);
     }
@@ -24,7 +25,7 @@ export class Course extends Component{
 
 
     render(){
-       const {code, name, grade} = this.props.course;
+       const {code, name, grade, credits} = this.props.course;
         let appliedclasses = "course ";
         appliedclasses += this.props.isHighlighted? "highlighted " : " ";
         appliedclasses += this.props.isSelected? "selected " : " ";
@@ -64,6 +65,20 @@ export class Course extends Component{
                         type="text"
                         name="grade"
                         value={this.state.grade}
+                        onChange={this.onChange}
+                    />
+                </span>
+                <span>
+                    <label>Credits/Units:</label>{' '}
+                    {credits}
+                </span>
+                <span>
+                    <label>New Credits:</label>{' '}
+                    <input 
+                        style={inputStyle}
+                        type="text"
+                        name="credits"
+                        value={this.state.credits}
                         onChange={this.onChange}
                     />
                 </span>

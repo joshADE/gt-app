@@ -47,6 +47,7 @@ export class SideView extends Component {
             break;
           case 'clear':
             break;
+            default:
         }
         
         this.setState({ 
@@ -81,20 +82,48 @@ export class SideView extends Component {
         // must extract the value from the react-select components
         const code = this.props.selectedCourse.code;
         console.log("submitted");
-        if (this.state.prereqCourses){
-            console.log("prereq");
-            const prs = this.state.prereqCourses.map(option => this.getValueFromSelectOption(option));
-            console.log(prs);
-            this.props.handleClickEditPrereq(code, prs);
+        if (!this.state.prereqCourses == null){
+            this.setState({
+                prereqCourses:  [],
+            })
         }
+        console.log("prereq");
+        const prs = this.state.prereqCourses.map(option => this.getValueFromSelectOption(option));
+        console.log(prs);
+        this.props.handleClickEditPrereq(code, prs);
+        
 
-        if(this.state.coreqCourses){
-            const crs = this.state.coreqCourses.map(option => this.getValueFromSelectOption(option));
-            console.log("coreq");
-            console.log(crs);
-            this.props.handleClickEditCoreq(code, crs);
+        if(this.state.coreqCourses == null){
+            this.setState({
+                coreqCourses:  [],
+            })
+        }
+        const crs = this.state.coreqCourses.map(option => this.getValueFromSelectOption(option));
+        console.log("coreq");
+        console.log(crs);
+        this.props.handleClickEditCoreq(code, crs);
+        
+    }
+
+    
+
+    
+    // this doesn't get called after a user deletes a course
+    // only componentWillUpdate gets called
+    componentWillReceiveProps(newProps){
+        console.log("Inside componentWillReceiveProps");
+        console.log(this.props);
+        console.log(newProps);
+        
+        
+        // Only update the state (and then the UI) if the component
+        // receives a new set of props
+        console.log("Are the oldProp and newProp equal?");
+        if (!this.equal(this.props, newProps)){
+            this.updateState(newProps);
         }
     }
+    
 
 
     equal(first, second){
@@ -106,7 +135,7 @@ export class SideView extends Component {
     
 
     updateState(newProps){
-        
+
         const {selectedCourse, prereq, coreq, courses, selectedTerm} = newProps;
 
         
@@ -154,21 +183,16 @@ export class SideView extends Component {
         });
         
 
-        if (!this.equal(this.props, newProps)){
-            this.setState({
-                prereqCourses: selectOptionsPrereq.map(c => this.getSelectOption(c)),
-                coreqCourses: selectOptionsCoreq.map(c => this.getSelectOption(c)),
-            });
-        }
+        
+        this.setState({
+            prereqCourses: selectOptionsPrereq.map(c => this.getSelectOption(c)),
+            coreqCourses: selectOptionsCoreq.map(c => this.getSelectOption(c)),
+        });
+        
             
         
     }
 
-    componentWillReceiveProps(newProps){
-        //console.log(newProps);
-        //console.log(this.props);
-       this.updateState(newProps);
-    }
 
     unusedCode(){
 
@@ -344,12 +368,13 @@ return (
                             </tr>
                             <tr>
                                 <td style={{textAlign:'center', fontWeight:'bold'}} colSpan={3}>
-                                    Remember to hold control while making changes
+                                    Remember to click accept changes after making changes
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <Select 
+                                        
                                         styles={customStyles}
                                         onChange={this.onChange}
                                         name="prereqCourses"
@@ -361,6 +386,7 @@ return (
                                 <td></td>
                                 <td>
                                     <Select 
+                                        
                                         styles={customStyles}
                                         onChange={this.onChange}
                                         name="coreqCourses"
@@ -393,7 +419,7 @@ return (
         );
         
     }
-}
+}   
 
 
 // PropTypes
@@ -437,7 +463,7 @@ const customStyles = {
         ...provided,
         // none of react-select's styles are passed to <Control />
         overflowY: 'scroll',
-        height: 70,
+        height: 30,
       }),
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 //import { v3, v4, v5 } from 'uuid'
 import './App.css';
-import CourseClass from './componenets/data/CourseClass';
+import CourseClass from './componenets/model/CourseClass';
 import ProgramMap from './componenets/ProgramMap';
 import Header from './componenets/layout/Header';
 import About from './componenets/pages/About';
