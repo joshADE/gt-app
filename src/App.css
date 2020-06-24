@@ -49,7 +49,8 @@ td { font-size: 12px; }
 .inner-bottom-head{
   display: flex;
   flex-direction: row;
-  
+  height: auto;
+  font-size: 10px;
 }
 
 .btn {
@@ -83,9 +84,21 @@ td { font-size: 12px; }
   background: rgb(228, 27, 27);
 }
 
+.btnShow{
+  border:1px outset black;
+  border-radius:5px;
+  padding: 5px;
+  background: hsl(207, 86%, 85%);
+}
+
+
+.btnShow:hover{
+  background: hsl(207, 81%, 90%);
+}
+
 
 .courseTable{
-  border: 4px double black;
+  border: 8px double black;
   background-color: #fff;
 }
 
@@ -102,11 +115,11 @@ td { font-size: 12px; }
 }
 
 .highlighted{
-  outline:4px solid rgb(243, 215, 59);
+  /* outline:4px solid rgb(243, 215, 59); */
   background-color: rgb(243, 215, 59);
 }
 
 .selected{
-  outline:4px solid rgb(102, 11, 11);
+  /* outline:4px solid rgb(102, 11, 11); */
   background-color: rgb(180, 123, 123);
 }

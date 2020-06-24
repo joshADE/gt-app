@@ -25,26 +25,29 @@ export class AddCourse extends Component {
 
     render() {
         return (
-
+      
             <form
             onSubmit={this.onSubmit}
             style={addCourseStyle}
             >
             <span>{this.state.message}</span>
                 <input 
+                    style={inputStyle}
                     type="text"
                     name="courseCode"
                     placeholder="Course Code Here..."
                     value={this.state.courseCode}
                     onChange={this.onChange}
+
                 />
                 <input 
+                    style={buttonStyle}
                     type="submit"
                     value="Add a new course (+)"
                     className="btn btn-add"
                  />
             </form>
-            
+        
         )
     }
 }
@@ -60,14 +63,26 @@ AddCourse.propType = {
 const addCourseStyle = {
     display:'flex', 
     flexDirection:'column',
-    background: '#fff',
-    border: '1px solid #999',
     fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'space-around',
+    background: '#fff',
     height: 'auto',
-    width: '10vw',
-    padding: '0',
-    textAlign: 'center', 
+    width: 'auto',
+    
 };
+
+const buttonStyle = {
+    marginTop:'2px',
+    borderRadius: '5px',
+}
+
+const inputStyle = {
+    marginTop:'2px',
+    borderRadius: '5px',
+    padding:'2px 4px',
+}
+
 
 
 export default AddCourse

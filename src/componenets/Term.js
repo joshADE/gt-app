@@ -8,7 +8,7 @@ export class Term extends Component {
     render() {
         //console.log(this.props.filteredCourses);
         const index = this.props.termNumber;
-        const termDisplay = (<td key={index + "x" + -1} style={termDisplayStyle}>{index}</td>);
+        const termDisplay = (<th key={index + "x" + -1} style={termDisplayStyle}>{index}</th>);
         const coursesDisplay = 
         this.props.courseList.map((val, ind) => {
                         

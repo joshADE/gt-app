@@ -348,6 +348,8 @@ return (
                             <tr>
                                 <td>
                                     <input 
+                                        className="btnShow"
+                                        style={buttonShowStyle}
                                         type="button" 
                                         value="Highlight Pre-requisites" 
                                         onClick={this.props.handleClickShowPrereq.bind(this, selectedCourse.code)}
@@ -359,7 +361,8 @@ return (
                                 </td>
                                 <td>
                                     <input 
-                                        
+                                        className="btnShow"
+                                        style={buttonShowStyle}
                                         type="button" 
                                         value="Highlight Co-requisites"
                                         onClick={this.props.handleClickShowCoreq.bind(this, selectedCourse.code)}
@@ -441,6 +444,10 @@ const sideViewStyle = {
     textAlign: 'center',
     border: '2px solid grey'
                  
+}
+
+const buttonShowStyle = {
+    
 }
 
 const tableStyle = {

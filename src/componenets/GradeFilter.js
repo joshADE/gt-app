@@ -23,31 +23,32 @@ export class GradeFilter extends Component {
     
     render() {
         return (
-            <div style={gradeFilterStyle}>
-                <form
-                onSubmit={this.onSubmit}
+            
+            <form style={gradeFilterStyle}
+            onSubmit={this.onSubmit}
 
+            >
+                <label>Find courses with grade </label>
+                
+                <select 
+                id="filter"
+                name="category"
+                onChange={this.onChange}
+                defaultValue={this.state.category}
                 >
-                    <label>Find courses with grade </label>
-                    <select 
-                    id="filter"
-                    name="category"
-                    onChange={this.onChange}
-                    defaultValue={this.state.category}
-                    >
-                        <option value={1}>greater than</option>
-                        <option value={2}>less than</option>
-                        <option value={3}>equal to</option>
-                        <option value={4}>greater than or equal to</option>
-                        <option value={5}>less than or equal to</option>
-                    </select>
-                    {' '}
+                    <option value={1}>greater than</option>
+                    <option value={2}>less than</option>
+                    <option value={3}>equal to</option>
+                    <option value={4}>greater than or equal to</option>
+                    <option value={5}>less than or equal to</option>
+                </select>
+                {'  '}
 
-                    <input type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
-                    {' '}
-                    <input style={btnStyle} type="submit" value="Filter"/>
-                </form>
-            </div>
+                <input type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
+                {'  '}
+                <input style={btnStyle} type="submit" value="Filter"/>
+            </form>
+            
         )
     }
 }
@@ -58,8 +59,11 @@ GradeFilter.propType = {
 }
 
 const gradeFilterStyle = {
-    padding: '2px 15px',
-    width: '30%',
+    padding: '5px 15px',
+    width: 'auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent:'space-evenly',
     background: '#566',
     borderRadius: '0 5px 0 0',
     border: '2px solid black',

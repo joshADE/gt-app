@@ -83,6 +83,7 @@ export class Course extends Component{
                     />
                 </span>
                 <input 
+                    style={buttonStyle}
                     type="button"
                     value="Select"
                     className="btn"
@@ -91,12 +92,14 @@ export class Course extends Component{
                     }
                 />
                 <input 
+                    style={buttonStyle}
                     type="submit"
                     value="Set changes"
                     className="btn btn-save"
                     
                 />
                 <input 
+                    style={buttonStyle}
                     type="button"
                     value="Delete(-)"
                     className="btn btn-delete"
@@ -129,17 +132,23 @@ Course.propType = {
 const inputStyle = {
     width: '100%',
     background: 'lightgrey',
+    borderRadius: '5px',
+    padding:'2px 4px',
 }
 
 const courseStyle = {
     display:'flex', 
     flexDirection:'column',
-    border: '1px solid #999',
+    borderRadius: '5px',
     fontWeight: 'bold',
     height: 'auto',
-    width: '15vw',
+    width: 'auto',
     padding: '0', 
 };
 
+const buttonStyle = {
+    marginBottom:'2px',
+    borderRadius: '5px',
+}
 
 export default Course
