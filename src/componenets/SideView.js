@@ -12,33 +12,7 @@ export class SideView extends Component {
 
         };
     }
-    // Old onChange(for standard text inputs)
-    //onChange = (e) => this.setState({[e.target.name]: e.target.value });
-
-    // Old onChange(for standard select inputs)
-    /*
-    onChangeList = (e) => {
-        this.setState({
-            [e.target.name]: this.getSelectedOptions(e.target) 
-        });
-    }
-    getSelectedOptions(sel) {
-        var opts = [],
-            opt;
-        var len = sel.options.length;
-        for (var i = 0; i < len; i++) {
-          opt = sel.options[i];
-      
-          if (opt.selected) {
-            opts.push(opt.value);
-            //alert(opt.value);
-          }
-        }
-      
-        return opts;
-      }
-    */
-
+    
     // New onChange(for 'react-select' component)
     onChange = (value, { name, action, removedValue }) => {
         switch (action) {
@@ -66,17 +40,6 @@ export class SideView extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-
-        // Old onSubmit code
-        /*
-        const prs = this.state.prereqCourses;
-        const crs = this.state.coreqCourses;
-        const code = this.props.selectedCourse.code;
-        
-        
-        this.props.handleClickEditPrereq(code, prs);
-        this.props.handleClickEditCoreq(code, crs);
-        */
 
         // New onSubmit code
         // must extract the value from the react-select components
@@ -176,7 +139,11 @@ export class SideView extends Component {
 
         
         // get the full course details of the courses that are coreq
+        console.log(selectedTerm);
         let selectOptionsCoreq = courses[selectedTerm];
+        if (selectOptionsCoreq == null){
+            selectOptionsCoreq = [];
+        }
         selectOptionsCoreq = selectOptionsCoreq
         .filter(course => {
             return course.code !== selectedCourse.code && selectedCoreqList.includes(course.code) ;
@@ -193,76 +160,6 @@ export class SideView extends Component {
         
     }
 
-
-    unusedCode(){
-
-        const shouldShow = (this.props.selectedCourse !== null);
-        
-        const {courses, selectedTerm, selectedCourse, prereq, coreq} = this.props;
-
-         
-        let selectPrereq = courses.slice(0, selectedTerm);
-        let selectOptionsPrereq = [].concat.apply([], selectPrereq);
-        if (shouldShow){
-            selectOptionsPrereq = selectOptionsPrereq
-            .filter(course => {
-                return course.code !== selectedCourse.code;
-            })
-            .map((course) =>{
-                return <option 
-                key={course.code} 
-                value={course.code}
-                >
-                    {course.code}
-                </option>
-            });
-        }
-        let selectOptionsCoreq = courses[selectedTerm];
-        if (shouldShow){
-            selectOptionsCoreq = selectOptionsCoreq
-            .filter(course => {
-                return course.code !== selectedCourse.code;
-            })
-            .map(course =>{
-                return <option  
-                key={course.code} 
-                value={course.code}
-                >
-                    {course.code}
-                </option>
-            });
-        }
-return (
-        <div>
-            <select 
-            size={4}        
-            id="prereq-courses"
-            name="prereqCourses"
-            onChange={this.onChangeList}
-            onLoad={this.onChangeList}
-            multiple={true}
-            value={this.state.prereqCourses}
-            //value={selectedPrereqList}
-            //defaultValue={new Array(...selectedPrereqList)}
-            >
-            {selectOptionsPrereq}
-            </select>
-
-            <select 
-            size={4}        
-            id="coreq-courses"
-            name="coreqCourses"
-            onChange={this.onChangeList}
-            onLoad={this.onChangeList}
-            multiple={true}
-            value={this.state.coreqCourses}
-            //value={selectedCoreqList}
-            //defaultValue={new Array(...selectedCoreqList)}
-            >
-            {selectOptionsCoreq}
-            </select>
-        </div>);
-    }
 
 
     render() {
@@ -313,6 +210,9 @@ return (
 
         let selectOptionsCoreq = courses[selectedTerm];
         if (shouldShow){
+            if (selectOptionsCoreq == null){
+                selectOptionsCoreq = [];
+            }
             selectOptionsCoreq = selectOptionsCoreq
             .filter(course => {
                 return course.code !== selectedCourse.code;

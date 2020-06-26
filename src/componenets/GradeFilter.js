@@ -29,7 +29,7 @@ export class GradeFilter extends Component {
 
             >
                 <label>Find courses with grade </label>
-                
+                {'  '}
                 <select 
                 id="filter"
                 name="category"
