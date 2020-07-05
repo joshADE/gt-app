@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2da4b410665d9c8a0be6dc28016784cd",
+    "revision": "40670976556901821e11af8c25a76edf",
     "url": "/Grade-Tracker/index.html"
   },
   {
-    "revision": "0a8cc67912c57638da06",
+    "revision": "06c1adf0d816ae9f7925",
     "url": "/Grade-Tracker/static/css/main.e26b3ee0.chunk.css"
   },
   {
-    "revision": "6f32941b6f6283b26998",
-    "url": "/Grade-Tracker/static/js/2.b9b768b4.chunk.js"
+    "revision": "76d798ee65f75dd99573",
+    "url": "/Grade-Tracker/static/js/2.50592d0e.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/Grade-Tracker/static/js/2.b9b768b4.chunk.js.LICENSE.txt"
+    "url": "/Grade-Tracker/static/js/2.50592d0e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0a8cc67912c57638da06",
-    "url": "/Grade-Tracker/static/js/main.ca713a5b.chunk.js"
+    "revision": "06c1adf0d816ae9f7925",
+    "url": "/Grade-Tracker/static/js/main.5d0b53fb.chunk.js"
   },
   {
     "revision": "7291aad2fa762dcaff00",
