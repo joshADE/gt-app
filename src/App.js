@@ -10,6 +10,7 @@ import SaveChanges from './componenets/SaveChanges';
 import GradeFilter from './componenets/GradeFilter';
 import SideView from './componenets/SideView';
 import ResetChanges from './componenets/ResetChanges';
+import Notification, { notify } from './componenets/Notification';
 
 class App extends Component {
   static apiurlpartial = '';
@@ -193,12 +194,28 @@ class App extends Component {
       return max;
   }
 
+  sendNotification = (msg) => {
+    notify(msg);
+  }
+
 
 
   /* Advanced Edit (Used in SideView) */
 
   // Selecting a course given courseCode
   handleClickSelectCourse = (courseCode) => {
+    const { selectedCourse } = this.state;
+    if(selectedCourse && selectedCourse.code == courseCode){
+      // deselect the course
+      this.setState({
+        selectedCourse: null,
+        selectedTerm: null,  
+        filteredCourses: [],
+      });
+      return;
+    }
+    // else
+    
     let allcourses = this.state.courses;
     let i;
     let j;
@@ -241,12 +258,15 @@ class App extends Component {
     
     console.log("Setting coreq of course: " + courseCode + " to " + coreqCourses);
     let coreqcopy = this.state.coreq.slice();
-    let index = coreqcopy.findIndex(cList => cList.includes(courseCode));
+    // find the index of the 'set' that contains the courseCode, -1 if the code is not in any set
+    let index = coreqcopy.findIndex(courseSet => courseSet.includes(courseCode));
     console.log(index);
     
+    // if there are no supplied coreqs
+    // the user wants there to be no coreqCourses for this course
     if (coreqCourses.length === 0){
-      // if there are no coreq courses
-      // we want to delete the entry with the courseCode
+      
+      // delete the courseCode if index >= 0
       if (index >= 0){
         coreqcopy[index].splice(coreqcopy[index].findIndex(c => c.code === courseCode), 1);
         if (coreqcopy[index].length === 0 || coreqcopy[index].length === 1){
@@ -261,12 +281,13 @@ class App extends Component {
       return;
     }
     
-    // if there supplied coreqCourses
+    // if there are supplied coreqCourses
 
 
     // if the course is not in the coreq list
     if (index < 0){
-      // check if any of the coreq courses are already in the list 
+      // check if any of the coreq courses are already in the list. 
+      // want to maintain only one set with each course
       for (let i = 0; i < coreqcopy.length; i++){
         if (coreqcopy[i].findIndex(c => coreqCourses.includes(c)) >= 0){
           index = i;
@@ -284,8 +305,9 @@ class App extends Component {
       // if within the list
       // concat the coreqlist 
 
-      //coreqcopy[index].push(...coreqCourses, courseCode); // behaviour 1 (if a coreq b & a coreq c then b coreq c) 
-      coreqcopy[index] = [...coreqCourses, courseCode]; // behaviour 2 (allows for deleting courses not in coreCourses)
+       // line below allows for deleting courses not found in coreqCourses 
+       // in the case where the user is removing a course from the set
+      coreqcopy[index] = [...coreqCourses, courseCode];
       
       // remove duplicate values
       coreqcopy[index] = [...new Set(coreqcopy[index])];
@@ -296,8 +318,11 @@ class App extends Component {
     console.log(coreqcopy);
     this.setState({
       // function directly below helps prevent double entries
-      // if there are two sets that intersect,it will combine them
-      // (if you combine a set with a single course, the set will be destroyed)
+      // If there are two sets that intersect,it will combine them.
+      // And if the user is combining a set with a single course, the set will be destroyed.
+      // (i.e. selecting a course that is not in a set and combining it with another that 
+      // is in a set, the set of the later course will be destroyed, 
+      // if both courses are each within different sets both sets will be combined)
       // this function could behave weirdly with the code above that looks like:
       // coreqcopy[index] = [...coreqCourses, courseCode]
       // as that code deletes the previous set
@@ -378,6 +403,7 @@ class App extends Component {
           <div className="App">
             <div className="container">
               <Header />
+              <Notification />
               <Route exact path="/"
               render={props => (
                 <React.Fragment>
@@ -398,7 +424,7 @@ class App extends Component {
                       />
         
                     </div>
-                    <div className="inner-bottom">
+                    <div className={(this.state.selectedCourse==null)?"inner-bottom":"inner-bottom expanded"}>
                       <div className="inner-bottom-head">
                         <SaveChanges
                           onSaveClick={() => this.saveCourseData()}
@@ -411,18 +437,21 @@ class App extends Component {
                         />
                         
                       </div>
-                      <SideView 
-                        handleClickEditCourse={this.handleClickEditCourse}
-                        courses={this.state.courses}
-                        selectedTerm={(this.state.selectedCourse)? this.state.selectedTerm : null}
-                        selectedCourse={this.state.selectedCourse}
-                        prereq={this.state.prereq}
-                        coreq={this.state.coreq}
-                        handleClickEditPrereq={this.handleClickEditPrereq}
-                        handleClickEditCoreq={this.handleClickEditCoreq}
-                        handleClickShowPrereq={this.handleClickShowPrereq}
-                        handleClickShowCoreq={this.handleClickShowCoreq}
-                      />
+                      <div className="inner-bottom-foot">
+                        <SideView 
+                          sendNotification={this.sendNotification}
+                          handleClickEditCourse={this.handleClickEditCourse}
+                          courses={this.state.courses}
+                          selectedTerm={(this.state.selectedCourse)? this.state.selectedTerm : null}
+                          selectedCourse={this.state.selectedCourse}
+                          prereq={this.state.prereq}
+                          coreq={this.state.coreq}
+                          handleClickEditPrereq={this.handleClickEditPrereq}
+                          handleClickEditCoreq={this.handleClickEditCoreq}
+                          handleClickShowPrereq={this.handleClickShowPrereq}
+                          handleClickShowCoreq={this.handleClickShowCoreq}
+                        />
+                      </div>
                     </div>
                   </div>
                 </React.Fragment>

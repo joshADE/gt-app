@@ -10,11 +10,13 @@ export class Course extends Component{
             grade: this.props.course.grade,
             credits:this.props.course.credits,
         }
+        this.selectButton = null;
     }
 
     
     onSubmit = (e) => {
         e.preventDefault();
+        
         let editedCourse = 
         new CourseClass(this.state.courseName, this.props.course.code, this.state.grade, this.state.credits);
         
@@ -23,6 +25,12 @@ export class Course extends Component{
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
+    onSelect = (e) => {
+        if(this.selectButton){
+            this.selectButton.focus();
+        }
+        this.props.handleClickSelectCourse(this.props.course.code)
+    }
 
     render(){
        const {code, name, grade, credits} = this.props.course;
@@ -31,7 +39,6 @@ export class Course extends Component{
         appliedclasses += this.props.isSelected? "selected " : " ";
        return(
             <form 
-            
             onSubmit={this.onSubmit}
             style={courseStyle}
             className={appliedclasses}
@@ -47,6 +54,7 @@ export class Course extends Component{
                 <span>
                     <label>New Name:</label>{' '}
                     <input 
+         
                         style={inputStyle}
                         type="text"
                         name="courseName"
@@ -83,12 +91,13 @@ export class Course extends Component{
                     />
                 </span>
                 <input 
+                    ref={(sButton) => {this.selectButton = sButton;}}
                     style={buttonStyle}
                     type="button"
-                    value="Select"
+                    value={this.props.isSelected?"Deselect":"Select"}
                     className="btn"
                     onClick={
-                        this.props.handleClickSelectCourse.bind(this, this.props.course.code)
+                        this.onSelect
                     }
                 />
                 <input 
@@ -143,11 +152,11 @@ const courseStyle = {
     fontWeight: 'bold',
     height: 'auto',
     width: 'auto',
-    padding: '0', 
+    padding: '5px', 
 };
 
 const buttonStyle = {
-    marginBottom:'2px',
+    marginTop:'2px',
     borderRadius: '5px',
 }
 

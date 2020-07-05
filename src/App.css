@@ -30,28 +30,42 @@ td { font-size: 12px; }
   flex-direction: column;
   padding: 0 0%;
   justify-content: center;
-
+  max-height: 90vh;
 }
 .inner-top{
     background-color: grey;
-    height: 40%;
+    height: auto;
     overflow-y: scroll;
-    max-height: 66vh;
+    max-height: 80%;
     max-width: 100%;
+    
 }
 .inner-bottom{
-  height: 30%;
+  height: auto;
   border: 2px solid black;
-  background: #688;
+  background: #677;
   border-radius: 5px;
+  /* used for animation of sideview, not implemented */
+  transition: height 0.5s ease-in;
+}
+
+  /* used for animation of sideview, not implemented */
+.expanded {
+  height: auto;
 }
 
 .inner-bottom-head{
   display: flex;
   flex-direction: row;
-  height: auto;
-  font-size: 10px;
+  height: fit-content;
+  font-size: 8px;
 }
+
+.inner-bottom-foot{
+  height: auto;
+  overflow-y: scroll;
+}
+
 
 .btn {
   display: inline-block;
@@ -122,4 +136,8 @@ td { font-size: 12px; }
 .selected{
   /* outline:4px solid rgb(102, 11, 11); */
   background-color: rgb(180, 123, 123);
+}
+
+.selected-term {
+  background-color: rgba(180, 123, 123, 0.2);
 }

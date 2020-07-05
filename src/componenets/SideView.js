@@ -17,6 +17,7 @@ export class SideView extends Component {
     onChange = (value, { name, action, removedValue }) => {
         switch (action) {
           case 'remove-value':
+            
           case 'pop-value':
             break;
           case 'clear':
@@ -40,12 +41,14 @@ export class SideView extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-
+        // Notify the user that their changes have been set
+        this.props.sendNotification("Changes set");
+        
         // New onSubmit code
         // must extract the value from the react-select components
         const code = this.props.selectedCourse.code;
         console.log("submitted");
-        if (!this.state.prereqCourses == null){
+        if (this.state.prereqCourses == null){
             this.setState({
                 prereqCourses:  [],
             })
@@ -113,7 +116,7 @@ export class SideView extends Component {
         console.log(selectedPrereqList);
         
         let selectPrereq = courses.slice(0, selectedTerm);
-        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatted the 2d array
+        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatten the 2d array
         
         // get the full course details of the courses that are prereq
         selectOptionsPrereq = selectOptionsPrereq
@@ -184,7 +187,7 @@ export class SideView extends Component {
         }
 
         let selectPrereq = courses.slice(0, selectedTerm);
-        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatted the 2d array
+        let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatten the 2d array
         if (shouldShow){
             selectOptionsPrereq = selectOptionsPrereq
             .filter(course => {
@@ -303,7 +306,7 @@ export class SideView extends Component {
                         </tbody>
                     </table>
                     
-                    <input className="btn" type="submit" value="Accept Changes"/>
+                    <input className="btn btn-save" type="submit" value="Accept Changes"/>
                 </form>
                 ;
 
@@ -327,6 +330,7 @@ export class SideView extends Component {
 
 // PropTypes
 SideView.propType = {
+    sendNotification: PropTypes.func.isRequired,
     handleClickEditCourse: PropTypes.func.isRequired,
     courses: PropTypes.array.isRequired,
     selectedTerm: PropTypes.number.isRequired,
@@ -340,10 +344,8 @@ SideView.propType = {
 const sideViewStyle = {
     background: 'lightgrey',
     width: '100%',
-    height: '100%',
     textAlign: 'center',
-    border: '2px solid grey'
-                 
+    border: '2px solid grey',     
 }
 
 const buttonShowStyle = {
@@ -357,8 +359,10 @@ const tableStyle = {
 
 const formStyle = {
     border: 'none',
+    margin: '0 auto',
 }
 
+// Custom style for 'react-select', uses Emotion JS
 const customStyles = {
     container: (provided, state) => ({
         ...provided,
@@ -368,7 +372,6 @@ const customStyles = {
 
       control: (provided, state) => ({
         ...provided,
-        // none of react-select's styles are passed to <Control />
         overflowY: 'scroll',
         height: 30,
       }),
@@ -376,11 +379,5 @@ const customStyles = {
 
 }
 
-/*
-const sideViewStyleDisable = {
-    textAlign:'center',
-    ...sideViewStyle
-} 
-*/  
 
 export default SideView

@@ -66,10 +66,9 @@ const addCourseStyle = {
     fontWeight: 'bold',
     textAlign: 'center',
     justifyContent: 'space-around',
-    background: '#fff',
     height: 'auto',
     width: 'auto',
-    
+    padding: '5px',
 };
 
 const buttonStyle = {

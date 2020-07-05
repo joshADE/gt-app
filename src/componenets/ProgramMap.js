@@ -9,7 +9,14 @@ export class ProgramMap extends Component {
 
     render() {
         const rows = this.props.courses.map((courseList, index) => {
-            return <tr key={index}>
+            let isSelected = false;
+                if (this.props.selectedCourse){
+                    isSelected = courseList.includes(this.props.selectedCourse);
+                }
+            
+            return <tr 
+            className={isSelected?"selected-term":""}
+            key={index}>
             {
                 <Term 
                     
