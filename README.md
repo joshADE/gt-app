@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Grade-Tracker
 
-This is app was created to help students who had difficulty planning which courses to dedicate their study time to. Its primary functionality is to help track GPA scores throughout a student's program. Currently, it can keep track of the prerequisite and corequisite courses as well as find the specific courses matching a certain grade. I plan to add several features to it soon including the ability to track CGPA's up to a certain term and provide courses recommendations given their prerequisite/corequisite courses. 
+This app was created to help students who have difficulty planning which courses to dedicate their time to. Its primary function is to help track GPA scores throughout a student's program. Currently, it can keep track of the prerequisite and corequisite courses, as well as find courses matching certain grade criteria. I plan to add several features to it soon including, the ability to track CGPA's up to a specified term and provide course recommendations given their prerequisite/corequisite courses.
 (Screenshots below)
 
 
