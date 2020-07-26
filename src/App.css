@@ -2,11 +2,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-size: 1.5vh;
 }
 
 body{
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  font-size: 1.5vmin;
 }
 
 a {
@@ -14,17 +16,20 @@ a {
   text-decoration: none;
 }
 
+
+
 h1{ font-size: 20px; }
 h2{ font-size: 16px; }
 h3{ font-size: 12px; }
 h4{ font-size: 8px; }
-td { font-size: 12px; }
+input{font-size: 1.5vmin; padding: 0;}
 
 .container{
   padding: 0 1rem;
   width: 100%;
-
+  min-height: 100vh;
 }
+
 .inner{
   display: flex;
   flex-direction: column;
@@ -38,10 +43,11 @@ td { font-size: 12px; }
     overflow-y: scroll;
     max-height: 80%;
     max-width: 100%;
-    
+    padding-bottom: 20%;
 }
 .inner-bottom{
-  height: auto;
+  height: 150px;
+  max-height: 20%;
   border: 2px solid black;
   background: #677;
   border-radius: 5px;
@@ -51,19 +57,32 @@ td { font-size: 12px; }
 
   /* used for animation of sideview, not implemented */
 .expanded {
-  height: auto;
+  height: 300px;
 }
+
 
 .inner-bottom-head{
   display: flex;
   flex-direction: row;
-  height: fit-content;
-  font-size: 8px;
+  height: 40%;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: scroll;
 }
 
 .inner-bottom-foot{
-  height: auto;
-  overflow-y: scroll;
+  height: 60%;
+  /*overflow-y: scroll;*/
+}
+
+.expanded > .inner-bottom-head {
+  height: 12%;
+}
+
+.expanded > .inner-bottom-foot {
+  height: 88%;
 }
 
 
@@ -130,7 +149,7 @@ td { font-size: 12px; }
 
 .highlighted{
   /* outline:4px solid rgb(243, 215, 59); */
-  background-color: rgb(243, 215, 59);
+  background-color: rgb(233, 218, 133);
 }
 
 .selected{

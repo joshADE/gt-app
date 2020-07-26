@@ -17,7 +17,7 @@ export class SideView extends Component {
     onChange = (value, { name, action, removedValue }) => {
         switch (action) {
           case 'remove-value':
-            
+            break;
           case 'pop-value':
             break;
           case 'clear':
@@ -178,52 +178,35 @@ export class SideView extends Component {
         }
         
         
-        const {courses, selectedTerm, selectedCourse, prereq, coreq} = this.props;
+        const {courses, selectedTerm, selectedCourse} = this.props;
 
-        // Prerequisites
-        let selectedPrereqList = prereq[selectedCourse.code];
-        if (!selectedPrereqList){
-            selectedPrereqList = [];
-        }
 
+        // get the available options for the prereq courses
         let selectPrereq = courses.slice(0, selectedTerm);
         let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatten the 2d array
-        if (shouldShow){
-            selectOptionsPrereq = selectOptionsPrereq
-            .filter(course => {
-                return course.code !== selectedCourse.code;
-            })
-            .map((course) =>{
-                return this.getSelectOption(course);
-            });
-        }
         
-        // Corequisites
-        let selectedCoreqIndex = coreq
-        .findIndex(cl => cl.includes(selectedCourse.code));
-        let selectedCoreqList;
-        if (selectedCoreqIndex < 0){
-            selectedCoreqList = [];
-        }else{
-            selectedCoreqList = coreq[selectedCoreqIndex];
-           
-        }
+        selectOptionsPrereq = selectOptionsPrereq
+        .map((course) =>{
+            return this.getSelectOption(course);
+        });
+        
+        
 
 
-
+        // get the available options for the coreq courses
         let selectOptionsCoreq = courses[selectedTerm];
-        if (shouldShow){
-            if (selectOptionsCoreq == null){
-                selectOptionsCoreq = [];
-            }
-            selectOptionsCoreq = selectOptionsCoreq
-            .filter(course => {
-                return course.code !== selectedCourse.code;
-            })
-            .map(course =>{
-                return this.getSelectOption(course);
-            });
+        
+        if (selectOptionsCoreq == null){
+            selectOptionsCoreq = [];
         }
+        selectOptionsCoreq = selectOptionsCoreq
+        .filter(course => {
+            return course.code !== selectedCourse.code;
+        })
+        .map(course =>{
+            return this.getSelectOption(course);
+        });
+        
 
 
        
@@ -231,81 +214,60 @@ export class SideView extends Component {
                 <form
                 onSubmit={this.onSubmit}
                 sytle={formStyle}
+                className="sideViewForm"
                 >
                     <h3>For course: {(shouldShow)?this.props.selectedCourse.code:""}</h3>
-                    <br />
                     
-                    <table style={tableStyle}>
-                        <thead>
-                            <tr>
-                                <th>
-                                    <label>Pre-Requisites</label>
-                                </th>
-                                <th></th>
-                                <th>
-                                    <label>Co-Requisites</label>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input 
-                                        className="btnShow"
-                                        style={buttonShowStyle}
-                                        type="button" 
-                                        value="Highlight Pre-requisites" 
-                                        onClick={this.props.handleClickShowPrereq.bind(this, selectedCourse.code)}
-
-                                    />
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <input 
-                                        className="btnShow"
-                                        style={buttonShowStyle}
-                                        type="button" 
-                                        value="Highlight Co-requisites"
-                                        onClick={this.props.handleClickShowCoreq.bind(this, selectedCourse.code)}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style={{textAlign:'center', fontWeight:'bold'}} colSpan={3}>
-                                    Remember to click accept changes after making changes
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <Select 
-                                        
-                                        styles={customStyles}
-                                        onChange={this.onChange}
-                                        name="prereqCourses"
-                                        isMulti 
-                                        options={selectOptionsPrereq}
-                                        value={this.state.prereqCourses}
-                                    />
-                                </td>
-                                <td></td>
-                                <td>
-                                    <Select 
-                                        
-                                        styles={customStyles}
-                                        onChange={this.onChange}
-                                        name="coreqCourses"
-                                        isMulti 
-                                        options={selectOptionsCoreq}
-                                        value={this.state.coreqCourses}
-                                    />
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
                     
+                    <div>
+                        <label>Prerequisites</label>
+                        <br/>
+                        <input 
+                            className="btnShow"
+                            style={buttonShowStyle}
+                            type="button" 
+                            value="Highlight Pre-requisites" 
+                            onClick={this.props.handleClickShowPrereq.bind(this, selectedCourse.code)}
+
+                        />
+                        <Select 
+                            
+                            styles={customStyles}
+                            onChange={this.onChange}
+                            name="prereqCourses"
+                            isMulti 
+                            options={selectOptionsPrereq}
+                            value={this.state.prereqCourses}
+                        />
+                    </div>
+
+                    <div>
+                        <label>Corequisites</label>
+                        <br/>
+                        <input 
+                            className="btnShow"
+                            style={buttonShowStyle}
+                            type="button" 
+                            value="Highlight Co-requisites"
+                            onClick={this.props.handleClickShowCoreq.bind(this, selectedCourse.code)}
+                        />
+                        <Select 
+                            
+                            styles={customStyles}
+                            onChange={this.onChange}
+                            name="coreqCourses"
+                            isMulti 
+                            options={selectOptionsCoreq}
+                            value={this.state.coreqCourses}
+                        />
+                    </div>
+                
+                    <div style={{textAlign:'center', fontWeight:'bold'}}>
+                        Remember to click accept changes after making changes
+                    </div>
+                            
+                                    
+                                
                     <input className="btn btn-save" type="submit" value="Accept Changes"/>
                 </form>
                 ;
@@ -345,17 +307,15 @@ const sideViewStyle = {
     background: 'lightgrey',
     width: '100%',
     textAlign: 'center',
-    border: '2px solid grey',     
+    border: '2px solid grey',    
+    overflowY: 'scroll',
+    height: '100%', 
 }
 
 const buttonShowStyle = {
     
 }
 
-const tableStyle = {
-    border: 'none'
-
-}
 
 const formStyle = {
     border: 'none',
@@ -367,7 +327,8 @@ const customStyles = {
     container: (provided, state) => ({
         ...provided,
         // none of react-select's styles are passed to <Control />
-        width: 250,
+        width: 'auto',
+        margin: '10px 25%',
       }),
 
       control: (provided, state) => ({

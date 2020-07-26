@@ -11,6 +11,8 @@ export class Course extends Component{
             credits:this.props.course.credits,
         }
         this.selectButton = null;
+        this.form = null;
+        this.timeout = null;
     }
 
     
@@ -26,8 +28,17 @@ export class Course extends Component{
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
     onSelect = (e) => {
-        if(this.selectButton){
-            this.selectButton.focus();
+        if(this.form){
+            if (this.timeout)
+                clearTimeout(this.timeout);
+
+            this.timeout = setTimeout(() => {
+                // set the focus on the form element after the select button is cliked
+                // and setTimeout performs this after css removes the form from view
+                this.form.focus();
+                this.form.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+            }, 0); // 2sec is the transition
+            //alert(this.selectButton);
         }
         this.props.handleClickSelectCourse(this.props.course.code)
     }
@@ -38,7 +49,8 @@ export class Course extends Component{
         appliedclasses += this.props.isHighlighted? "highlighted " : " ";
         appliedclasses += this.props.isSelected? "selected " : " ";
        return(
-            <form 
+            <form
+            ref={(theform) => {this.form = theform;}}
             onSubmit={this.onSubmit}
             style={courseStyle}
             className={appliedclasses}
@@ -113,7 +125,7 @@ export class Course extends Component{
                     value="Delete(-)"
                     className="btn btn-delete"
                     onClick={
-                        this.props.handleClickDeleteCourse.bind(this, this.props.term, this.props.course.code)
+                        this.props.handleClickDeleteCourse.bind(this,this.props.term, this.props.course.code)
                     }
                 />
                 

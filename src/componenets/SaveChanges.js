@@ -2,17 +2,17 @@ import React from 'react'
 
 function SaveChanges(props) {
     return (
-        <button
+        <input
             onClick={props.onSaveClick}
             style={buttonStyle}
             className="btn btn-save"
-        >
-            Save the changes
-        </button>
+            type="button"
+            value="Save the changes"
+        />
     )
 }
 const buttonStyle = {
-    borderRadius:'5px 0 0 0',
+    borderRadius:'5px',
     border:'2px solid black',
     background: '#55F',
 };

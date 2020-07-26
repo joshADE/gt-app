@@ -31,6 +31,7 @@ export class GradeFilter extends Component {
                 <label>Find courses with grade </label>
                 {'  '}
                 <select 
+                style={inputStyle}
                 id="filter"
                 name="category"
                 onChange={this.onChange}
@@ -44,7 +45,7 @@ export class GradeFilter extends Component {
                 </select>
                 {'  '}
 
-                <input type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
+                <input style={inputStyle} type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
                 {'  '}
                 <input style={btnStyle} type="submit" value="Filter"/>
             </form>
@@ -59,16 +60,21 @@ GradeFilter.propType = {
 }
 
 const gradeFilterStyle = {
+    
     padding: '5px 15px',
-    width: 'auto',
+    borderRadius:'5px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent:'space-evenly',
     background: '#566',
-    borderRadius: '0 5px 0 0',
     border: '2px solid black',
     color: 'white'
 };
+
+const inputStyle = {
+    background: 'lightgrey',
+    borderRadius: '5px',
+}
 
 const btnStyle = {
     display: 'inline-block',

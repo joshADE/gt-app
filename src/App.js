@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 //import { v3, v4, v5 } from 'uuid'
 import './App.css';
 import CourseClass from './componenets/model/CourseClass';
@@ -11,6 +11,38 @@ import GradeFilter from './componenets/GradeFilter';
 import SideView from './componenets/SideView';
 import ResetChanges from './componenets/ResetChanges';
 import Notification, { notify } from './componenets/Notification';
+import CGPACalculator from './componenets/CGPACalculator';
+
+
+const SAMPLE_COURSES = [
+  [
+    new CourseClass("OO Prog", "PROG10082", 3.3, 6),
+    new CourseClass("Intro to Data.", "TELE13167", 2.6, 3),
+    new CourseClass("Web Dev.", "SYST10049", 3.5, 3)
+  ],
+  [
+    new CourseClass("OO Prog 2", "PROG24178", 3.0, 6),
+    new CourseClass("Data Netw. Design", "TELE33324", 2.2, 3),
+    new CourseClass("Web Prog.", "SYST10199", 2.6, 3)
+  ],
+  [
+    new CourseClass("JAVA", "PROG32758", 3.3, 6),
+    new CourseClass("Comp. Sec.", "INFO24178", 3.3, 3),
+    new CourseClass("Databases", "DBAS27198", 3.3, 3)
+  ]
+]
+
+const SAMPLE_PREREQ = {
+  "PROG24178": ["PROG10082"],
+  "PROG32758": ["PROG24178"],
+  "TELE33324": ["TELE13167"],
+  "SYST10199": ["SYST10049"],
+}
+
+const SAMPLE_COREQ = [
+  ["PROG32758", "DBAS27198"],
+]
+
 
 class App extends Component {
   static apiurlpartial = '';
@@ -65,8 +97,8 @@ class App extends Component {
       prereq: (dataObjectPrereq)?dataObjectPrereq:this.state.prereq,
       coreq: (dataObjectCoreq)?dataObjectCoreq:this.state.coreq,
     });
-    
 
+    
   }
 
   saveCourseData(){
@@ -96,10 +128,12 @@ class App extends Component {
 
   // Removing th last term
   handleClickRemoveTerm = () => {
-    if (this.state.courses.length === 0){
+    if (this.state.courses.length <= 1){
       return;
     }
    
+    //TODO: Should perform the delete function on each course in the term
+  
     this.setState({
       courses: this.state.courses.slice(0, this.state.courses.length - 1),
     });
@@ -140,8 +174,12 @@ class App extends Component {
       courseList[term].splice(i, 1);
       this.setState({
           courses: courseList,
+          selectedCourse: null,
+          selectedTerm: null
       });
     }
+
+    //TODO: Should implement deleting of the prerequisite/corequisites
   }
 
   // Finding/Filtering course with specific GPA
@@ -205,7 +243,7 @@ class App extends Component {
   // Selecting a course given courseCode
   handleClickSelectCourse = (courseCode) => {
     const { selectedCourse } = this.state;
-    if(selectedCourse && selectedCourse.code == courseCode){
+    if(selectedCourse && selectedCourse.code === courseCode){
       // deselect the course
       this.setState({
         selectedCourse: null,
@@ -435,7 +473,9 @@ class App extends Component {
                         <GradeFilter
                           onClickFilterByCategory={this.handleOnClickFilterByCategory}
                         />
-                        
+                        <CGPACalculator 
+                          courses={this.state.courses}
+                        />
                       </div>
                       <div className="inner-bottom-foot">
                         <SideView 
