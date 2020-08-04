@@ -9,6 +9,7 @@ export class Course extends Component{
             courseName: this.props.course.name,
             grade: this.props.course.grade,
             credits:this.props.course.credits,
+            message: 'Messages here',
         }
         this.selectButton = null;
         this.form = null;
@@ -22,7 +23,18 @@ export class Course extends Component{
         let editedCourse = 
         new CourseClass(this.state.courseName, this.props.course.code, this.state.grade, this.state.credits);
         
-        this.props.handleClickEditCourse(this.props.term, editedCourse);
+        let successCode = this.props.handleClickEditCourse(this.props.term, editedCourse);
+        switch(successCode){
+            case 1:
+                this.setState({message: 'grade must be a number'});
+                break;
+            case 2:
+                this.setState({message: 'credits must be a number'});
+                break;
+            default:
+                this.setState({message: ''});
+
+        }
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
@@ -55,6 +67,7 @@ export class Course extends Component{
             style={courseStyle}
             className={appliedclasses}
             >
+                <span style={{alignSelf:'center'}}>{this.state.message}</span>
                 <span>
                     <label>Course Code:</label>{' '}
                     {code}
@@ -163,7 +176,7 @@ const courseStyle = {
     borderRadius: '5px',
     fontWeight: 'bold',
     height: 'auto',
-    width: 'auto',
+    width: '200px',
     padding: '5px', 
 };
 

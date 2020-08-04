@@ -142,17 +142,39 @@ class App extends Component {
   // Adding a new course
   handleClickAddCourse = (term, courseCode) => {
         
+    courseCode = courseCode.trim();
+    if (courseCode === null || courseCode === ""){
+      return 2;
+    }
     let courseList = this.state.courses.slice();
+    let courseCodeFound = courseList
+    .find(termList => termList
+      .find(course => course.code === courseCode) !== undefined);
+
+    if (courseCodeFound !== undefined){
+      return 1;
+    }
     let course = CourseClass.EmptyCourse();
     course.code = courseCode;
     courseList[term].push(course);
     this.setState({
         courses: courseList,
     });
+    return 0;
   }
 
   // Editing an existing course
   handleClickEditCourse = (term, editedCourse) => {
+
+    editedCourse.grade = Number(editedCourse.grade);
+    editedCourse.credits = Number(editedCourse.credits);
+    if (isNaN(editedCourse.grade)){
+      return 1;
+    }
+    if (isNaN(editedCourse.credits)){
+      return 2;
+    }
+
     let courseList = this.state.courses.slice();
     courseList[term] = courseList[term].map(c => {
       if (c.code === editedCourse.code){
@@ -164,6 +186,8 @@ class App extends Component {
     this.setState({
         courses: courseList,
     });
+
+    return 0;
   }
 
   // Deleting an existing course

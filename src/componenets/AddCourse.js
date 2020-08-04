@@ -17,7 +17,18 @@ export class AddCourse extends Component {
                 message: "Must enter course code"
             });
         }else{
-        this.props.handleClickAddCourse(this.props.term,this.state.courseCode);
+            let successCode = this.props.handleClickAddCourse(this.props.term,this.state.courseCode);
+            switch(successCode){
+                case 1:
+                    this.setState({message: 'Course code already exist'});
+                    break;
+                case 2:
+                    this.setState({message: 'Invalid course code'});
+                    break;
+                default:
+                    this.setState({message: '*'});
+    
+            }
         }
     }
 

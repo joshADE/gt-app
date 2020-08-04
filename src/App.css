@@ -46,18 +46,18 @@ input{font-size: 1.5vmin; padding: 0;}
     padding-bottom: 20%;
 }
 .inner-bottom{
-  height: 150px;
+  height: 10vh;
   max-height: 20%;
   border: 2px solid black;
   background: #677;
   border-radius: 5px;
   /* used for animation of sideview, not implemented */
-  transition: height 0.5s ease-in;
+  transition: height 0.5s ease;
 }
 
   /* used for animation of sideview, not implemented */
 .expanded {
-  height: 300px;
+  height: 30vh;
 }
 
 
@@ -70,19 +70,22 @@ input{font-size: 1.5vmin; padding: 0;}
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
+  transition: height 1s ease;
 }
 
 .inner-bottom-foot{
   height: 60%;
+  transition: height 1s ease;
+
   /*overflow-y: scroll;*/
 }
 
 .expanded > .inner-bottom-head {
-  height: 12%;
+  height: 15%;
 }
 
 .expanded > .inner-bottom-foot {
-  height: 88%;
+  height: 85%;
 }
 
 
