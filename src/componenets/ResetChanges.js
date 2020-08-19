@@ -15,6 +15,7 @@ const buttonStyle = {
     borderRadius:'5px',
     border:'2px solid black',
     background: 'rgb(241, 83, 83)',
+    height: '100%'
 };
 
 export default ResetChanges;

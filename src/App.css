@@ -44,6 +44,8 @@ input{font-size: 1.5vmin; padding: 0;}
     max-height: 80%;
     max-width: 100%;
     padding-bottom: 20%;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
 .inner-bottom{
   height: 10vh;
@@ -70,12 +72,12 @@ input{font-size: 1.5vmin; padding: 0;}
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  transition: height 1s ease;
+  /* transition: height 1s ease; */
 }
 
 .inner-bottom-foot{
   height: 60%;
-  transition: height 1s ease;
+  /* transition: height 1s ease; */
 
   /*overflow-y: scroll;*/
 }

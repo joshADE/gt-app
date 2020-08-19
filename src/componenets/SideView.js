@@ -48,24 +48,21 @@ export class SideView extends Component {
         // must extract the value from the react-select components
         const code = this.props.selectedCourse.code;
         console.log("submitted");
-        if (this.state.prereqCourses == null){
-            this.setState({
-                prereqCourses:  [],
-            })
-        }
+        
+        let pC = this.state.prereqCourses || [];
+
+
         console.log("prereq");
-        const prs = this.state.prereqCourses.map(option => this.getValueFromSelectOption(option));
+        const prs = pC.map(option => this.getValueFromSelectOption(option));
         console.log(prs);
         this.props.handleClickEditPrereq(code, prs);
         
 
-        if(this.state.coreqCourses == null){
-            this.setState({
-                coreqCourses:  [],
-            })
-        }
-        const crs = this.state.coreqCourses.map(option => this.getValueFromSelectOption(option));
+        let cC = this.state.coreqCourses || [];
+
         console.log("coreq");
+        const crs = cC.map(option => this.getValueFromSelectOption(option));
+        
         console.log(crs);
         this.props.handleClickEditCoreq(code, crs);
         

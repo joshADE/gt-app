@@ -15,6 +15,7 @@ const buttonStyle = {
     borderRadius:'5px',
     border:'2px solid black',
     background: '#55F',
+    height: '100%'
 };
 
 export default SaveChanges;

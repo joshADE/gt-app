@@ -1,13 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react'
+import { removeTerm } from '../redux'
+import { connect } from 'react-redux';
 
 export class RemoveTerm extends Component {
+    handleClick = () => {
+        if (this.props.courses.length <= 1){
+            return;
+        }
+     
+        //TODO: Should perform the delete function on each course in the term
+        this.props.removeTerm();
+    }
+
     render() {
         return (
             
         <button 
         type="button" 
-        onClick={this.props.handleClickRemoveTerm} 
+        onClick={this.handleClick} 
         style={removeTermStyle}
         className="btn btn-delete"
         >
@@ -29,4 +40,19 @@ const removeTermStyle = {
 };
 
 
-export default RemoveTerm;
+const mapStateToProps = state => {
+    return {
+      courses: state.courses.courses
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      removeTerm: () => dispatch(removeTerm())
+    }
+  }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RemoveTerm);

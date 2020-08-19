@@ -16,6 +16,18 @@ export class Course extends Component{
         this.timeout = null;
     }
 
+    performValidation = (editedCourse) => {
+        editedCourse.grade = Number(editedCourse.grade);
+        editedCourse.credits = Number(editedCourse.credits);
+        if (isNaN(editedCourse.grade)){
+            return 1;
+        }
+        if (isNaN(editedCourse.credits)){
+            return 2;
+        }
+        return 0;
+    }
+
     
     onSubmit = (e) => {
         e.preventDefault();
@@ -23,8 +35,13 @@ export class Course extends Component{
         let editedCourse = 
         new CourseClass(this.state.courseName, this.props.course.code, this.state.grade, this.state.credits);
         
-        let successCode = this.props.handleClickEditCourse(this.props.term, editedCourse);
+        let successCode = this.performValidation(editedCourse);
         switch(successCode){
+            case 0:
+                editedCourse.grade = Number(editedCourse.grade);
+                editedCourse.credits = Number(editedCourse.credits);
+                this.props.handleClickEditCourse(this.props.term, editedCourse);
+                break;
             case 1:
                 this.setState({message: 'grade must be a number'});
                 break;
@@ -32,7 +49,7 @@ export class Course extends Component{
                 this.setState({message: 'credits must be a number'});
                 break;
             default:
-                this.setState({message: ''});
+                this.setState({message: 'Messages here'});
 
         }
     }
@@ -45,6 +62,7 @@ export class Course extends Component{
                 clearTimeout(this.timeout);
 
             this.timeout = setTimeout(() => {
+                console.log(this);
                 // set the focus on the form element after the select button is cliked
                 // and setTimeout performs this after css removes the form from view
                 this.form.focus();
@@ -62,6 +80,7 @@ export class Course extends Component{
         appliedclasses += this.props.isSelected? "selected " : " ";
        return(
             <form
+            
             ref={(theform) => {this.form = theform;}}
             onSubmit={this.onSubmit}
             style={courseStyle}
