@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { addCourse } from '../redux'
+import { connect } from 'react-redux';
 
 export class AddCourse extends Component {
     constructor(props){
@@ -10,6 +12,22 @@ export class AddCourse extends Component {
         }
     }
 
+    performValidation = (courseCode) => {
+            courseCode = courseCode.trim();
+            if (!courseCode){
+                return 2;
+            }
+            let termList = this.props.courses.slice();
+            let courseCodeFound = termList
+                .find(courseList => courseList
+                .find(course => course.code === courseCode) !== undefined);
+
+            if (courseCodeFound){
+                return 1;
+            }
+            return 0;
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.courseCode){
@@ -17,8 +35,12 @@ export class AddCourse extends Component {
                 message: "Must enter course code"
             });
         }else{
-            let successCode = this.props.handleClickAddCourse(this.props.term,this.state.courseCode);
+            let successCode = this.performValidation(this.state.courseCode);
+            
             switch(successCode){
+                case 0:
+                    this.props.addCourse(this.props.term,this.state.courseCode);
+                    break;
                 case 1:
                     this.setState({message: 'Course code already exist'});
                     break;
@@ -26,8 +48,8 @@ export class AddCourse extends Component {
                     this.setState({message: 'Invalid course code'});
                     break;
                 default:
-                    this.setState({message: '*'});
-    
+                    this.setState({message:'Enter the course code'});
+
             }
         }
     }
@@ -35,6 +57,7 @@ export class AddCourse extends Component {
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
     render() {
+        
         return (
       
             <form
@@ -93,6 +116,20 @@ const inputStyle = {
     padding:'2px 4px',
 }
 
+const mapStateToProps = state => {
+    return {
+      courses: state.courses.courses
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      addCourse: (term, courseCode) => dispatch(addCourse(term, courseCode))
+    }
+  }
 
 
-export default AddCourse
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddCourse)

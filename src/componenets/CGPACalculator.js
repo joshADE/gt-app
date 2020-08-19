@@ -86,7 +86,8 @@ const gradeFinderStyle = {
     justifyContent:'space-evenly',
     background: '#566',
     border: '2px solid black',
-    color: 'white'
+    color: 'white',
+    height: '100%'
 };
 
 const btnStyle = {
