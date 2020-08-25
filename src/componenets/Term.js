@@ -1,36 +1,55 @@
-import React, { Component } from 'react'
+import React, { } from 'react'
 import PropTypes from 'prop-types';
 import AddCourse from './AddCourse';
 import Course from './Course';
 
 
-export class Term extends Component {
-    render() {
-        //console.log(this.props.filteredCourses);
-        const index = this.props.termNumber;
+export const Term = ({
+    termNumber, 
+    courseList, 
+    filteredCourses, 
+    selectedCourse, 
+    handleClickEditCourse, 
+    handleClickDeleteCourse, 
+    handleClickSelectCourse, 
+    handleClickAddCourse,
+    // dragging props/events
+    handleDragStart,
+    handleDragEnter,
+    isDragging,
+    getDraggingStyles
+
+}) => {
+
+
+        const index = termNumber;
         const termDisplay = (<th key={index + "x" + -1} style={termDisplayStyle}>{index + 1}</th>);
         const coursesDisplay = 
-        this.props.courseList.map((val, ind) => {
+        courseList.map((val, ind) => {
                         
-            const highlighted = (this.props.filteredCourses.find(val1 => 
-                (val1.code === val.code)) !== undefined);
-                //console.log(highlighted);
-            
+            const isHighlighted = (filteredCourses.find(val1 => 
+                (val1.code === val.code)) !== undefined);            
 
-            let isSelected = false;
-                if (this.props.selectedCourse){
-                    isSelected = (this.props.selectedCourse.code === val.code);
-                }
+            const isSelected = selectedCourse && selectedCourse.code === val.code;
+                
             
-            return (<td key={index + "x" + ind}>
+            return (
+            <td 
+                className={isDragging?getDraggingStyles({termI: index, courseI: ind}):"course"}
+                onDragStart={(e) => {handleDragStart(e, {termI: index, courseI: ind})}}
+                onDragEnter={isDragging?(e) => {handleDragEnter(e, {termI: index, courseI: ind})}:null}
+                draggable
+                key={val.code}
+            >
                 <Course 
+                    
                     term={index}
-                    handleClickEditCourse={this.props.handleClickEditCourse}
-                    handleClickDeleteCourse={this.props.handleClickDeleteCourse}
-                    handleClickSelectCourse={this.props.handleClickSelectCourse}
+                    handleClickEditCourse={handleClickEditCourse}
+                    handleClickDeleteCourse={handleClickDeleteCourse}
+                    handleClickSelectCourse={handleClickSelectCourse}
                     course={val}
                     isSelected={isSelected}
-                    isHighlighted={highlighted}
+                    isHighlighted={isHighlighted}
                     
                 />
             </td>);
@@ -38,8 +57,8 @@ export class Term extends Component {
         const newCourseButtonDisplay = (
         <td key={index + "x" + (coursesDisplay.length + 1)}>
             <AddCourse 
-                term={this.props.termNumber}
-                handleClickAddCourse={this.props.handleClickAddCourse}
+                term={termNumber}
+                handleClickAddCourse={handleClickAddCourse}
             />
         </td>);
 
@@ -48,7 +67,7 @@ export class Term extends Component {
             [termDisplay, coursesDisplay, newCourseButtonDisplay]
             
         );
-    }
+    
 }
 
 

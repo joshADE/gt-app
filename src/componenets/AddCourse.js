@@ -101,7 +101,7 @@ const addCourseStyle = {
     textAlign: 'center',
     justifyContent: 'space-around',
     height: 'auto',
-    width: 'auto',
+    width: '200px',
     padding: '5px',
 };
 

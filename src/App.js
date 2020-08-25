@@ -51,6 +51,7 @@ class App extends Component {
   static localStorageKey = 'courses';
   constructor(props){
     super(props);
+    // Note that these variables for the state have been moved to the Redux store, and are no longer used
     this.state = { 
       //courses: [[]], // 2d array, 1st dim = terms, 2nd dim = courses
       filteredCourses: [], // array of courses to highlight
@@ -120,6 +121,7 @@ class App extends Component {
     localStorage.setItem(App.localStorageKey, JSON.stringify(this.props.courses));
     localStorage.setItem(App.localStorageKey+"prereq", JSON.stringify(this.props.prereq));
     localStorage.setItem(App.localStorageKey+"coreq", JSON.stringify(this.props.coreq));
+    this.sendNotification('Changes saved');
   }
 
 

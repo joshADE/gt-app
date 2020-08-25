@@ -41,6 +41,7 @@ export class Course extends Component{
                 editedCourse.grade = Number(editedCourse.grade);
                 editedCourse.credits = Number(editedCourse.credits);
                 this.props.handleClickEditCourse(this.props.term, editedCourse);
+                this.setState({message: 'Messages here'});
                 break;
             case 1:
                 this.setState({message: 'grade must be a number'});
@@ -86,7 +87,13 @@ export class Course extends Component{
             style={courseStyle}
             className={appliedclasses}
             >
-                <span style={{alignSelf:'center'}}>{this.state.message}</span>
+                <span  
+                    className="dragholder" 
+                    style={dragholder}
+                > </span>
+                <span style={{alignSelf:'center'}}>
+                    {this.state.message}
+                </span>
                 <span>
                     <label>Course Code:</label>{' '}
                     {code}
@@ -180,6 +187,14 @@ Course.propType = {
     handleClickDeleteCourse: PropTypes.func.isRequired,
     handleClickSelectCourse: PropTypes.func.isRequired,
     isHighlighted: PropTypes.bool.isRequired,
+}
+const dragholder = {
+    width: '100%',
+    background: 'lightgrey',
+    height: '5px',
+    borderRadius: '3px',
+    cursor: 'grab',
+    border: '1px solid black'
 }
 
 const inputStyle = {

@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Select from 'react-select'
+import styled from 'styled-components';
+
+
+const StyledSelect = styled(Select)`
+    margin: 10px 20%;
+    @media screen and (max-width: 720px){
+        margin: 10px 10%;
+    }
+    
+`;
+
 
 export class SideView extends Component {
 
@@ -227,7 +238,7 @@ export class SideView extends Component {
                             onClick={this.props.handleClickShowPrereq.bind(this, selectedCourse.code)}
 
                         />
-                        <Select 
+                        <StyledSelect 
                             
                             styles={customStyles}
                             onChange={this.onChange}
@@ -248,7 +259,7 @@ export class SideView extends Component {
                             value="Highlight Co-requisites"
                             onClick={this.props.handleClickShowCoreq.bind(this, selectedCourse.code)}
                         />
-                        <Select 
+                        <StyledSelect 
                             
                             styles={customStyles}
                             onChange={this.onChange}
@@ -324,8 +335,7 @@ const customStyles = {
     container: (provided, state) => ({
         ...provided,
         // none of react-select's styles are passed to <Control />
-        width: 'auto',
-        margin: '10px 25%',
+        
       }),
 
       control: (provided, state) => ({

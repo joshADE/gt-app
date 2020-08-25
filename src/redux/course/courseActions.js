@@ -99,8 +99,12 @@ export const loadCourses = (courses, prereq, coreq) => {
     }
 }
 
-
-
+export const dragEnter = (params, currentItem) => {
+    return {
+        type: courseTypes.DRAG_ENTER,
+        payload: {params, currentItem}
+    }
+}
 
 
 

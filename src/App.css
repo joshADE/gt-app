@@ -146,6 +146,15 @@ input{font-size: 1.5vmin; padding: 0;}
 
 .courseTable td{
   border: 1px solid black;
+  border-radius: 5px;
+}
+
+
+
+
+svg.svg-icon{
+  width: 20px;
+  height: 20px;
 }
 
 .courseTable tr{
@@ -164,4 +173,16 @@ input{font-size: 1.5vmin; padding: 0;}
 
 .selected-term {
   background-color: rgba(180, 123, 123, 0.2);
+}
+
+
+.current {
+  background-color: #fff;
+  /* opacity: 0.5; */
+  outline: 2px dashed rgb(58, 101, 116);
+}
+
+.current *{
+  display: none;
+  background-color: transparent;
 }
