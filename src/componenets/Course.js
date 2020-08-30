@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import CourseClass from './model/CourseClass';
+import { FormGroup, Label, Input } from 'reactstrap';
+import { StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
+
 
 export class Course extends Component{
     constructor(props){
@@ -80,96 +83,101 @@ export class Course extends Component{
         appliedclasses += this.props.isHighlighted? "highlighted " : " ";
         appliedclasses += this.props.isSelected? "selected " : " ";
        return(
+           
             <form
-            
-            ref={(theform) => {this.form = theform;}}
             onSubmit={this.onSubmit}
             style={courseStyle}
             className={appliedclasses}
+            ref={(theform) => {this.form = theform;}}
             >
-                <span  
+                <span
                     className="dragholder" 
                     style={dragholder}
-                > </span>
-                <span style={{alignSelf:'center'}}>
+                      
+                >
+                
+                </span>
+                <Label style={{alignSelf:'center'}}>
                     {this.state.message}
-                </span>
-                <span>
-                    <label>Course Code:</label>{' '}
+                </Label>
+                <FormGroup>
+                    <span>
+                    <Label>Course Code:</Label>{' '}
                     {code}
-                </span>
-                <span>
-                    <label>Name:</label>{' '}
+                    </span>
+                    <br />
+                    <span>
+                    <Label>Name:</Label>{' '}
                     {name}
-                </span>
-                <span>
-                    <label>New Name:</label>{' '}
-                    <input 
-         
+                    </span>
+                    <br />
+                    <span>
+                    <Label for="newNameInput">New Name:</Label>{' '}
+                    <Input 
+                        id="newNameInput"
                         style={inputStyle}
                         type="text"
                         name="courseName"
                         value={this.state.courseName}
                         onChange={this.onChange}
                     />
-                </span>
-                <span>
-                    <label>Grade:</label>{' '}
+                    </span>
+                    <br />
+                    <span>
+                    <Label>Grade:</Label>{' '}
                     {grade}
-                </span>
-                <span>
-                    <label>New Grade:</label>{' '}
-                    <input 
+                    </span>
+                    <br />
+                    <span>
+                    <Label for="newGradeInput">New Grade:</Label>{' '}
+                    <Input 
+                        id="newGradeInput"
                         style={inputStyle}
                         type="text"
                         name="grade"
                         value={this.state.grade}
                         onChange={this.onChange}
                     />
-                </span>
-                <span>
-                    <label>Credits/Units:</label>{' '}
+                    </span>
+                    <br />
+                    <span>
+                    <Label>Credits/Units:</Label>{' '}
                     {credits}
-                </span>
-                <span>
-                    <label>New Credits:</label>{' '}
-                    <input 
+                    </span>
+                    <br />
+                    <span>
+                    <Label for="newCreditInput">New Credits:</Label>{' '}
+                    <Input 
+                        id="newCreditInput"
                         style={inputStyle}
                         type="text"
                         name="credits"
                         value={this.state.credits}
                         onChange={this.onChange}
                     />
-                </span>
-                <input 
-                    ref={(sButton) => {this.selectButton = sButton;}}
+                    </span>
+                </FormGroup>
+                <StyledButton 
                     style={buttonStyle}
                     type="button"
-                    value={this.props.isSelected?"Deselect":"Select"}
-                    className="btn"
                     onClick={
                         this.onSelect
                     }
-                />
-                <input 
+                >{this.props.isSelected?"Deselect":"Select"}</StyledButton>
+                <StyledButtonSave 
                     style={buttonStyle}
                     type="submit"
-                    value="Set changes"
-                    className="btn btn-save"
-                    
-                />
-                <input 
+                >Set changes</StyledButtonSave>
+                <StyledButtonDelete 
                     style={buttonStyle}
                     type="button"
-                    value="Delete(-)"
-                    className="btn btn-delete"
                     onClick={
                         this.props.handleClickDeleteCourse.bind(this,this.props.term, this.props.course.code)
                     }
-                />
+                >Delete(-)</StyledButtonDelete>
                 
             </form>
-            
+        
        )
 
          
@@ -191,7 +199,7 @@ Course.propType = {
 const dragholder = {
     width: '100%',
     background: 'lightgrey',
-    height: '5px',
+    height: '15px',
     borderRadius: '3px',
     cursor: 'grab',
     border: '1px solid black'
@@ -209,8 +217,9 @@ const courseStyle = {
     flexDirection:'column',
     borderRadius: '5px',
     fontWeight: 'bold',
-    height: 'auto',
-    width: '200px',
+    height: '100%',
+    minHeight: '300px',
+    width: '100%',
     padding: '5px', 
 };
 

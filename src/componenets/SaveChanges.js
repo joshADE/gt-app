@@ -13,9 +13,10 @@ function SaveChanges(props) {
 }
 const buttonStyle = {
     borderRadius:'5px',
-    border:'2px solid black',
+    border:'2px outset black',
     background: '#55F',
-    height: '100%'
+    height: '100%',
+    color: '#fff',
 };
 
 export default SaveChanges;

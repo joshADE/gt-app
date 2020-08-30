@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { addCourse } from '../redux'
 import { connect } from 'react-redux';
+import { Form, Label, Input } from 'reactstrap';
+import { StyledButtonAdd } from '../styles/components/programmapStyles';
 
 export class AddCourse extends Component {
     constructor(props){
@@ -60,12 +62,13 @@ export class AddCourse extends Component {
         
         return (
       
-            <form
+            <Form
             onSubmit={this.onSubmit}
             style={addCourseStyle}
             >
-            <span>{this.state.message}</span>
-                <input 
+            <Label for="addCourseInput">{this.state.message}</Label>
+                <Input 
+                    id="addCourseInput"
                     style={inputStyle}
                     type="text"
                     name="courseCode"
@@ -74,13 +77,11 @@ export class AddCourse extends Component {
                     onChange={this.onChange}
 
                 />
-                <input 
+                <StyledButtonAdd 
                     style={buttonStyle}
                     type="submit"
-                    value="Add a new course (+)"
-                    className="btn btn-add"
-                 />
-            </form>
+                 >Add a new course (+)</StyledButtonAdd>
+            </Form>
         
         )
     }
@@ -99,21 +100,21 @@ const addCourseStyle = {
     flexDirection:'column',
     fontWeight: 'bold',
     textAlign: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     height: 'auto',
-    width: '200px',
-    padding: '5px',
-};
+    minHeight: '300px',
+    width: '100%',
+}
 
 const buttonStyle = {
     marginTop:'2px',
-    borderRadius: '5px',
+    // borderRadius: '5px',
 }
 
 const inputStyle = {
     marginTop:'2px',
-    borderRadius: '5px',
-    padding:'2px 4px',
+    // borderRadius: '5px',
+    // padding:'2px 4px',
 }
 
 const mapStateToProps = state => {

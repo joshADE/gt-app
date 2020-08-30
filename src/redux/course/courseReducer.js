@@ -11,6 +11,36 @@ const initialState = {
     selectedTerm: null
 }
 
+// These are sample of the data that could be in the state
+const SAMPLE_COURSES = [
+    [
+      new CourseClass("OO Prog", "PROG10082", 3.3, 6),
+      new CourseClass("Intro to Data.", "TELE13167", 2.6, 3),
+      new CourseClass("Web Dev.", "SYST10049", 3.5, 3)
+    ],
+    [
+      new CourseClass("OO Prog 2", "PROG24178", 3.0, 6),
+      new CourseClass("Data Netw. Design", "TELE33324", 2.2, 3),
+      new CourseClass("Web Prog.", "SYST10199", 2.6, 3)
+    ],
+    [
+      new CourseClass("JAVA", "PROG32758", 3.3, 6),
+      new CourseClass("Comp. Sec.", "INFO24178", 3.3, 3),
+      new CourseClass("Databases", "DBAS27198", 3.3, 3)
+    ]
+  ]
+  
+  const SAMPLE_PREREQ = {
+    "PROG24178": ["PROG10082"],
+    "PROG32758": ["PROG24178"],
+    "TELE33324": ["TELE13167"],
+    "SYST10199": ["SYST10049"],
+  }
+  
+  const SAMPLE_COREQ = [
+    ["PROG32758", "DBAS27198"],
+  ]
+
 
 const concatAtIndex = (list, index, item) => {
     const listAlt = list.slice();

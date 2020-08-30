@@ -7,6 +7,17 @@ import PropTypes from 'prop-types';
 import AddTerm from './AddTerm';
 import RemoveTerm from './RemoveTerm';
 import { dragEnter } from '../redux';
+import { 
+    StyledMap,
+    StyledMapHead,
+    StyledMapBody,
+    StyledMapRow,
+    StyledMapRowResponsive,
+    StyledTermRow,
+    StyledMapHeading,
+    StyledMapData
+} from '../styles/components/programmapStyles';
+
 
 export const ProgramMap = ({
     courses,
@@ -79,10 +90,12 @@ export const ProgramMap = ({
     const rows = courses.map((courseList, index) => {
         const isSelected = selectedCourse && courseList.includes(selectedCourse);
         
-        return <tr 
+        return <StyledTermRow 
                 onDragEnter={dragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
                 className={isSelected?"selected-term":""}
                 key={index}
+                scope="row"
+                
                 >
                     {<Term 
                     handleDragStart={handleDragStart}
@@ -99,44 +112,52 @@ export const ProgramMap = ({
                     handleClickDeleteCourse={handleClickDeleteCourse}
                     filteredCourses={filteredCourses}
                     />}
-                </tr>;
+                </StyledTermRow>;
     });
     return (
-    <table className="courseTable"> 
-        <thead>
-            <tr>
-                <th>Term</th>
-                <th 
+    <StyledMap
+        responsive
+        bordered
+        size="sm"
+        
+    > 
+        <StyledMapHead>
+            <StyledMapRowResponsive>
+                <StyledMapHeading>Term</StyledMapHeading>
+                <StyledMapHeading 
+                style={{width: '100%'}}
                 colSpan={maxCourseYears + 1}
                 >
                     Courses
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+                </StyledMapHeading>
+            </StyledMapRowResponsive>
+        </StyledMapHead>
+        <StyledMapBody>
             {rows}
-            <tr>
-                <td 
+            <StyledMapRow>
+                <StyledMapData
+                style={{width: '100%'}} 
                 key={rows.length + 1}
                 colSpan={maxCourseYears + 2}>
                 <AddTerm 
                 termNumber={rows.length + 1}
                 handleClickAddTerm={handleClickAddTerm}
                 />
-                </td>
-            </tr>
-            <tr>
-                <td 
+                </StyledMapData>
+            </StyledMapRow>
+            <StyledMapRow>
+                <StyledMapData 
+                style={{width: '100%'}}
                 key={rows.length + 2}
                 colSpan={maxCourseYears + 2}>
                 <RemoveTerm 
                 termNumber={rows.length - 1}
                 handleClickRemoveTerm={handleClickRemoveTerm}
                 />
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </StyledMapData>
+            </StyledMapRow>
+        </StyledMapBody>
+    </StyledMap>
     )
 }
 

@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react'
+import { StyledButtonAdd } from '../styles/components/programmapStyles';
+
 
 export class AddTerm extends Component {
     render() {
         return (
             
-        <button 
+        <StyledButtonAdd 
         type="button" 
         onClick={this.props.handleClickAddTerm} 
         style={addNewTermStyle}
-        className="btn btn-add"
         >
             Add a new term
-        </button>
+        </StyledButtonAdd>
         )
     }
 }

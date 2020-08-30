@@ -1,16 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import Select from 'react-select'
-import styled from 'styled-components';
-
-
-const StyledSelect = styled(Select)`
-    margin: 10px 20%;
-    @media screen and (max-width: 720px){
-        margin: 10px 10%;
-    }
-    
-`;
+import { StyledButtonShow, StyledSelect, StyledContainer } from '../styles/components/sideviewStyles';
+import { StyledButtonSave } from '../styles/components/programmapStyles';
 
 
 export class SideView extends Component {
@@ -178,10 +169,10 @@ export class SideView extends Component {
         
         if (!shouldShow){
             return (
-                <div style={sideViewStyle}>
+                <StyledContainer>
                     <h2>Advanced Course Edit</h2>
                     <p>You must select a course first</p>
-                </div>
+                </StyledContainer>
             );
         }
         
@@ -230,14 +221,11 @@ export class SideView extends Component {
                     <div>
                         <label>Prerequisites</label>
                         <br/>
-                        <input 
-                            className="btnShow"
+                        <StyledButtonShow
                             style={buttonShowStyle}
-                            type="button" 
-                            value="Highlight Pre-requisites" 
+                            type="button"
                             onClick={this.props.handleClickShowPrereq.bind(this, selectedCourse.code)}
-
-                        />
+                        >Highlight Pre-requisites</StyledButtonShow>
                         <StyledSelect 
                             
                             styles={customStyles}
@@ -252,13 +240,11 @@ export class SideView extends Component {
                     <div>
                         <label>Corequisites</label>
                         <br/>
-                        <input 
-                            className="btnShow"
+                        <StyledButtonShow 
                             style={buttonShowStyle}
-                            type="button" 
-                            value="Highlight Co-requisites"
+                            type="button"
                             onClick={this.props.handleClickShowCoreq.bind(this, selectedCourse.code)}
-                        />
+                        >Highlight Co-requisites</StyledButtonShow>
                         <StyledSelect 
                             
                             styles={customStyles}
@@ -275,8 +261,7 @@ export class SideView extends Component {
                     </div>
                             
                                     
-                                
-                    <input className="btn btn-save" type="submit" value="Accept Changes"/>
+                    <StyledButtonSave type="submit">Accept Changes</StyledButtonSave>
                 </form>
                 ;
 
@@ -284,14 +269,14 @@ export class SideView extends Component {
 
 
         return (
-            <div style={sideViewStyle}>
+            <StyledContainer>
                 
                 <h2>Advanced Course Edit</h2>
                 
                 {
                     form
                 }
-            </div>
+            </StyledContainer>
         );
         
     }

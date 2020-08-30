@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { Input, Label } from 'reactstrap';
 
 export class GradeFilter extends Component {
         
@@ -28,9 +29,9 @@ export class GradeFilter extends Component {
             onSubmit={this.onSubmit}
 
             >
-                <label>Find courses with grade </label>
-                {'  '}
-                <select 
+                <Label style={{lineHeight: '15px', width: 'auto', alignSelf: 'center' }}>Courses with grade </Label>
+                <Input 
+                type="select"
                 style={inputStyle}
                 id="filter"
                 name="category"
@@ -42,11 +43,8 @@ export class GradeFilter extends Component {
                     <option value={3}>equal to</option>
                     <option value={4}>greater than or equal to</option>
                     <option value={5}>less than or equal to</option>
-                </select>
-                {'  '}
-
-                <input style={inputStyle} type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
-                {'  '}
+                </Input>
+                <Input style={inputStyle} type="text" onChange={this.onChange}  name="val" value={this.state.value} placeholder={0.0} />
                 <input style={btnStyle} type="submit" value="Filter"/>
             </form>
             
@@ -61,13 +59,12 @@ GradeFilter.propType = {
 
 const gradeFilterStyle = {
     
-    padding: '5px 15px',
+    padding: '0px 15px',
     borderRadius:'5px',
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent:'space-evenly',
-    background: '#566',
-    border: '2px solid black',
+    width: 'auto',
+    background: 'transparent',
+    border: '2px outset black',
     color: 'white',
     height: '100%'
 };
@@ -75,16 +72,23 @@ const gradeFilterStyle = {
 const inputStyle = {
     background: 'lightgrey',
     borderRadius: '5px',
+    alignSelf: 'center',
+    height: 'auto',
+    width: 'auto',
+    margin: '1px 10px',
 }
 
 const btnStyle = {
     display: 'inline-block',
-    border: 'none',
-    background: '#67F',
+    border: '1px outset black',
+    background: '#677',
     borderRadius: '5px',
+    alignSelf: 'center',
     color: '#fff',
     padding: '2px 10px',
     cursor: 'pointer',
+    height: 'auto',
+    margin: '1px 10px',
 };
 
 export default GradeFilter

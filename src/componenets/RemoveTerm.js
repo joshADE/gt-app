@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react'
 import { removeTerm } from '../redux'
 import { connect } from 'react-redux';
+import { StyledButtonDelete } from '../styles/components/programmapStyles';
 
 export class RemoveTerm extends Component {
     handleClick = () => {
@@ -16,14 +17,13 @@ export class RemoveTerm extends Component {
     render() {
         return (
             
-        <button 
+        <StyledButtonDelete 
         type="button" 
         onClick={this.handleClick} 
         style={removeTermStyle}
-        className="btn btn-delete"
         >
             Remove the last term
-        </button>
+        </StyledButtonDelete>
         )
     }
 }

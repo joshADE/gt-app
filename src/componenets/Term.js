@@ -2,7 +2,11 @@ import React, { } from 'react'
 import PropTypes from 'prop-types';
 import AddCourse from './AddCourse';
 import Course from './Course';
-
+import { 
+    StyledMapHeading,
+    StyledMapData,
+    StyledMapDataAnimated
+} from '../styles/components/programmapStyles';
 
 export const Term = ({
     termNumber, 
@@ -23,7 +27,7 @@ export const Term = ({
 
 
         const index = termNumber;
-        const termDisplay = (<th key={index + "x" + -1} style={termDisplayStyle}>{index + 1}</th>);
+        const termDisplay = (<StyledMapHeading key={index + "x" + -1} style={termDisplayStyle}>{index + 1}</StyledMapHeading>);
         const coursesDisplay = 
         courseList.map((val, ind) => {
                         
@@ -34,7 +38,7 @@ export const Term = ({
                 
             
             return (
-            <td 
+            <StyledMapDataAnimated 
                 className={isDragging?getDraggingStyles({termI: index, courseI: ind}):"course"}
                 onDragStart={(e) => {handleDragStart(e, {termI: index, courseI: ind})}}
                 onDragEnter={isDragging?(e) => {handleDragEnter(e, {termI: index, courseI: ind})}:null}
@@ -52,15 +56,15 @@ export const Term = ({
                     isHighlighted={isHighlighted}
                     
                 />
-            </td>);
+            </StyledMapDataAnimated>);
         });
         const newCourseButtonDisplay = (
-        <td key={index + "x" + (coursesDisplay.length + 1)}>
+        <StyledMapData key={index + "x" + (coursesDisplay.length + 1)}>
             <AddCourse 
                 term={termNumber}
                 handleClickAddCourse={handleClickAddCourse}
             />
-        </td>);
+        </StyledMapData>);
 
         return (
             
@@ -86,8 +90,7 @@ Term.propType = {
 }
 
 const termDisplayStyle = {
-    textAlign:'center',
-    height:'250px'
+    textAlign:'center'
 };
 
 export default Term

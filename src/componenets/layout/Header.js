@@ -1,24 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-
+import { StyledHeader } from '../../styles/components/headerStyles';
 function Header() {
     return (
-        <header style={headerStyle}>
-            <h1>Program Map Helper</h1>
+        <StyledHeader>
+            <h1>Grade Tracker</h1>
             <Link style={linkStyle} to="/">Home</Link> | {' '}  
-            <Link style={linkStyle} to="/about">About</Link> 
-        </header>
+            <Link style={linkStyle} to="/about">About</Link> | {' '}  
+            <Link style={linkStyle} to="/instructions">Instructions</Link> | {' '}
+            <Link style={linkStyle} to="/settings">Settings</Link>
+        </StyledHeader>
     )
 }
 
-
-const headerStyle = {
-    border: '2px solid black',
-    background: '#677',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px'
-}
 
 const linkStyle = {
     color: '#fff',

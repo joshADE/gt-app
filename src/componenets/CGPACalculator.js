@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { Input, Label } from 'reactstrap';
 
 export class CGPACalculator extends Component {
     constructor(props){
@@ -44,7 +45,7 @@ export class CGPACalculator extends Component {
             return <option key={index+1} value={index + 1}>{index + 1}</option>;
         });
         options.unshift(
-            <option key={-1} value={-1}>Choose and option</option>
+            <option key={-1} value={-1}>Choose an option</option>
         );
 
 
@@ -53,20 +54,22 @@ export class CGPACalculator extends Component {
             <form style={gradeFinderStyle}
             onSubmit={this.onSubmit}
             >
-                <label>Find the GPA of the courses up to term:</label>
-                {'  '}
-                <select
+                
+                <Label style={{width: 'auto' }}>GPA of the courses up to term:</Label>
+                
+                <Input type="select" id="exampleSelect"
                 style={inputStyle} 
                 name="term"
                 onChange={this.onChange}
                 defaultValue={term}
                 >
                     {options}
-                </select>
-                {'  '}
+                </Input>
+                
                 <input type="submit" style={btnStyle} value="Calculate"/>
-                {'  '}
-                <label>CGPA: {this.state.CGPA}</label>
+                
+                <Label style={{width: 'auto' }}>CGPA: {this.state.CGPA}</Label>
+                
             </form>
             
         )
@@ -79,30 +82,35 @@ CGPACalculator.propType = {
 }
 
 const gradeFinderStyle = {
-    padding: '5px 15px',
+    padding: '0px 15px',
     borderRadius:'5px',
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent:'space-evenly',
-    background: '#566',
-    border: '2px solid black',
+    alignItems: 'center',
+    width: 'auto',
+    background: 'transparent',
+    border: '2px outset black',
     color: 'white',
     height: '100%'
 };
 
 const btnStyle = {
     display: 'inline-block',
-    border: 'none',
-    background: '#67F',
+    border: '1px outset black',
+    background: '#677',
     borderRadius: '5px',
     color: '#fff',
     padding: '2px 10px',
     cursor: 'pointer',
+    height: 'auto',
+    margin: '1px 10px',
 };
 
 const inputStyle = {
     background: 'lightgrey',
     borderRadius: '5px',
+    height: 'auto',
+    width: 'auto',
+    margin: '1px 10px',
 }
 
 
