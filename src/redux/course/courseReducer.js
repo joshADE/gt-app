@@ -84,6 +84,47 @@ const getCoursesFromCodes = (codes, allcourses) =>{
     return filtered;
 } 
 
+const deleteCoursesFromPrereq = (prereq, courseCodes) => {
+    // first delete the courseCode entry from the prerequisite map
+    courseCodes.forEach(courseCode => {
+        if (Object.prototype.hasOwnProperty.call(prereq, courseCode)) {
+            delete prereq[courseCode];
+        }
+    });
+    
+
+    // then delete the courseCodes if it is a prereq (value) for any other entry
+    for (let entry in prereq) {
+        if (Object.prototype.hasOwnProperty.call(prereq, entry)) {
+            prereq[entry] = prereq[entry].filter(c => !courseCodes.includes(c));
+            if (prereq[entry].length === 0){
+                delete prereq[entry];
+            }
+        }
+    }
+    
+    return prereq;
+}
+
+const deleteCoursesFromCoreq = (coreq, courseCodes) => {
+
+
+    courseCodes.forEach(courseCode => { 
+        // find the index of the 'set' that contains the courseCode, -1 if the code is not in any set
+        let index = coreq.findIndex(courseSet => courseSet.includes(courseCode));
+        if (index > -1){
+            coreq[index] = coreq[index].filter(c => c !== courseCode);
+            if (coreq[index].length === 0 || coreq[index].length === 1){
+                coreq.splice(index, 1);
+            }
+        }
+    });
+
+
+
+    return coreq;
+}
+
 
 
 const courseReducer = (state = initialState, action) => {
@@ -98,12 +139,32 @@ const courseReducer = (state = initialState, action) => {
                 : concatAtIndex(state.courses, action.payload, []) // Not Tested
             };
         case courseTypes.REMOVE_TERM: 
-            return {
-                ...state,
-                courses: action.payload === -1
-                ? state.courses.slice(0, state.courses.length - 1)
-                : removeAtIndex(state.courses, action.payload)  // Not Tested
-            };
+
+            if (action.payload === -1){
+                return {
+                    ...state,
+                    courses: state.courses.slice(0, state.courses.length - 1),
+                    prereq: deleteCoursesFromPrereq(state.prereq, state.courses[state.courses.length - 1].map(c => c.code)),
+                    coreq: deleteCoursesFromCoreq(state.coreq, state.courses[state.courses.length - 1].map(c => c.code)),
+                    
+                    selectedCourse: (state.selectedCourse && state.courses[state.courses.length - 1].includes(state.selectedCourse))? null: state.selectedCourse,
+                    selectedTerm: (state.selectedCourse && state.courses[state.courses.length - 1].includes(state.selectedCourse))? null: state.selectedTerm,
+
+                }
+            }else{
+                // Not Tested
+                return {
+                    ...state,
+                    courses: removeAtIndex(state.courses, action.payload),  
+                    prereq: deleteCoursesFromPrereq(state.prereq, state.courses[action.payload].map(c => c.code)),
+                    coreq: deleteCoursesFromCoreq(state.coreq, state.courses[action.payload].map(c => c.code)),
+                                        
+                    selectedCourse: (state.selectedCourse && state.courses[action.payload].includes(state.selectedCourse))? null: state.selectedCourse,
+                    selectedTerm: (state.selectedCourse && state.courses[action.payload].includes(state.selectedCourse))? null: state.selectedTerm,
+
+                }
+            }
+            
 
         case courseTypes.ADD_COURSE:
             courseCode = action.payload.courseCode;
@@ -140,7 +201,11 @@ const courseReducer = (state = initialState, action) => {
             termList[term].splice(i, 1);
             return {
                 ...state,
-                courses: termList
+                courses: termList,
+                prereq: deleteCoursesFromPrereq(state.prereq, [action.payload.courseCode]),
+                coreq: deleteCoursesFromCoreq(state.coreq, [action.payload.courseCode]),
+                selectedCourse: (state.selectedCourse && action.payload.courseCode === state.selectedCourse.code)? null: state.selectedCourse,
+                selectedTerm: (state.selectedCourse && action.payload.courseCode === state.selectedCourse.code)? null: state.selectedTerm,
             }
         case courseTypes.FILTER:
             let { category, value } = action.payload;
@@ -208,6 +273,9 @@ const courseReducer = (state = initialState, action) => {
         case courseTypes.EDIT_PREREQ:
             let prereqcopy = state.prereq;
             prereqcopy[action.payload.courseCode] = action.payload.prereqCourses;
+            if (prereqcopy[action.payload.courseCode].length === 0){
+                delete prereqcopy[action.payload.courseCode];
+            }
             return {
                 ...state,
                 prereq: prereqcopy

@@ -30,3 +30,40 @@ export const StyledSelect = styled(Select)`
     }
     
 `;
+
+export const StyleResponsiveContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    & > * {
+        width: 50%;
+        border: 1px inset black;
+        padding: 5px;
+    }
+
+`;
+
+export const StyledCanvasContainer = styled.div`
+      position: relative;
+        height: auto;
+        width: 500px;
+        overflow: scroll;
+        max-width: 100%;
+        max-height: 100%;
+        background-color: grey;
+        margin: auto;
+        text-align: left;
+        
+`;
+
+export const StyledCanvasNode = styled.div`
+      
+        height: ${({radius}) => `${radius * 2}px`};
+        width: ${({radius}) => `${radius * 2}px`};
+        border: '2px solid black';
+        border-radius: 50%;
+        top: ${({y}) => `${y}px`};
+        left: ${({x}) => `${x}px`};
+        color: white;
+
+        
+`;

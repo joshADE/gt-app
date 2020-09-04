@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { StyledButtonShow, StyledSelect, StyledContainer } from '../styles/components/sideviewStyles';
+import { StyledButtonShow, StyledSelect, StyledContainer, StyleResponsiveContainer } from '../styles/components/sideviewStyles';
 import { StyledButtonSave } from '../styles/components/programmapStyles';
+import Progression from './Progression';
 
 
 export class SideView extends Component {
@@ -67,25 +68,21 @@ export class SideView extends Component {
         
         console.log(crs);
         this.props.handleClickEditCoreq(code, crs);
-        
+        this.forceUpdate();
     }
 
-    
 
-    
-    // this doesn't get called after a user deletes a course
-    // only componentWillUpdate gets called
-    componentWillReceiveProps(newProps){
-        console.log("Inside componentWillReceiveProps");
+    componentDidUpdate(prevProps){
+        console.log("Inside componentDidUpdate");
         console.log(this.props);
-        console.log(newProps);
+        console.log(prevProps);
         
         
         // Only update the state (and then the UI) if the component
         // receives a new set of props
         console.log("Are the oldProp and newProp equal?");
-        if (!this.equal(this.props, newProps)){
-            this.updateState(newProps);
+        if (!this.equal(this.props, prevProps)){
+            this.updateState(this.props);
         }
     }
     
@@ -172,6 +169,7 @@ export class SideView extends Component {
                 <StyledContainer>
                     <h2>Advanced Course Edit</h2>
                     <p>You must select a course first</p>
+                    
                 </StyledContainer>
             );
         }
@@ -215,7 +213,6 @@ export class SideView extends Component {
                 sytle={formStyle}
                 className="sideViewForm"
                 >
-                    <h3>For course: {(shouldShow)?this.props.selectedCourse.code:""}</h3>
                     
                     
                     <div>
@@ -259,9 +256,11 @@ export class SideView extends Component {
                     <div style={{textAlign:'center', fontWeight:'bold'}}>
                         Remember to click accept changes after making changes
                     </div>
-                            
-                                    
+
+   
                     <StyledButtonSave type="submit">Accept Changes</StyledButtonSave>
+  
+                         
                 </form>
                 ;
 
@@ -272,10 +271,15 @@ export class SideView extends Component {
             <StyledContainer>
                 
                 <h2>Advanced Course Edit</h2>
-                
-                {
-                    form
-                }
+                <h3>For course: {this.props.selectedCourse.code}</h3>
+                    
+                <StyleResponsiveContainer>
+                    {form}
+                    <Progression 
+                            prereq={this.props.prereq}
+                            selectedCourse={selectedCourse}
+                    />  
+                </StyleResponsiveContainer>
             </StyledContainer>
         );
         

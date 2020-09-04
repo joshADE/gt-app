@@ -14,8 +14,8 @@ export class Course extends Component{
             credits:this.props.course.credits,
             message: 'Messages here',
         }
-        this.selectButton = null;
-        this.form = null;
+        this.selectButton = React.createRef();
+        this.form = React.createRef();
         this.timeout = null;
     }
 
@@ -61,16 +61,17 @@ export class Course extends Component{
     onChange = (e) => this.setState({[e.target.name]: e.target.value });
 
     onSelect = (e) => {
-        if(this.form){
+        
+        if(this.form.current){
             if (this.timeout)
                 clearTimeout(this.timeout);
 
             this.timeout = setTimeout(() => {
-                console.log(this);
+                //console.log(this);
                 // set the focus on the form element after the select button is cliked
                 // and setTimeout performs this after css removes the form from view
-                this.form.focus();
-                this.form.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+                this.form.current.focus();
+                this.form.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
             }, 0); // 2sec is the transition
             //alert(this.selectButton);
         }
@@ -88,7 +89,7 @@ export class Course extends Component{
             onSubmit={this.onSubmit}
             style={courseStyle}
             className={appliedclasses}
-            ref={(theform) => {this.form = theform;}}
+            ref={this.form}
             >
                 <span
                     className="dragholder" 
