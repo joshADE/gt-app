@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Grade-Tracker/static/css/main.c3ea2fde.chunk.css",
-    "main.js": "/Grade-Tracker/static/js/main.15bc54f2.chunk.js",
-    "main.js.map": "/Grade-Tracker/static/js/main.15bc54f2.chunk.js.map",
+    "main.css": "/Grade-Tracker/static/css/main.2611fc1b.chunk.css",
+    "main.js": "/Grade-Tracker/static/js/main.106e05f8.chunk.js",
+    "main.js.map": "/Grade-Tracker/static/js/main.106e05f8.chunk.js.map",
     "runtime-main.js": "/Grade-Tracker/static/js/runtime-main.0438841f.js",
     "runtime-main.js.map": "/Grade-Tracker/static/js/runtime-main.0438841f.js.map",
     "static/css/2.11829350.chunk.css": "/Grade-Tracker/static/css/2.11829350.chunk.css",
-    "static/js/2.4ca03127.chunk.js": "/Grade-Tracker/static/js/2.4ca03127.chunk.js",
-    "static/js/2.4ca03127.chunk.js.map": "/Grade-Tracker/static/js/2.4ca03127.chunk.js.map",
+    "static/js/2.7b2a31ab.chunk.js": "/Grade-Tracker/static/js/2.7b2a31ab.chunk.js",
+    "static/js/2.7b2a31ab.chunk.js.map": "/Grade-Tracker/static/js/2.7b2a31ab.chunk.js.map",
     "index.html": "/Grade-Tracker/index.html",
-    "precache-manifest.339a76890866694d27450984672babd0.js": "/Grade-Tracker/precache-manifest.339a76890866694d27450984672babd0.js",
+    "precache-manifest.201446d4e1f7e487fc2667f23149592b.js": "/Grade-Tracker/precache-manifest.201446d4e1f7e487fc2667f23149592b.js",
     "service-worker.js": "/Grade-Tracker/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/Grade-Tracker/static/css/2.11829350.chunk.css.map",
-    "static/css/main.c3ea2fde.chunk.css.map": "/Grade-Tracker/static/css/main.c3ea2fde.chunk.css.map",
-    "static/js/2.4ca03127.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.4ca03127.chunk.js.LICENSE.txt"
+    "static/css/main.2611fc1b.chunk.css.map": "/Grade-Tracker/static/css/main.2611fc1b.chunk.css.map",
+    "static/js/2.7b2a31ab.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.7b2a31ab.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0438841f.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.4ca03127.chunk.js",
-    "static/css/main.c3ea2fde.chunk.css",
-    "static/js/main.15bc54f2.chunk.js"
+    "static/js/2.7b2a31ab.chunk.js",
+    "static/css/main.2611fc1b.chunk.css",
+    "static/js/main.106e05f8.chunk.js"
   ]
 }
