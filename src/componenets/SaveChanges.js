@@ -14,7 +14,7 @@ function SaveChanges(props) {
 const buttonStyle = {
     borderRadius:'5px',
     border:'2px outset black',
-    background: '#55F',
+    background: 'rgb(160, 180, 180)',
     height: '100%',
     color: '#fff',
 };

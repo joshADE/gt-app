@@ -27,23 +27,23 @@ export const StyledInnerBottomHead = styled.div`
     margin-right: 2px;
   }
   padding: 0 2px;
-  height: 40%;
+  height: 40px;
   width: 100%;
   background: ${({ theme }) => theme.button};
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  transition: height 1s ease-in;
+  ${'' /* transition: height 1s ease-in; */}
 `;
 
 export const StyledInnerBottomFoot = styled.div`
-  height: 60%;
-  transition: height 1s ease-in;
+  height: 60px;
+  transition: height 0.5s ease-out;
 `;
 
 export const StyledInnerBottom = styled.div`
-  height: ${({ expanded }) => expanded?"30vh":"10vh"};
+  height: ${({ expanded }) => expanded?"300px":"100px"};
   max-height: 20%;
   border: 2px solid black;
   background: #677;
@@ -52,11 +52,11 @@ export const StyledInnerBottom = styled.div`
   transition: height 0.5s ease-out;
 
     & > ${StyledInnerBottomHead} {
-        height: ${({ expanded }) => expanded?"15%":"40%"};
+        height: ${({ expanded }) => expanded?"40px":"40px"};
     }
 
     & > ${StyledInnerBottomFoot} {
-        height: ${({ expanded }) => expanded?"85%":"60%"};
+        height: ${({ expanded }) => expanded?"260px":"60px"};
     }
   
  

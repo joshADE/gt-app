@@ -34,17 +34,18 @@ export const StyledSelect = styled(Select)`
 export const StyleResponsiveContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     & > * {
-        width: 50%;
-        border: 1px inset black;
+        width: 100%;
         padding: 5px;
     }
-
+    
 `;
 
 export const StyledCanvasContainer = styled.div`
       position: relative;
-        height: auto;
+        height: 200px;
+        min-height: 50%;
         width: 500px;
         overflow: scroll;
         max-width: 100%;
@@ -57,9 +58,10 @@ export const StyledCanvasContainer = styled.div`
 
 export const StyledCanvasNode = styled.div`
       
+        position: absolute;
         height: ${({radius}) => `${radius * 2}px`};
         width: ${({radius}) => `${radius * 2}px`};
-        border: '2px solid black';
+        border: 2px solid black;
         border-radius: 50%;
         top: ${({y}) => `${y}px`};
         left: ${({x}) => `${x}px`};

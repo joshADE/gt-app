@@ -102,19 +102,19 @@ export const StyledButton = styled(Button)`
 
 export const StyledButtonAdd = styled(StyledButton)`
     &:hover {
-        background: rgb(88, 219, 158);
+        background: rgb(130, 230, 210);
     }
 `;
 
 export const StyledButtonDelete = styled(StyledButton)`
     &:hover {
-        background: rgb(241, 83, 83);
+        background: rgb(247, 154, 154);
     }
 `;
 
 export const StyledButtonSave = styled(StyledButton)`
     &:hover {
-        background: rgb(130, 197, 252);
+        background: rgb(180, 200, 200);
     }
 `;
 

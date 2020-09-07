@@ -82,6 +82,7 @@ export class SideView extends Component {
         // receives a new set of props
         console.log("Are the oldProp and newProp equal?");
         if (!this.equal(this.props, prevProps)){
+            console.log("UPDATED SIDEVIEW");
             this.updateState(this.props);
         }
     }
