@@ -301,14 +301,14 @@ SideView.propType = {
     handleClickEditCoreq: PropTypes.func.isRequired,
 }
 
-const sideViewStyle = {
-    background: 'lightgrey',
-    width: '100%',
-    textAlign: 'center',
-    border: '2px solid grey',    
-    overflowY: 'scroll',
-    height: '100%', 
-}
+// const sideViewStyle = {
+//     background: 'lightgrey',
+//     width: '100%',
+//     textAlign: 'center',
+//     border: '2px solid grey',    
+//     overflowY: 'scroll',
+//     height: '100%', 
+// }
 
 const buttonShowStyle = {
     

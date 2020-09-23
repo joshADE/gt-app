@@ -53,7 +53,8 @@ export const StyledCanvasContainer = styled.div`
         background-color: grey;
         margin: auto;
         text-align: left;
-        
+        border-radius: 15px;
+        border: 2px solid black;
 `;
 
 export const StyledCanvasNode = styled.div`

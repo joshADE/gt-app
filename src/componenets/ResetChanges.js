@@ -14,9 +14,9 @@ function ResetChanges(props) {
 const buttonStyle = {
     borderRadius:'5px',
     border:'2px outset black',
-    background: 'rgb(247, 154, 154)',
+    background: '#CF6679',
     height: '100%',
-    color: '#fff',
+    color: '#000',
 };
 
 export default ResetChanges;

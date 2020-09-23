@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Term from './Term';
 //import { v3, v4, v5 } from 'uuid'
 import PropTypes from 'prop-types';
 import AddTerm from './AddTerm';
 import RemoveTerm from './RemoveTerm';
-import { dragEnter } from '../redux';
+import { dragEnter, changeFocus, changeStyle } from '../redux';
 import { 
     StyledMap,
     StyledMapHead,
@@ -15,7 +15,8 @@ import {
     StyledMapRowResponsive,
     StyledTermRow,
     StyledMapHeading,
-    StyledMapData
+    StyledMapData,
+    StyledFocusElement
 } from '../styles/components/programmapStyles';
 
 
@@ -37,6 +38,11 @@ export const ProgramMap = ({
     const dragItem = useRef();
     const dragNode = useRef();
     const dispatch = useDispatch();
+    //const [currentFocusedElm, setCurrentFocusedElm] = useState(null);
+    //const [style, setStyle] = useState(null);
+    const { currentFocusedElm, style } = useSelector(state => state.focus);
+   
+
 
 
     const handleDragStart = (e, params) => {
@@ -86,9 +92,40 @@ export const ProgramMap = ({
         return 'course';
     }
 
+    const toggleFocus = (element, focusedCourse) => {
+        if(!selectedCourse || (selectedCourse !== focusedCourse && currentFocusedElm !== element)){
+            //setCurrentFocusedElm(element);
+            dispatch(changeFocus(element));
+        }else{
+            //setCurrentFocusedElm(null);
+            dispatch(changeFocus(null));
+        }
+    }
+
+    const outlineElementStyle = (element) => {
+        return element
+            ? {
+                  width: `${element.offsetWidth}px`,
+                  height: `${element.offsetHeight}px`,
+                  transform: `translateX(${element.offsetLeft}px) translateY(${element.offsetTop}px)`,
+                
+            }
+            : style;
+    };
+
+
+    
+    useEffect(() => {
+        if (currentFocusedElm) {
+            const style = outlineElementStyle(currentFocusedElm.current);
+            //setStyle(style);
+            dispatch(changeStyle(style));
+        }
+    }, [currentFocusedElm, courses]);
+
 
     const rows = courses.map((courseList, index) => {
-        const isSelected = selectedCourse && courseList.includes(selectedCourse);
+        const isSelected = selectedCourse && (courseList.findIndex(c => c.code === selectedCourse.code) !== -1);
         
         return <StyledTermRow 
                 onDragEnter={dragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
@@ -102,6 +139,8 @@ export const ProgramMap = ({
                     handleDragEnter={handleDragEnter}
                     isDragging={dragging}
                     getDraggingStyles={getDraggingStyles}
+
+                    toggleFocus={toggleFocus}
 
                     selectedCourse={selectedCourse}
                     termNumber={index}
@@ -133,6 +172,12 @@ export const ProgramMap = ({
             </StyledMapRowResponsive>
         </StyledMapHead>
         <StyledMapBody>
+            <tr style={{position:'relative', top:'-4vmin', left:'0px'}}>
+                <StyledFocusElement 
+                    className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
+                    style={style}
+                />
+            </tr>
             {rows}
             <StyledMapRow>
                 <StyledMapData

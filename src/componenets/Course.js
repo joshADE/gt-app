@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import CourseClass from './model/CourseClass';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, Card } from 'reactstrap';
 import { StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
 
 
@@ -62,7 +62,7 @@ export class Course extends Component{
 
     onSelect = (e) => {
         
-        if(this.form.current){
+        if(this.form.current && !this.props.isSelected){
             if (this.timeout)
                 clearTimeout(this.timeout);
 
@@ -75,7 +75,10 @@ export class Course extends Component{
             }, 0); // 2sec is the transition
             //alert(this.selectButton);
         }
-        this.props.handleClickSelectCourse(this.props.course.code)
+        this.props.handleClickSelectCourse(this.props.course.code);
+
+        this.props.toggleFocus(this.form, this.props.course);
+
     }
 
     render(){
@@ -91,6 +94,7 @@ export class Course extends Component{
             className={appliedclasses}
             ref={this.form}
             >
+            
                 <span
                     className="dragholder" 
                     style={dragholder}

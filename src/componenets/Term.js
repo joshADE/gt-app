@@ -21,7 +21,10 @@ export const Term = ({
     handleDragStart,
     handleDragEnter,
     isDragging,
-    getDraggingStyles
+    getDraggingStyles,
+
+    // focus
+    toggleFocus
 
 }) => {
 
@@ -46,6 +49,7 @@ export const Term = ({
                 key={val.code}
             >
                 <Course 
+                    toggleFocus={toggleFocus}
                     
                     term={index}
                     handleClickEditCourse={handleClickEditCourse}

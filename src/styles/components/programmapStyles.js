@@ -8,7 +8,30 @@ export const StyledMap = styled(Table)`
     background-color: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.color};
     border-color: ${({ theme }) => theme.border} !important;
+    border-radius: 5px;
 `; 
+
+export const StyledFocusElement = styled.td`
+    position: absolute;
+    z-index: 3;
+    border-radius: 5px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transition: all 0.5s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+    overflow: hidden;
+    border: 2px solid rgba(129, 255, 249, 1);
+    box-shadow:0 0 14px 4px salmon;
+    &.active {
+        opacity: 1;
+        display: block;
+    }
+
+`;
 
 export const StyledMapHead = styled.thead`
     text-align: center;
@@ -27,8 +50,13 @@ export const StyledMapHeading = styled.th`
     font-weight: 900;
     max-height: 100%;
     border-radius: 5px;
-    border-color: ${({ theme }) => theme.border} !important;
-    
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid ${({ theme }) => theme.border} !important;
+    border-radius: .25rem;
     @media screen and (max-width: ${({ theme }) => theme.breakpoint}){
         max-height: 70px;
     }
@@ -96,6 +124,8 @@ export const StyledButton = styled(Button)`
     }
     &:hover, &:active, &:focus, &:target { 
         background: ${({ theme }) => theme.buttonHover};
+        border-color: transparent;
+        box-shadow: none;
     }
     
 `;

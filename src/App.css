@@ -4,13 +4,14 @@
   /* background-color: rgb(240, 221, 101); */
 }
 
-.selected{
+/* .selected{
   box-shadow:0 0 14px 4px salmon;
-  /* background-color: rgb(180, 123, 123); */
-}
+  background-color: rgb(180, 123, 123);
+} */
 
 .selected-term th, .selected-term td{
   background-color: rgba(180, 123, 123, 0.2);
+ 
 }
 
 

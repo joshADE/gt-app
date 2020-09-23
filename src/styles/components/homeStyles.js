@@ -17,6 +17,7 @@ export const StyledInnerTop = styled.div`
     padding-bottom: 20%;
     border-left: 2px solid black;
     border-right: 2px solid black;
+    border-radius: 5px;
 `;
 
 
@@ -26,7 +27,7 @@ export const StyledInnerBottomHead = styled.div`
   & > * {
     margin-right: 2px;
   }
-  padding: 0 2px;
+  padding: 2px;
   height: 40px;
   width: 100%;
   background: ${({ theme }) => theme.button};

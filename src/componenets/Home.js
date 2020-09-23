@@ -22,17 +22,13 @@ import * as CourseActionCreators from '../redux';
 
 
 class Home extends Component {
-    
-  componentDidMount = () =>{
-    this.populateCourseData();
-  }
 
   resetChanges = () => {
     let confirmed = window.confirm("Are you sure you want to reset to the last saved changes?");
     if (!confirmed){
       return;
     }
-    this.populateCourseData();
+    this.props.populateCourseData();
     this.props.clearFilter();
     this.props.clearSelected();
 
@@ -40,28 +36,6 @@ class Home extends Component {
 
 
   /* Local Storage Saving / Retrieving */
-  populateCourseData = () =>{
-    const dataStringCourses = localStorage.getItem(App.localStorageKey);
-    const dataStringPrereq = localStorage.getItem(App.localStorageKey+"prereq");
-    const dataStringCoreq = localStorage.getItem(App.localStorageKey+"coreq");
-
-    if (!dataStringCourses){
-      return;
-    }
-    const dataObjectCourses = JSON.parse(dataStringCourses);
-    const dataObjectPrereq = JSON.parse(dataStringPrereq);
-    const dataObjectCoreq = JSON.parse(dataStringCoreq);
-
-
-    this.props.loadCourses(
-      dataObjectCourses, 
-      (dataObjectPrereq)?dataObjectPrereq:this.props.prereq,
-      (dataObjectCoreq)?dataObjectCoreq:this.props.coreq
-    );
-
-    
-  }
-
   saveCourseData = () =>{
     let confirmed = window.confirm("Are you sure you want to save all the changes?");
     if (!confirmed){

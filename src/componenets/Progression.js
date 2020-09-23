@@ -1,9 +1,9 @@
 import * as Arborel from '../lib/arboreal';
 import { buildTreeObject } from '../lib/progression';
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CourseClass from './model/CourseClass';
-import { StyledCanvasContainer, StyledCanvasNode } from '../styles/components/sideviewStyles';
+import { StyledCanvasContainer } from '../styles/components/sideviewStyles';
 
 function Node(props) {
     const {ctx, x, y, radius, text} = props;
@@ -29,7 +29,8 @@ function Progression(props) {
     
     console.log("RERENDERED PROGRESSION");
     var tree = Arborel.Arboreal.parse(prereqObject, 'prerequisites');
-    let value = [], leafNodes = [];
+    //let value = [];
+    let leafNodes = [];
     let maxDepth = 0;
     let maxSiblingCount = 1;
     let nodeRadius = 20;
@@ -135,25 +136,25 @@ function Progression(props) {
     tree
     .traverseDown(iteratorLeafNodes);
 
-    
+    const selectedCoursePrereq = props.prereq[props.selectedCourse.code];
     useEffect(() => {
         if (theContainer){
             theContainer.current.scrollTo(0,rootNodePosition);
         }
         updateState();
-    },[props.selectedCourse, props.prereq[props.selectedCourse.code]]);
+    },[props.selectedCourse, selectedCoursePrereq]);
     
     //value = value.reverse()
     return (
         <div>
-        <h2>Course Progression</h2>
+        <h2>Course prerequisites</h2>
         
         <StyledCanvasContainer
             ref={theContainer}
         >
             {/* {value} */}
             <canvas 
-                // style={{ background: 'darkgrey', border: '2px solid black'}} 
+                //  style={{ background: 'darkgrey', border: '2px solid black'}} 
                 ref={theCanvas} 
                 width={canvasDimentionX} 
                 height={canvasDimentionY}

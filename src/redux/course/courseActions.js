@@ -49,11 +49,19 @@ export const clearFilter = () => {
 }
 
 
-export const toggleSelectCourse = (courseCode) => {
-    return {
-        type: courseTypes.TOGGLE_SELECT,
-        payload: courseCode
-    }
+export const toggleSelectCourse = (courseCode = "not_specified") => {
+    if (courseCode === "not_specified") {
+		return (dispatch, getState) => {
+			dispatch({
+				type: courseTypes.TOGGLE_SELECT,
+				payload: (getState().courses.selectedCourse)? getState().courses.selectedCourse.code : "",
+			});
+        }
+    } else {
+        return (dispatch, getState) => {
+			dispatch({ type: courseTypes.TOGGLE_SELECT, payload: courseCode });
+		};
+    } 
 }
 
 export const clearSelected = () => {

@@ -14,3 +14,32 @@ export const toggleDarkmode = (toggleState = 'not_specified') => {
 		};
     } 
 }
+
+
+export const setCurrentSchool = (currentSchool) => {
+	return {
+		type: settingsTypes.SET_CURRENT_SCHOOL,
+		payload: { currentSchool }
+	}
+}
+
+export const setSchoolGrades = (schoolName = 'none', schoolGrades) => {
+	return {
+		type: settingsTypes.SET_SCHOOL_GRADES,
+		payload: { schoolName, schoolGrades }
+	}
+}
+
+export const loadSettings = (items) => {
+	return {
+		type: settingsTypes.LOAD_SETTINGS,
+		payload: { items }
+	}
+}
+
+export const loadCustomSchool = (customSchoolSettings) => {
+	return {
+		type: settingsTypes.LOAD_CUSTOM_SCHOOL,
+		payload: { customSchoolSettings }
+	}
+}
