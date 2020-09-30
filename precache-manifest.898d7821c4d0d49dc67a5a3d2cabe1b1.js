@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "23c9ed7fb564beed48a58a54074e9f89",
+    "revision": "1b4f901462d586d47f59ad12bdca711d",
     "url": "/Grade-Tracker/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Grade-Tracker/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "32343faebc359a8a2662",
-    "url": "/Grade-Tracker/static/css/main.423d8b87.chunk.css"
+    "revision": "8c12f7600f098ccfede7",
+    "url": "/Grade-Tracker/static/css/main.ce10e0c2.chunk.css"
   },
   {
     "revision": "17bd4e950bd45f363950",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Grade-Tracker/static/js/2.f9455fde.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "32343faebc359a8a2662",
-    "url": "/Grade-Tracker/static/js/main.7875f88d.chunk.js"
+    "revision": "8c12f7600f098ccfede7",
+    "url": "/Grade-Tracker/static/js/main.7e3ebc9b.chunk.js"
   },
   {
     "revision": "7291aad2fa762dcaff00",
