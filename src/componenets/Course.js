@@ -220,6 +220,8 @@ const inputStyle = {
 const courseStyle = {
     display:'flex', 
     flexDirection:'column',
+    justifyContent: 'space-between',
+    overflow: 'hidden',
     borderRadius: '5px',
     fontWeight: 'bold',
     height: '100%',

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Table, Button } from 'reactstrap';
-import { popin } from './animations';
+import { popin, fadeinbottom } from './animations';
 
 
 export const StyledMap = styled(Table)`
@@ -25,7 +25,7 @@ export const StyledFocusElement = styled.td`
     pointer-events: none;
     overflow: hidden;
     border: 2px solid rgba(129, 255, 249, 1);
-    box-shadow:0 0 14px 4px salmon;
+    box-shadow:0 0 14px 4px ${({ theme }) => theme.selectedCourse};
     &.active {
         opacity: 1;
         display: block;
@@ -39,7 +39,7 @@ export const StyledMapHead = styled.thead`
 `; 
 
 export const StyledMapBody = styled.tbody`
-    
+    height: 100%;
 `; 
 
 
@@ -71,11 +71,17 @@ export const StyledMapData = styled.td`
 `; 
 
 export const StyledMapDataAnimated = styled(StyledMapData)`
-    animation: ${popin} 0.5s ease once;
+    animation: ${fadeinbottom} 1s ease once;
 `;
 
 export const StyledMapRow = styled.tr`
     display: flex;
+
+
+    &.selected-term th, &.selected-term td {
+        background-color: ${({ theme }) => theme.selectedTerm};
+    }
+
     @media screen and (max-width: ${({ theme }) => theme.breakpoint}){
         align-items: center;
         padding: 2% 25%;
@@ -114,7 +120,7 @@ export const StyledTermRow = styled(StyledMapRowResponsive)`
 export const StyledButton = styled(Button)`
     
     display: inline-block;
-    border: none;
+    border: 1px solid black;
     background: ${({ theme }) => theme.button};
     color: #fff;
     padding: 7px 20px;
@@ -124,7 +130,7 @@ export const StyledButton = styled(Button)`
     }
     &:hover, &:active, &:focus, &:target { 
         background: ${({ theme }) => theme.buttonHover};
-        border-color: transparent;
+        border-color: black;
         box-shadow: none;
     }
     

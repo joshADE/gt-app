@@ -9,9 +9,10 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     line-height: 1.4;
     font-size: 1.5vmin;
+    ${'' /* background: ${({ theme }) => theme.bgBody}; */}
     }
 
     a {

@@ -24,6 +24,9 @@ const defaultTheme = {
   border: '#222',
   color: "#495057",
   breakpoint: "200px",
+  selectedTerm: '#ddd',
+  selectedCourse: 'grey',
+  bgBody: 'white',
 }
 
 const darkmodeTheme = {
@@ -34,7 +37,10 @@ const darkmodeTheme = {
   buttonHover: '#777',
   sidePanel: '#888',
   border: '#ced4da',
-  color: "white"
+  color: "white",
+  selectedTerm: 'rgba(240, 240, 240, 0.2)',
+  selectedCourse: 'white',
+  bgBody: 'darkgrey',
 }
 
 class App extends Component {
@@ -52,7 +58,9 @@ class App extends Component {
   }
 
   onWindowResize = () => {
-    this.props.toggleSelected();
+    //if (this.props.currentFocusedElm){
+      this.props.changeStyle();
+    //}
   }
 
   restoreSettings = () => {
@@ -139,7 +147,8 @@ const mapDispatchToProps = dispatch => {
     loadSettings: (items) => dispatch(AllActionsCreators.loadSettings(items)),
     loadCourses: (courses, prereq, coreq) => dispatch(AllActionsCreators.loadCourses(courses, prereq, coreq)),
     loadCustomSchool: (customSchoolSettings) => dispatch(AllActionsCreators.loadCustomSchool(customSchoolSettings)),
-    toggleSelected: () => dispatch(AllActionsCreators.toggleSelectCourse())
+    toggleSelected: () => dispatch(AllActionsCreators.toggleSelectCourse()),
+    changeStyle: () => dispatch(AllActionsCreators.changeStyle())
   }
 }
 

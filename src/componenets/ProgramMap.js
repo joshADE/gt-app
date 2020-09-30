@@ -33,6 +33,7 @@ export const ProgramMap = ({
     handleClickRemoveTerm
 
 }) => {
+    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 
     const [dragging, setDragging]  = useState(false);
     const dragItem = useRef();
@@ -102,24 +103,13 @@ export const ProgramMap = ({
         }
     }
 
-    const outlineElementStyle = (element) => {
-        return element
-            ? {
-                  width: `${element.offsetWidth}px`,
-                  height: `${element.offsetHeight}px`,
-                  transform: `translateX(${element.offsetLeft}px) translateY(${element.offsetTop}px)`,
-                
-            }
-            : style;
-    };
-
-
     
     useEffect(() => {
         if (currentFocusedElm) {
-            const style = outlineElementStyle(currentFocusedElm.current);
+            //const style = outlineElementStyle(currentFocusedElm.current);
             //setStyle(style);
-            dispatch(changeStyle(style));
+            //dispatch(changeStyle(style));
+            dispatch(changeStyle());
         }
     }, [currentFocusedElm, courses]);
 
@@ -172,7 +162,7 @@ export const ProgramMap = ({
             </StyledMapRowResponsive>
         </StyledMapHead>
         <StyledMapBody>
-            <tr style={{position:'relative', top:'-4vmin', left:'0px'}}>
+            <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
                 <StyledFocusElement 
                     className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
                     style={style}
@@ -220,6 +210,20 @@ ProgramMap.propType = {
     filteredCourses: PropTypes.array.isRequired
 }
 
+const focusParentElmStyle = {
+    display:'inline', 
+    width:'100%', 
+    height:'100%', 
+    position:'relative', 
+    top:'-3vmin', 
+    left:'0px'
+} 
+
+const focusParentElmStyleChrome = {
+    ...focusParentElmStyle,
+    top: '0.1vmin',
+    left: '8.0vmin'
+}
 
 
 export default ProgramMap
