@@ -5,7 +5,7 @@ export const StyledInner = styled.div`
     flex-direction: column;
     padding: 0 0%;
     justify-content: center;
-    max-height: 85vh;
+    max-height: 89vh;
 `;
 
 export const StyledInnerTop = styled.div`

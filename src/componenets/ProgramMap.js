@@ -13,7 +13,6 @@ import {
     StyledMapBody,
     StyledMapRow,
     StyledMapRowResponsive,
-    StyledTermRow,
     StyledMapHeading,
     StyledMapData,
     StyledFocusElement
@@ -94,6 +93,7 @@ export const ProgramMap = ({
     }
 
     const toggleFocus = (element, focusedCourse) => {
+        console.log(element);
         if(!selectedCourse || (selectedCourse !== focusedCourse && currentFocusedElm !== element)){
             //setCurrentFocusedElm(element);
             dispatch(changeFocus(element));
@@ -117,14 +117,11 @@ export const ProgramMap = ({
     const rows = courses.map((courseList, index) => {
         const isSelected = selectedCourse && (courseList.findIndex(c => c.code === selectedCourse.code) !== -1);
         
-        return <StyledTermRow 
-                onDragEnter={dragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
-                className={isSelected?"selected-term":""}
-                key={index}
-                scope="row"
-                
-                >
-                    {<Term 
+        return (<Term 
+                    isSelected={isSelected}
+                    key={index}
+                   
+
                     handleDragStart={handleDragStart}
                     handleDragEnter={handleDragEnter}
                     isDragging={dragging}
@@ -140,8 +137,8 @@ export const ProgramMap = ({
                     handleClickSelectCourse={handleClickSelectCourse}
                     handleClickDeleteCourse={handleClickDeleteCourse}
                     filteredCourses={filteredCourses}
-                    />}
-                </StyledTermRow>;
+                    />)
+                ;
     });
     return (
     <StyledMap
@@ -161,7 +158,7 @@ export const ProgramMap = ({
                 </StyledMapHeading>
             </StyledMapRowResponsive>
         </StyledMapHead>
-        <StyledMapBody>
+        <StyledMapBody style={{width: '100%', height:'100%'}}>
             <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
                 <StyledFocusElement 
                     className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
@@ -211,18 +208,19 @@ ProgramMap.propType = {
 }
 
 const focusParentElmStyle = {
-    display:'inline', 
+    
+    position: 'relative', 
     width:'100%', 
     height:'100%', 
     position:'relative', 
-    top:'-3vmin', 
+    top:'-4vmin', 
     left:'0px'
 } 
 
 const focusParentElmStyleChrome = {
     ...focusParentElmStyle,
-    top: '0.1vmin',
-    left: '8.0vmin'
+    display:'inline',
+    
 }
 
 

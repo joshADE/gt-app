@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Table, Button } from 'reactstrap';
-import { popin, fadeinbottom } from './animations';
+import { fadeinbottom } from './animations';
 
 
 export const StyledMap = styled(Table)`

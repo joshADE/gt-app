@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import CourseClass from './model/CourseClass';
-import { FormGroup, Label, Input, Card } from 'reactstrap';
-import { StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
+import { FormGroup, Label, Input } from 'reactstrap';
+import { StyledMapDataAnimated, StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
 
 
 export class Course extends Component{
@@ -14,8 +14,8 @@ export class Course extends Component{
             credits:this.props.course.credits,
             message: 'Messages here',
         }
-        this.selectButton = React.createRef();
-        this.form = React.createRef();
+        this.theContainer = React.createRef();
+        this.theForm = React.createRef();
         this.timeout = null;
     }
 
@@ -62,37 +62,43 @@ export class Course extends Component{
 
     onSelect = (e) => {
         
-        if(this.form.current && !this.props.isSelected){
+        if(this.theContainer.current && !this.props.isSelected){
             if (this.timeout)
                 clearTimeout(this.timeout);
 
             this.timeout = setTimeout(() => {
                 //console.log(this);
-                // set the focus on the form element after the select button is cliked
-                // and setTimeout performs this after css removes the form from view
-                this.form.current.focus();
-                this.form.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+                // set the focus on the container element after the select button is cliked
+                // and setTimeout performs this after css removes the container from view
+                this.theContainer.current.focus();
+                this.theContainer.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
             }, 0); // 2sec is the transition
             //alert(this.selectButton);
         }
         this.props.handleClickSelectCourse(this.props.course.code);
 
-        this.props.toggleFocus(this.form, this.props.course);
+        this.props.toggleFocus(this.theContainer, this.props.course);
 
     }
 
     render(){
+        const { isDragging, getDraggingStyles, termIndex, courseIndex, handleDragStart, handleDragEnter } = this.props;
        const {code, name, grade, credits} = this.props.course;
-        let appliedclasses = "course ";
-        appliedclasses += this.props.isHighlighted? "highlighted " : " ";
-        appliedclasses += this.props.isSelected? "selected " : " ";
-       return(
-           
+        let appliedclasses = "course";
+        appliedclasses += this.props.isHighlighted? " highlighted" : "";
+        appliedclasses += this.props.isSelected? " selected " : "";
+       return(<StyledMapDataAnimated 
+                className={isDragging?getDraggingStyles({termI: termIndex, courseI: courseIndex}):"course"}
+                onDragStart={(e) => {handleDragStart(e, {termI: termIndex, courseI: courseIndex})}}
+                onDragEnter={isDragging?(e) => {handleDragEnter(e, {termI: termIndex, courseI: courseIndex})}:null}
+                draggable
+                ref={this.theContainer}
+            >
             <form
             onSubmit={this.onSubmit}
             style={courseStyle}
             className={appliedclasses}
-            ref={this.form}
+            ref={this.theForm}
             >
             
                 <span
@@ -182,7 +188,7 @@ export class Course extends Component{
                 >Delete(-)</StyledButtonDelete>
                 
             </form>
-        
+        </StyledMapDataAnimated>
        )
 
          

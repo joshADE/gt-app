@@ -6,7 +6,7 @@ export const StyledHeader = styled.header`
     text-align: center;
     border-radius: 5px 5px 0 0;
     color: #fff;
-    padding: 10px;
+    padding: 5px;
     height: 10vh;
 
     & a {
@@ -23,8 +23,8 @@ export const StyledHeader = styled.header`
     
 
     & svg {
-        width: 20px;
-        height: 20px;
+        width: 3vmin;
+        height: 3vmin;
         
         fill: white;
         transition: all 1s ease;

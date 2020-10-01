@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import AddCourse from './AddCourse';
 import Course from './Course';
 import { 
+    StyledTermRow,
     StyledMapHeading,
-    StyledMapData,
-    StyledMapDataAnimated
+    StyledMapData
 } from '../styles/components/programmapStyles';
 
 export const Term = ({
+    isSelected,
     termNumber, 
     courseList, 
     filteredCourses, 
@@ -34,33 +35,32 @@ export const Term = ({
         const coursesDisplay = 
         courseList.map((val, ind) => {
                         
-            const isHighlighted = (filteredCourses.find(val1 => 
+            const isHighlightedCourse = (filteredCourses.find(val1 => 
                 (val1.code === val.code)) !== undefined);            
 
-            const isSelected = selectedCourse && selectedCourse.code === val.code;
+            const isSelectedCourse = selectedCourse && selectedCourse.code === val.code;
                 
             
-            return (
-            <StyledMapDataAnimated 
-                className={isDragging?getDraggingStyles({termI: index, courseI: ind}):"course"}
-                onDragStart={(e) => {handleDragStart(e, {termI: index, courseI: ind})}}
-                onDragEnter={isDragging?(e) => {handleDragEnter(e, {termI: index, courseI: ind})}:null}
-                draggable
-                key={val.code}
-            >
-                <Course 
-                    toggleFocus={toggleFocus}
-                    
-                    term={index}
-                    handleClickEditCourse={handleClickEditCourse}
-                    handleClickDeleteCourse={handleClickDeleteCourse}
-                    handleClickSelectCourse={handleClickSelectCourse}
-                    course={val}
-                    isSelected={isSelected}
-                    isHighlighted={isHighlighted}
-                    
-                />
-            </StyledMapDataAnimated>);
+            return (<Course 
+                        key={val.code}
+                        isDragging={isDragging}
+                        getDraggingStyles={getDraggingStyles}
+                        handleDragStart={handleDragStart}
+                        handleDragEnter={handleDragEnter}
+                        termIndex={index}
+                        courseIndex={ind}
+
+                        toggleFocus={toggleFocus}
+                        
+                        term={index}
+                        handleClickEditCourse={handleClickEditCourse}
+                        handleClickDeleteCourse={handleClickDeleteCourse}
+                        handleClickSelectCourse={handleClickSelectCourse}
+                        course={val}
+                        isSelected={isSelectedCourse}
+                        isHighlighted={isHighlightedCourse}
+                        
+                    />);
         });
         const newCourseButtonDisplay = (
         <StyledMapData key={index + "x" + (coursesDisplay.length + 1)}>
@@ -70,11 +70,17 @@ export const Term = ({
             />
         </StyledMapData>);
 
-        return (
-            
-            [termDisplay, coursesDisplay, newCourseButtonDisplay]
-            
-        );
+        return (<StyledTermRow
+                    onDragEnter={isDragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
+                    className={isSelected?"selected-term":""}
+                    scope="row"
+        
+                >
+                    {
+                    [termDisplay, coursesDisplay, newCourseButtonDisplay]
+                    }
+                </StyledTermRow>
+                );
     
 }
 
