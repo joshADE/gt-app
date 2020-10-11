@@ -58,13 +58,13 @@ GradeFilter.propType = {
 }
 
 const gradeFilterStyle = {
-    
+    fontWeight: 700,
     padding: '0px 15px',
     borderRadius:'5px',
     display: 'flex',
     width: 'auto',
-    background: 'transparent',
-    border: '2px outset black',
+    background: '#727272',
+    // border: '1px solid black',
     color: 'white',
     height: '100%'
 };
@@ -80,9 +80,9 @@ const inputStyle = {
 
 const btnStyle = {
     display: 'inline-block',
-    border: '1px outset black',
-    background: '#677',
-    borderRadius: '5px',
+    border: '1px solid #9C9C9C',
+    background: '#64AA8E',
+    borderRadius: '15px',
     alignSelf: 'center',
     color: '#fff',
     padding: '2px 10px',

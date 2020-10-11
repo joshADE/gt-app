@@ -1,22 +1,19 @@
-import React from 'react'
-
+import React from 'react';
+import { StyledButtonPrimary } from '../styles/components/homeStyles';
 function SaveChanges(props) {
     return (
-        <input
+        <StyledButtonPrimary
             onClick={props.onSaveClick}
             style={buttonStyle}
-            className="btn btn-save"
+            //className="btn btn-save"
             type="button"
-            value="Save the changes"
-        />
+        >
+        Save the changes
+        </StyledButtonPrimary>
     )
 }
 const buttonStyle = {
-    borderRadius:'5px',
-    border:'2px outset black',
-    background: '#9cafb7',
-    height: '100%',
-    color: '#000',
+    fontSize: '1.1rem',
 };
 
 export default SaveChanges;

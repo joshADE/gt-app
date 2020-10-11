@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'reactstrap';
 
 export const StyledInner = styled.div`
     display: flex;
@@ -24,31 +25,33 @@ export const StyledInnerBottomHead = styled.div`
   display: flex;
   flex-direction: row;
   & > * {
-    margin-right: 2px;
+    margin: 1px 5px;
   }
-  padding: 2px;
+  padding: 1px;
   height: 40px;
   width: 100%;
-  background: ${({ theme }) => theme.button};
+  background: ${({ theme }) => theme.bgUI};
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  border-bottom: 1px solid black;
+  ${'' /* border-bottom: 1px solid black; */}
   ${'' /* transition: height 1s ease-in; */}
 `;
 
 export const StyledInnerBottomFoot = styled.div`
   height: 50px;
   transition: height 0.5s ease-out;
+  
+  border-radius: 0 0 15px 15px;
 `;
 
 export const StyledInnerBottom = styled.div`
   height: ${({ expanded }) => expanded?"300px":"100px"};
   max-height: 20%;
-  border: 1px solid ${({ theme }) => theme.border};
-  background: #677;
-  border-radius: 0 0 5px 5px;
+  ${'' /* border: 1px solid ${({ theme }) => theme.border}; */}
+  ${'' /* background: black; */}
+  border-radius: 0 0 15px 15px;
   /* used for animation of sideview, not implemented */
   transition: height 0.5s ease-out;
 
@@ -65,4 +68,26 @@ export const StyledInnerBottom = styled.div`
 
 
 
+export const StyledButtonPrimary = styled(Button)`
+    font-weight: 700;
+    border-radius: 15px;
+    border:1px solid #727272;
+    background: #11A860;
+    height: 100%;
+    color: #ECECEC;
+    &:hover {
+        background: #788;
+    }
+`;
 
+export const StyledButtonSecondary = styled(Button)`
+    font-weight: 700;
+    border-radius:15px;
+    border:1px solid #727272;
+    background: #A2E1CA;
+    height: 100%;
+    color: #11A860;
+    &:hover {
+        background: #788;
+    }
+`;

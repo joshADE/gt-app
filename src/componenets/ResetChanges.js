@@ -1,22 +1,20 @@
 import React from 'react'
-
+import { StyledButtonSecondary } from '../styles/components/homeStyles';
 function ResetChanges(props) {
     return (
-        <input
+        <StyledButtonSecondary
             type="button"
             onClick={props.onResetClick}
             style={buttonStyle}
-            className="btn btn-reset"
-            value="Reset the changes"
-        />
+            //className="btn btn-reset"
+            //value="Reset the changes"
+        >
+        Reset the changes
+        </StyledButtonSecondary>
     )
 }
 const buttonStyle = {
-    borderRadius:'5px',
-    border:'2px outset black',
-    background: '#CF6679',
-    height: '100%',
-    color: '#000',
+    fontSize: '1.1rem',
 };
 
 export default ResetChanges;

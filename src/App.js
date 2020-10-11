@@ -18,8 +18,8 @@ import { customSchoolName } from './redux/settings/settingsReducer';
 const defaultTheme = {
   bg: "#eee",
   bgAlt: '#999',
-  button: '#899',
-  buttonHover: '#899',
+  button: '#64AA8E',
+  buttonHover: '#64AA8E',
   sidePanel: 'lightgrey',
   border: '#222',
   color: "#495057",
@@ -27,20 +27,22 @@ const defaultTheme = {
   selectedTerm: '#ddd',
   selectedCourse: 'grey',
   bgBody: 'white',
+  bgUI: '#414141'
 }
 
 const darkmodeTheme = {
   ...defaultTheme,
-  bg: '#555',
+  bg: '#444',
   bgAlt: '#888',
-  button: '#777',
+  button: '#131a1a',
   buttonHover: '#777',
-  sidePanel: '#888',
+  sidePanel: 'darkgrey',
   border: '#ced4da',
   color: "white",
   selectedTerm: 'rgba(240, 240, 240, 0.2)',
   selectedCourse: 'white',
   bgBody: 'darkgrey',
+  bgUI: '#333'
 }
 
 class App extends Component {

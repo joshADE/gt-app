@@ -110,17 +110,18 @@ const gradeFinderStyle = {
     display: 'flex',
     alignItems: 'center',
     width: 'auto',
-    background: 'transparent',
-    border: '2px outset black',
+    background: '#727272',
+    // border: '2px outset black',
     color: 'white',
-    height: '100%'
+    height: '100%',
+    fontWeight: 700,
 };
 
 const btnStyle = {
     display: 'inline-block',
-    border: '1px outset black',
-    background: '#677',
-    borderRadius: '5px',
+    border: '1px solid #9C9C9C',
+    background: '#64AA8E',
+    borderRadius: '15px',
     color: '#fff',
     padding: '2px 10px',
     cursor: 'pointer',
