@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 # Grade-Tracker
 
@@ -11,6 +11,10 @@ This app was created to help students who have difficulty planning which courses
 -   [ ] Track CGPA's up to a certain term
 -   [ ] Analyze the courses to find which course a student will need help in based on prereq
 -   [ ] Make it easier to see which term a course belongs to if there are many courses in a specific term
+
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -80,4 +84,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 ## Screenshot
-![Screenshot of app](screenshot.PNG)
+![Screenshot of app](screenshot2.PNG)
