@@ -1,5 +1,7 @@
 import React, { } from 'react'
 import PropTypes from 'prop-types';
+import { Droppable } from 'react-beautiful-dnd';
+
 import AddCourse from './AddCourse';
 import Course from './Course';
 import { 
@@ -18,11 +20,8 @@ export const Term = ({
     handleClickDeleteCourse, 
     handleClickSelectCourse, 
     handleClickAddCourse,
-    // dragging props/events
-    handleDragStart,
-    handleDragEnter,
-    isDragging,
-    getDraggingStyles,
+
+    
 
     // focus
     toggleFocus
@@ -43,10 +42,8 @@ export const Term = ({
             
             return (<Course 
                         key={val.code}
-                        isDragging={isDragging}
-                        getDraggingStyles={getDraggingStyles}
-                        handleDragStart={handleDragStart}
-                        handleDragEnter={handleDragEnter}
+                        
+                        
                         termIndex={index}
                         courseIndex={ind}
 
@@ -70,16 +67,29 @@ export const Term = ({
             />
         </StyledMapData>);
 
-        return (<StyledTermRow
-                    onDragEnter={isDragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
+        return (
+        <Droppable 
+            droppableId={`${index}`}
+            direction={'horizontal'}
+        >
+        {(provided, _ ) => (
+        <StyledTermRow
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    //onDragEnter={isDragging && !courseList.length?(e) => handleDragEnter(e, {termI: index, courseI: 0}):null}
                     className={isSelected?"selected-term":""}
                     scope="row"
         
                 >
-                    {
-                    [termDisplay, coursesDisplay, newCourseButtonDisplay]
-                    }
+                    {termDisplay}
+                    
+                            
+                    {coursesDisplay}
+                    {provided.placeholder}
+                    {newCourseButtonDisplay}
                 </StyledTermRow>
+                )}
+        </Droppable>
                 );
     
 }

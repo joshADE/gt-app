@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Term from './Term';
 //import { v3, v4, v5 } from 'uuid'
@@ -34,63 +35,12 @@ export const ProgramMap = ({
 }) => {
     const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 
-    const [dragging, setDragging]  = useState(false);
-    const dragItem = useRef();
-    const dragNode = useRef();
+    
     const dispatch = useDispatch();
     //const [currentFocusedElm, setCurrentFocusedElm] = useState(null);
     //const [style, setStyle] = useState(null);
     const { currentFocusedElm, style } = useSelector(state => state.focus);
    
-
-
-
-    const handleDragStart = (e, params) => {
-        const elementAtMouse = document.elementFromPoint(e.clientX, e.clientY);
-        if (!elementAtMouse.classList.contains('dragholder')){
-            console.log("skipped");
-            e.preventDefault();
-            return;
-        }
-        console.log("drag started", params);
-        dragItem.current = params;
-        console.log(e.target);
-
-        dragNode.current = e.target;
-        dragNode.current.addEventListener('dragend', handleDragEnd);
-        setTimeout(() => {
-            setDragging(true);
-        }, 0);
-    }
-
-    const handleDragEnd = () => {
-        console.log("drag ended");
-
-        setDragging(false);
-        dragNode.current.removeEventListener('dragend', handleDragEnd);
-        dragItem.current = null;
-        dragNode.current = null;
-
-    }
-
-    const handleDragEnter = (e, params) => {
-        console.log("drag enter", params);
-        const currentItem = dragItem.current;
-        if (e.target !== dragNode.current){
-        //if (JSON.stringify(params) !== JSON.stringify(currentItem)){
-            console.log("Target no the same");
-            dispatch(dragEnter(params, currentItem));
-            dragItem.current = params;
-        }
-
-    }
-
-    const getDraggingStyles = (params) => {
-        const currentItem = dragItem.current;
-        if (currentItem.termI === params.termI && currentItem.courseI === params.courseI)
-            return 'current'
-        return 'course';
-    }
 
     const toggleFocus = (element, focusedCourse) => {
         console.log(element);
@@ -120,12 +70,7 @@ export const ProgramMap = ({
         return (<Term 
                     isSelected={isSelected}
                     key={index}
-                   
-
-                    handleDragStart={handleDragStart}
-                    handleDragEnter={handleDragEnter}
-                    isDragging={dragging}
-                    getDraggingStyles={getDraggingStyles}
+                    
 
                     toggleFocus={toggleFocus}
 
@@ -137,59 +82,78 @@ export const ProgramMap = ({
                     handleClickSelectCourse={handleClickSelectCourse}
                     handleClickDeleteCourse={handleClickDeleteCourse}
                     filteredCourses={filteredCourses}
-                    />)
-                ;
+                />
+            
+        );
     });
     return (
-    <StyledMap
-        responsive
-        bordered
-        size="sm"
-        
-    > 
-        <StyledMapHead>
-            <StyledMapRowResponsive>
-                <StyledMapHeading>Term</StyledMapHeading>
-                <StyledMapHeading 
-                style={{width: '100%'}}
-                colSpan={maxCourseYears + 1}
-                >
-                    Courses
-                </StyledMapHeading>
-            </StyledMapRowResponsive>
-        </StyledMapHead>
-        <StyledMapBody style={{width: '100%', height:'100%'}}>
-            <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
-                <StyledFocusElement 
-                    className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
-                    style={style}
-                />
-            </tr>
-            {rows}
-            <StyledMapRow>
-                <StyledMapData
-                style={{width: '100%'}} 
-                key={rows.length + 1}
-                colSpan={maxCourseYears + 2}>
-                <AddTerm 
-                termNumber={rows.length + 1}
-                handleClickAddTerm={handleClickAddTerm}
-                />
-                </StyledMapData>
-            </StyledMapRow>
-            <StyledMapRow>
-                <StyledMapData 
-                style={{width: '100%'}}
-                key={rows.length + 2}
-                colSpan={maxCourseYears + 2}>
-                <RemoveTerm 
-                termNumber={rows.length - 1}
-                handleClickRemoveTerm={handleClickRemoveTerm}
-                />
-                </StyledMapData>
-            </StyledMapRow>
-        </StyledMapBody>
-    </StyledMap>
+        <DragDropContext 
+            onDragEnd={(param) => {
+                if(param.destination){
+                    dispatch(dragEnter(
+                        {
+                            termI: Number(param.destination.droppableId),
+                            courseI: param.destination.index
+                        }, 
+                        {
+                            termI: Number(param.source.droppableId),
+                            courseI: param.source.index
+                        }
+                    ));
+                }
+                console.log(param);
+            }}
+        >
+            <StyledMap
+                responsive
+                bordered
+                size="sm"
+                
+            > 
+                <StyledMapHead>
+                    <StyledMapRowResponsive>
+                        <StyledMapHeading>Term</StyledMapHeading>
+                        <StyledMapHeading 
+                        style={{width: '100%'}}
+                        colSpan={maxCourseYears + 1}
+                        >
+                            Courses
+                        </StyledMapHeading>
+                    </StyledMapRowResponsive>
+                </StyledMapHead>
+                <StyledMapBody style={{width: '100%', height:'100%'}}>
+                    <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
+                        <StyledFocusElement 
+                            className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
+                            style={style}
+                        />
+                    </tr>
+                    {rows}
+                    <StyledMapRow>
+                        <StyledMapData
+                        style={{width: '100%'}} 
+                        key={rows.length + 1}
+                        colSpan={maxCourseYears + 2}>
+                        <AddTerm 
+                        termNumber={rows.length + 1}
+                        handleClickAddTerm={handleClickAddTerm}
+                        />
+                        </StyledMapData>
+                    </StyledMapRow>
+                    <StyledMapRow>
+                        <StyledMapData 
+                        style={{width: '100%'}}
+                        key={rows.length + 2}
+                        colSpan={maxCourseYears + 2}>
+                        <RemoveTerm 
+                        termNumber={rows.length - 1}
+                        handleClickRemoveTerm={handleClickRemoveTerm}
+                        />
+                        </StyledMapData>
+                    </StyledMapRow>
+                </StyledMapBody>
+            </StyledMap>
+    </DragDropContext>
     )
 }
 

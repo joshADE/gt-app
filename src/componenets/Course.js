@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { Draggable } from 'react-beautiful-dnd';
+import composeRefs from '@seznam/compose-react-refs'
+
 import CourseClass from './model/CourseClass';
 import { FormGroup, Label, Input } from 'reactstrap';
 import { StyledMapDataAnimated, StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
@@ -82,17 +85,23 @@ export class Course extends Component{
     }
 
     render(){
-        const { isDragging, getDraggingStyles, termIndex, courseIndex, handleDragStart, handleDragEnter } = this.props;
+        const { termIndex, courseIndex } = this.props;
        const {code, name, grade, credits} = this.props.course;
         let appliedclasses = "course";
         appliedclasses += this.props.isHighlighted? " highlighted" : "";
         appliedclasses += this.props.isSelected? " selected " : "";
-       return(<StyledMapDataAnimated 
-                className={isDragging?getDraggingStyles({termI: termIndex, courseI: courseIndex}):"course"}
-                onDragStart={(e) => {handleDragStart(e, {termI: termIndex, courseI: courseIndex})}}
-                onDragEnter={isDragging?(e) => {handleDragEnter(e, {termI: termIndex, courseI: courseIndex})}:null}
-                draggable
-                ref={this.theContainer}
+       return(
+       <Draggable
+            draggableId={`draggable-${code}`}
+            index={courseIndex}
+       >
+       {(provided, snapshot) => (
+       <StyledMapDataAnimated 
+                className="course"
+                
+                ref={composeRefs(provided.innerRef, this.theContainer)}
+                {...provided.draggableProps}
+                
             >
             <form
             onSubmit={this.onSubmit}
@@ -104,7 +113,7 @@ export class Course extends Component{
                 <span
                     className="dragholder" 
                     style={dragholder}
-                      
+                    {...provided.dragHandleProps}
                 >
                 
                 </span>
@@ -189,6 +198,8 @@ export class Course extends Component{
                 
             </form>
         </StyledMapDataAnimated>
+        )}
+        </Draggable>
        )
 
          
