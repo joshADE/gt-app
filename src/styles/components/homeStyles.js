@@ -20,6 +20,12 @@ export const StyledInnerTop = styled.div`
     border-right: 1px solid ${({ theme }) => theme.border};
 `;
 
+export const StyledInnerBottomHeadContainer = styled.div`
+    background: ${({ theme }) => theme.bgUI};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 
 export const StyledInnerBottomHead = styled.div`
   display: flex;

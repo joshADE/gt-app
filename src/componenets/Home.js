@@ -19,6 +19,7 @@ import ProgramMap from './ProgramMap';
 import { notify } from './Notification';
 import App from '../App';
 import * as CourseActionCreators from '../redux';
+import SideViewHeader from './SideViewHeader';
 
 
 class Home extends Component {
@@ -81,7 +82,9 @@ class Home extends Component {
             <StyledInnerBottom 
               expanded={(this.props.selectedCourse !== null)}
             >
-              <StyledInnerBottomHead>
+              {/* Contains StyledInnerBottomHead */}
+              <SideViewHeader> 
+
                 <SaveChanges
                     onSaveClick={() => this.saveCourseData()}
                 />
@@ -94,7 +97,8 @@ class Home extends Component {
                 <CGPACalculator 
                     courses={this.props.courses}
                 /> 
-              </StyledInnerBottomHead>
+              </SideViewHeader>
+              
               <StyledInnerBottomFoot>
                     
                 <SideView 
