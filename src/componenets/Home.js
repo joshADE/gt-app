@@ -24,6 +24,12 @@ import SideViewHeader from './SideViewHeader';
 
 class Home extends Component {
 
+  componentWillUnmount = () => {
+    // this is a temporary fix for the problems that I'm getting with
+    // the focusElement and react-select not updating properly when you 
+    // exit the Home component 
+    this.props.clearSelected();
+  }
   resetChanges = () => {
     let confirmed = window.confirm("Are you sure you want to reset to the last saved changes?");
     if (!confirmed){

@@ -5,7 +5,7 @@ import composeRefs from '@seznam/compose-react-refs'
 
 import CourseClass from './model/CourseClass';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { StyledMapDataAnimated, StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
+import { StyledCourseData , StyledButtonDelete, StyledButton, StyledButtonSave } from '../styles/components/programmapStyles';
 
 
 export class Course extends Component{
@@ -85,20 +85,20 @@ export class Course extends Component{
     }
 
     render(){
-        const { termIndex, courseIndex } = this.props;
+        const { termIndex, courseIndex, isEditing } = this.props;
        const {code, name, grade, credits} = this.props.course;
         let appliedclasses = "course";
         appliedclasses += this.props.isHighlighted? " highlighted" : "";
         appliedclasses += this.props.isSelected? " selected " : "";
-       return(
+        return(
        <Draggable
             draggableId={`draggable-${code}`}
             index={courseIndex}
        >
        {(provided, snapshot) => (
-       <StyledMapDataAnimated 
+       <StyledCourseData 
                 className="course"
-                
+                isEditing={isEditing}
                 ref={composeRefs(provided.innerRef, this.theContainer)}
                 {...provided.draggableProps}
                 
@@ -117,9 +117,10 @@ export class Course extends Component{
                 >
                 
                 </span>
+                {(isEditing && (
                 <Label style={{alignSelf:'center'}}>
                     {this.state.message}
-                </Label>
+                </Label>))}
                 <FormGroup>
                     <span>
                     <Label>Course Code:</Label>{' '}
@@ -130,7 +131,9 @@ export class Course extends Component{
                     <Label>Name:</Label>{' '}
                     {name}
                     </span>
-                    <br />
+                    
+                    <br /> 
+                    {(isEditing && (
                     <span>
                     <Label for="newNameInput">New Name:</Label>{' '}
                     <Input 
@@ -141,13 +144,14 @@ export class Course extends Component{
                         value={this.state.courseName}
                         onChange={this.onChange}
                     />
-                    </span>
+                    </span>))}
                     <br />
                     <span>
                     <Label>Grade:</Label>{' '}
                     {grade}
                     </span>
                     <br />
+                    {(isEditing && (
                     <span>
                     <Label for="newGradeInput">New Grade:</Label>{' '}
                     <Input 
@@ -158,14 +162,14 @@ export class Course extends Component{
                         value={this.state.grade}
                         onChange={this.onChange}
                     />
-                    </span>
+                    </span>))}
                     <br />
                     <span>
                     <Label>Credits/Units:</Label>{' '}
                     {credits}
                     </span>
                     <br />
-                    <span>
+                    {(isEditing && (<span>
                     <Label for="newCreditInput">New Credits:</Label>{' '}
                     <Input 
                         id="newCreditInput"
@@ -175,7 +179,7 @@ export class Course extends Component{
                         value={this.state.credits}
                         onChange={this.onChange}
                     />
-                    </span>
+                    </span>))}
                 </FormGroup>
                 <StyledButton 
                     style={buttonStyle}
@@ -184,20 +188,21 @@ export class Course extends Component{
                         this.onSelect
                     }
                 >{this.props.isSelected?"Deselect":"Select"}</StyledButton>
-                <StyledButtonSave 
+                {(isEditing && (<StyledButtonSave 
                     style={buttonStyle}
                     type="submit"
-                >Set changes</StyledButtonSave>
+                >Set changes</StyledButtonSave>))}
+                {(isEditing && (
                 <StyledButtonDelete 
                     style={buttonStyle}
                     type="button"
                     onClick={
                         this.props.handleClickDeleteCourse.bind(this,this.props.term, this.props.course.code)
                     }
-                >Delete(-)</StyledButtonDelete>
+                >Delete(-)</StyledButtonDelete>))}
                 
             </form>
-        </StyledMapDataAnimated>
+        </StyledCourseData>
         )}
         </Draggable>
        )
@@ -242,7 +247,6 @@ const courseStyle = {
     borderRadius: '5px',
     fontWeight: 'bold',
     height: '100%',
-    minHeight: '300px',
     width: '100%',
     padding: '5px', 
 };

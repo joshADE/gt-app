@@ -102,7 +102,7 @@ const addCourseStyle = {
     textAlign: 'center',
     justifyContent: 'center',
     height: 'auto',
-    minHeight: '300px',
+    paddingTop: '25%',
     width: '100%',
 }
 

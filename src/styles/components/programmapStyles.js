@@ -57,6 +57,13 @@ export const StyledMapHeading = styled.th`
     background-clip: padding-box;
     border: 1px solid ${({ theme }) => theme.border} !important;
     border-radius: .25rem;
+    & svg {
+        width: 20px;
+        height: 20px;
+        path {
+            fill: ${({ theme, isEditing }) => isEditing?theme.button : 'grey'};
+        }
+    }
     @media screen and (max-width: ${({ theme }) => theme.breakpoint}){
         max-height: 70px;
     }
@@ -70,9 +77,12 @@ export const StyledMapData = styled.td`
     
 `; 
 
-export const StyledMapDataAnimated = styled(StyledMapData)`
+export const StyledCourseData = styled(StyledMapData)`
+    transition: height 0.5s ease;
+    height: ${({ isEditing }) => isEditing?'57vh':'30vh'};
     animation: ${fadeinbottom} 1s ease once;
 `;
+
 
 export const StyledMapRow = styled.tr`
     display: flex;
