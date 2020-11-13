@@ -105,10 +105,10 @@ export const ProgramMap = ({
             }}
         >
             <StyledMap
-                responsive
+                
                 bordered
                 size="sm"
-                
+
             > 
                 <StyledMapHead>
                     <StyledMapRowResponsive>
