@@ -1,12 +1,8 @@
-import React, { Component, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { StyledButtonShow, StyledSelect, StyledContainer, StyleResponsiveContainer } from '../styles/components/sideviewStyles';
+import React, { useState, useEffect } from 'react'
 import { StyledButtonSave } from '../styles/components/programmapStyles';
-import Progression from './Progression';
+import { StyledButtonShow, StyledSelect } from '../styles/components/sideviewStyles';
 
-
-function SideView ({
+function SideViewForm({
     sendNotification,
     selectedCourse,
     selectedTerm,
@@ -18,8 +14,7 @@ function SideView ({
     handleClickShowPrereq,
     handleClickShowCoreq
 }) {
-
-    
+        
     const [state, setState] = useState({
         prereqCourses: [],
         coreqCourses:[]
@@ -44,6 +39,7 @@ function SideView ({
         });
     }
 
+    
     // Transforms a course into a format used by 'react-select'
     const getSelectOption = (course) => {
         return {value: course.code, label: course.code };
@@ -80,20 +76,14 @@ function SideView ({
         console.log(crs);
         handleClickEditCoreq(code, crs);
         //forceUpdate();
-
-        // Somehow the Progression child Component only recieves 
-        // props and then rerenders when 
-        // state changes locally in this component
-        setState({...state});
     }
 
+    
 
     useEffect(() => {
         updateState();
     }, [ prereq, coreq, courses, selectedCourse, selectedTerm]);
     
-
-
     
 
     const updateState = () => {
@@ -157,25 +147,7 @@ function SideView ({
         
     }
 
-
-
-        const shouldShow = (selectedCourse !== null);
-        
-        if (!shouldShow){
-            return (
-                <StyledContainer>
-                    <h2>Advanced Course Edit</h2>
-                    <p>You must select a course first</p>
-                    
-                </StyledContainer>
-            );
-        }
-        
-        
-
-
     
-
         // get the available options for the prereq courses
         let selectPrereq = courses.slice(0, selectedTerm);
         let selectOptionsPrereq = [].concat.apply([], selectPrereq); // flatten the 2d array
@@ -204,108 +176,63 @@ function SideView ({
         
 
 
-       
-        const form = 
-                <form
-                onSubmit={onSubmit}
-                sytle={formStyle}
-                className="sideViewForm"
-                >
-                    
-                    
-                    <div>
-                        <label>Prerequisites</label>
-                        <br/>
-                        <StyledButtonShow
-                            style={buttonShowStyle}
-                            type="button"
-                            onClick={handleClickShowPrereq.bind(this, selectedCourse.code)}
-                        >Highlight Pre-requisites</StyledButtonShow>
-                        <StyledSelect 
-                            
-                            styles={customStyles}
-                            onChange={onChange}
-                            name="prereqCourses"
-                            isMulti 
-                            options={selectOptionsPrereq}
-                            value={state.prereqCourses}
-                        />
-                    </div>
 
-                    <div>
-                        <label>Corequisites</label>
-                        <br/>
-                        <StyledButtonShow 
-                            style={buttonShowStyle}
-                            type="button"
-                            onClick={handleClickShowCoreq.bind(this, selectedCourse.code)}
-                        >Highlight Co-requisites</StyledButtonShow>
-                        <StyledSelect 
-                            
-                            styles={customStyles}
-                            onChange={onChange}
-                            name="coreqCourses"
-                            isMulti 
-                            options={selectOptionsCoreq}
-                            value={state.coreqCourses}
-                        />
-                    </div>
-                
-                    <div style={{textAlign:'center', fontWeight:'bold'}}>
-                        Remember to click accept changes after making changes
-                    </div>
-
-   
-                    <StyledButtonSave type="submit">Accept Changes</StyledButtonSave>
-  
-                         
-                </form>
-                ;
-
-
-
-
-        return (
-            <StyledContainer>
-                
-                <h2>Advanced Course Edit</h2>
-                <h3>For course: {selectedCourse.code}</h3>
-                    
-                <StyleResponsiveContainer>
-                    {form}
-                    <Progression
-                            prereq={prereq}
-                            selectedCourse={selectedCourse}
-                    />  
-                </StyleResponsiveContainer>
-            </StyledContainer>
-        );
-        
     
-}   
+    return (
+        <form
+            onSubmit={onSubmit}
+            sytle={formStyle}
+            className="sideViewForm"
+        > 
+            <div>
+                <label>Prerequisites</label>
+                <br/>
+                <StyledButtonShow
+                    style={buttonShowStyle}
+                    type="button"
+                    onClick={handleClickShowPrereq.bind(this, selectedCourse.code)}
+                >Highlight Pre-requisites</StyledButtonShow>
+                <StyledSelect 
+                    
+                    styles={customStyles}
+                    onChange={onChange}
+                    name="prereqCourses"
+                    isMulti 
+                    options={selectOptionsPrereq}
+                    value={state.prereqCourses}
+                />
+            </div>
+
+            <div>
+                <label>Corequisites</label>
+                <br/>
+                <StyledButtonShow 
+                    style={buttonShowStyle}
+                    type="button"
+                    onClick={handleClickShowCoreq.bind(this, selectedCourse.code)}
+                >Highlight Co-requisites</StyledButtonShow>
+                <StyledSelect 
+                    
+                    styles={customStyles}
+                    onChange={onChange}
+                    name="coreqCourses"
+                    isMulti 
+                    options={selectOptionsCoreq}
+                    value={state.coreqCourses}
+                />
+            </div>
+        
+            <div style={{textAlign:'center', fontWeight:'bold'}}>
+                Remember to click accept changes after making changes
+            </div>
 
 
-// PropTypes
-SideView.propType = {
-    sendNotification: PropTypes.func.isRequired,
-    handleClickEditCourse: PropTypes.func.isRequired,
-    courses: PropTypes.array.isRequired,
-    selectedTerm: PropTypes.number.isRequired,
-    selectedCourse: PropTypes.object.isRequired,
-    prereq: PropTypes.array.isRequired,
-    coreq: PropTypes.array.isRequired,
-    handleClickEditPrereq: PropTypes.func.isRequired,
-    handleClickEditCoreq: PropTypes.func.isRequired,
+            <StyledButtonSave type="submit">Accept Changes</StyledButtonSave>
+
+                    
+        </form>
+    )
 }
-
-// const sideViewStyle = {
-//     background: 'lightgrey',
-//     width: '100%',
-//     textAlign: 'center',
-//     border: '2px solid grey',    
-//     overflowY: 'scroll',
-//     height: '100%', 
-// }
 
 const buttonShowStyle = {
     
@@ -334,5 +261,4 @@ const customStyles = {
 
 }
 
-
-export default SideView
+export default SideViewForm
