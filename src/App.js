@@ -88,6 +88,7 @@ class App extends Component {
     const dataStringCoreq = localStorage.getItem(App.localStorageKey+"coreq");
 
     if (!dataStringCourses){
+      this.props.loadCourses([[]], {}, []);
       return;
     }
     const dataObjectCourses = JSON.parse(dataStringCourses);

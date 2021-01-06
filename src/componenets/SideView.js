@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { StyledButtonShow, StyledSelect, StyledContainer, StyleResponsiveContainer } from '../styles/components/sideviewStyles';
 import { StyledButtonSave } from '../styles/components/programmapStyles';
 import Progression from './Progression';
+import { NonceProvider } from 'react-select';
 
 
 function SideView ({
@@ -329,7 +330,14 @@ const customStyles = {
         ...provided,
         overflowY: 'scroll',
         height: 30,
-      }),
+        boxShadow: state.isFocused? '0 0 0 1px #3CB371': 'none',
+        //borderColor: state.isFocused || state.isSelected || state.isActive ? '#3CB371': 'transparent',
+        //boxShadow: state.isFocused || state.isSelected || state.isActive ? '0 0 0 .2rem rgba(60,179,113, 0.2)': 'none',
+        //outline: state.isFocused || state.isSelected ||  state.isActive ? '1px solid rgba(60,179,113, 0.2)': 'none',
+    }),
+      input: (provided, state) => ({
+          ...provided,
+      })
 
 
 }

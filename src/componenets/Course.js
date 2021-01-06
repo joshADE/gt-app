@@ -75,7 +75,7 @@ export class Course extends Component{
                 // and setTimeout performs this after css removes the container from view
                 this.theContainer.current.focus();
                 this.theContainer.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-            }, 0); // 2sec is the transition
+            }, 500); // 2sec is the transition
             //alert(this.selectButton);
         }
         this.props.handleClickSelectCourse(this.props.course.code);
