@@ -5,6 +5,7 @@ import * as AllActionsCreators from '../redux/index';
 import { CustomInput } from 'reactstrap';
 import GPASettings from './GPASettings';
 import App from '../App';
+import ImportExportSettings from './ImportExportSettings';
 function Settings(props) {
   const changeDarkmode = () => {
     props.toggleDarkmode();
@@ -15,7 +16,10 @@ function Settings(props) {
   },[props.darkmode]);
     return (
         <div>
+          <ImportExportSettings />
+          <hr />
           <CustomInput checked={props.darkmode} onChange={changeDarkmode} type="switch" id="nightModeSwitch" name="nightModeSwitch" label="Toggle NightMode" /> 
+          <hr />
           <GPASettings /> 
         </div>
     )

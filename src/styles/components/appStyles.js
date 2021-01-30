@@ -10,3 +10,10 @@ export const StyledAppContainer = styled.div`
     box-shadow: 0 0 0 .2rem rgba(60,179,113, 0.2);
   }
 `;
+
+export const StyledFileInput = styled.input`
+  padding: 0.2rem;
+  background-color: #eee;
+  border-radius: 5px;
+  border: 1px solid #444;
+`;
