@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import FileSaver, { saveAs } from 'file-saver';
 import { Button, Input, Label, FormGroup } from 'reactstrap'
 import { loadCourses } from '../redux/course/courseActions';
 import CourseClass from './model/CourseClass';
@@ -126,6 +127,46 @@ function export_csv(arrayHeader, terms, prereq, coreq, delimiter, fileName) {
     hiddenElement.click();
 }
 
+function import_json (input, callback) {
+    console.log(input);
+    if (input.files && input.files[0]){
+        let reader = new FileReader();
+        reader.readAsText(input.files[0], 'UTF-8');
+        reader.onload = function(e) {
+            console.log(e);
+            obj_csv.size = e.total;
+            obj_csv.dataFile = e.target.result;
+            console.log(obj_csv.dataFile);
+            if (parseJSONData(obj_csv.dataFile)){
+                callback();
+            }
+        }
+    }
+}
+
+function parseJSONData(data) {
+    try {
+        let obj = JSON.parse(data);
+        console.log(obj);
+        if (obj.courses && obj.prereq && obj.coreq){
+            loadCoursesPayload.courses = obj.courses;
+            loadCoursesPayload.prereq = obj.prereq;
+            loadCoursesPayload.coreq = obj.coreq;
+            return true;
+        }
+        return false;
+    }catch(e){
+        return false;
+    }
+    
+}
+
+function export_json (courses, prereq, coreq, fileName){
+    var json = JSON.stringify({courses, prereq, coreq });
+    var blob = new Blob([json], { type:"application/json;charset=utf-8"});
+    FileSaver.saveAs(blob, fileName+".json");
+}
+
 function ImportExportSettings() {
     const [type, setType] = useState('json');
     const { courses, prereq, coreq } = useSelector(state => state.courses)
@@ -138,7 +179,16 @@ function ImportExportSettings() {
 
     const handleImport = () => {
         if (type === 'json') {
-
+            if (fileUploadRef.current){
+                import_json(fileUploadRef.current, () => {
+                    dispatch(loadCourses(
+                        loadCoursesPayload.courses,
+                        loadCoursesPayload.prereq,
+                        loadCoursesPayload.coreq
+                    ));
+                    notify('Import successful!');
+                });
+            }
         }else if (type === 'csv'){
             if (fileUploadRef.current){
                 import_csv(fileUploadRef.current, () => {
@@ -155,7 +205,7 @@ function ImportExportSettings() {
 
     const handleExport = () => {
         if (type === 'json') {
-
+            export_json(courses, prereq, coreq, 'courses');
         }else if (type === 'csv'){
             export_csv(['name', 'code', 'grade', 'credits'], courses, prereq, coreq, ',', 'courses');
         }
