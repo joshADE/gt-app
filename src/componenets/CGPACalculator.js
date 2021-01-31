@@ -11,6 +11,7 @@ export class CGPACalculator extends Component {
         this.state = {
             term: this.props.courses.length, // last term
             CGPA: 0,
+            type: 'up to'
         };
     }
 
@@ -30,10 +31,15 @@ export class CGPACalculator extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const { courses, schools, currentSchool } = this.props;
-        const { term } = this.state;
+        const { term, type } = this.state;
         if (term > -1){
-            let allcourses = courses.slice(0, term);
-            allcourses = [].concat.apply([], allcourses); // flatten the 2d array
+            let allcourses = [];
+            if (type === 'up to'){
+                allcourses = courses.slice(0, term);
+                allcourses = [].concat.apply([], allcourses); // flatten the 2d array
+            }else if (type === 'at'){
+                allcourses = courses[term - 1];
+            }
             if (schools[currentSchool] && schools[currentSchool].length !== 0){
                 let GPAStops = schools[currentSchool];
                 GPAStops = GPAStops.sort((a, b) => b.upper - a.upper);
@@ -56,7 +62,7 @@ export class CGPACalculator extends Component {
         }
     }
 
-    onChange = (e) => this.setState({[e.target.name]: e.target.value });
+    onChange = (e) => this.setState({[e.target.name]: e.target.value, CGPA: 0 });
 
     
     render() {
@@ -78,7 +84,13 @@ export class CGPACalculator extends Component {
             onSubmit={this.onSubmit}
             >
                 <Label>Using {!schools[currentSchool] ||schools[currentSchool].length === 0? 'no grade point conversion': currentSchool + '\'s grade point conversion'}, </Label>
-                <Label style={{width: 'auto' }}>GPA of the courses up to term:</Label>
+                <Label style={{width: 'auto' }}>GPA of the courses|</Label>
+                {' '}
+                <Label><input type="radio" name="type" value="up to" onChange={this.onChange} checked={this.state.type === 'up to'} /> up to </Label>{' '} 
+                {' '}
+                <Label><input type="radio" name="type" value="at" onChange={this.onChange} checked={this.state.type === 'at'} /> at </Label>{' '}
+                {' '}
+                <Label>|term:</Label>
                 
                 <Input type="select" id="exampleSelect"
                 style={inputStyle} 
@@ -91,8 +103,7 @@ export class CGPACalculator extends Component {
                 
                 <input type="submit" style={btnStyle} value="Calculate"/>
                 
-                <Label style={{width: 'auto' }}>CGPA: {this.state.CGPA}</Label>
-                
+                <Label style={{width: 'auto' }}>{(this.state.type === 'up to' ? 'CGPA': 'GPA')}: {this.state.CGPA}</Label>
             </form>
             
         )
