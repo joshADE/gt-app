@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/Grade-Tracker/static/css/main.26ba7ed5.chunk.css",
-    "main.js": "/Grade-Tracker/static/js/main.abade28b.chunk.js",
-    "main.js.map": "/Grade-Tracker/static/js/main.abade28b.chunk.js.map",
+    "main.js": "/Grade-Tracker/static/js/main.ed16ceca.chunk.js",
+    "main.js.map": "/Grade-Tracker/static/js/main.ed16ceca.chunk.js.map",
     "runtime-main.js": "/Grade-Tracker/static/js/runtime-main.2039763e.js",
     "runtime-main.js.map": "/Grade-Tracker/static/js/runtime-main.2039763e.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/Grade-Tracker/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.d64e1691.chunk.js": "/Grade-Tracker/static/js/2.d64e1691.chunk.js",
-    "static/js/2.d64e1691.chunk.js.map": "/Grade-Tracker/static/js/2.d64e1691.chunk.js.map",
+    "static/js/2.94c38753.chunk.js": "/Grade-Tracker/static/js/2.94c38753.chunk.js",
+    "static/js/2.94c38753.chunk.js.map": "/Grade-Tracker/static/js/2.94c38753.chunk.js.map",
     "index.html": "/Grade-Tracker/index.html",
     "static/css/2.ae9f1eb3.chunk.css.map": "/Grade-Tracker/static/css/2.ae9f1eb3.chunk.css.map",
     "static/css/main.26ba7ed5.chunk.css.map": "/Grade-Tracker/static/css/main.26ba7ed5.chunk.css.map",
-    "static/js/2.d64e1691.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.d64e1691.chunk.js.LICENSE.txt"
+    "static/js/2.94c38753.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.94c38753.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2039763e.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.d64e1691.chunk.js",
+    "static/js/2.94c38753.chunk.js",
     "static/css/main.26ba7ed5.chunk.css",
-    "static/js/main.abade28b.chunk.js"
+    "static/js/main.ed16ceca.chunk.js"
   ]
 }
