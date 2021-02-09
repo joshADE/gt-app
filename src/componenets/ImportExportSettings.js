@@ -186,7 +186,7 @@ function ImportExportSettings() {
                         loadCoursesPayload.prereq,
                         loadCoursesPayload.coreq
                     ));
-                    notify('Import successful!');
+                    notify('Import successful!', 'success');
                 });
             }
         }else if (type === 'csv'){
@@ -197,7 +197,7 @@ function ImportExportSettings() {
                         loadCoursesPayload.prereq,
                         loadCoursesPayload.coreq
                     ));
-                    notify('Import successful!');
+                    notify('Import successful!', 'success');
                 });
             }
         }
