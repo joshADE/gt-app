@@ -2,7 +2,7 @@
 
 # Grade-Tracker
 
-This app is designed to aid students when managing their courses. It primarily functions as a record keeper to help in tracking the GPA scores throughout a student’s program. Some of its other features include keeping track of the prerequisite and corequisite courses and finding courses matching certain grade criteria. I plan to add several more features to it soon including providing course recommendations using the course prerequisite/corequisite courses. (Screenshots below)
+A simple React app that can help keep track of grades throughout the school years. It not only keeps track of CGPA per term, but also tracks prerequisite and corequisite courses and can find courses matching certain grade criteria. It also supports grade conversion for multiple schools. (Screenshots below)
 
 
 #### To-do
