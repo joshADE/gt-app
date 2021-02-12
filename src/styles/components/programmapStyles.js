@@ -60,6 +60,7 @@ export const StyledMapHeading = styled.th`
     & svg {
         width: 20px;
         height: 20px;
+        cursor: pointer;
         path {
             fill: ${({ theme, isEditing }) => isEditing?theme.button : 'grey'};
         }

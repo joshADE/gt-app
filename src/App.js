@@ -61,7 +61,10 @@ class App extends Component {
 
   onWindowResize = () => {
     //if (this.props.currentFocusedElm){
-      this.props.changeStyle();
+      // another fix
+      setTimeout(() => {
+        this.props.changeStyle();
+      }, 500);
     //}
   }
 

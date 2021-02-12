@@ -11,7 +11,7 @@ export const StyledInner = styled.div`
 
 export const StyledInnerTop = styled.div`
     background-color: ${({ theme }) => theme.bgAlt};
-    height: auto;
+    height: 100vh; ${'' /*  a fix */}
     overflow-y: scroll;
     max-height: 80%;
     max-width: 100%;
