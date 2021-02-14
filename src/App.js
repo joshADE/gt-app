@@ -27,14 +27,18 @@ const defaultTheme = {
   selectedTerm: '#ddd',
   selectedCourse: 'grey',
   bgBody: 'white',
-  bgUI: '#414141'
+  bgUI: '#414141',
+  buttonPrimaryBG: '#11A860',
+  buttonPrimaryColor: '#ECECEC',
+  buttonSecondaryBG: '#A2E1CA',
+  buttonSecondaryColor: '#11A860'
 }
 
 const darkmodeTheme = {
   ...defaultTheme,
-  bg: '#444',
-  bgAlt: '#888',
-  button: '#131a1a',
+  bg: '#0d1117',
+  bgAlt: '#161b22',
+  button: '#30363d',
   buttonHover: '#777',
   sidePanel: 'darkgrey',
   border: '#ced4da',
@@ -42,7 +46,11 @@ const darkmodeTheme = {
   selectedTerm: 'rgba(240, 240, 240, 0.2)',
   selectedCourse: 'white',
   bgBody: 'darkgrey',
-  bgUI: '#333'
+  bgUI: '#30363d',
+  buttonPrimaryBG: '#7bb',
+  buttonPrimaryColor: '#fff',
+  buttonSecondaryBG: '#7aa',
+  buttonSecondaryColor: '#fff'
 }
 
 class App extends Component {

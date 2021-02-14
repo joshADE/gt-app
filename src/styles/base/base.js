@@ -26,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
     h2{ font-size: 16px; }
     h3{ font-size: 12px; }
     h4{ font-size: 8px; }
-    input{font-size: 1.5vmin; padding: 0;}
+    input{font-size: 10px; padding: 0;}
 
 `;
 

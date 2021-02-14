@@ -274,10 +274,10 @@ function SideView ({
                     
                 <StyleResponsiveContainer>
                     {form}
-                    <Progression
+                    {/* <Progression
                             prereq={prereq}
                             selectedCourse={selectedCourse}
-                    />  
+                    />   */}
                 </StyleResponsiveContainer>
             </StyledContainer>
         );

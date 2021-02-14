@@ -26,7 +26,7 @@ function SideViewHeader(props) {
         if (sideViewHeaderContainer.current){
             let { scrollHeight, clientHeight, scrollTop } = sideViewHeaderContainer.current;
             
-            setMaxPages(scrollHeight / clientHeight);
+            setMaxPages(Math.floor(scrollHeight / clientHeight));
             //setPageNumber(Math.floor(scrollTop / clientHeight) + 1);
             //setLastScrollTop(0);
             sideViewHeaderContainer.current.scrollTo({
@@ -44,7 +44,7 @@ function SideViewHeader(props) {
           let { scrollTop, clientHeight, scrollHeight } = sideViewHeaderContainer.current;
           
           setPageNumber(Math.floor(scrollTop / clientHeight) + 1);
-          setMaxPages(scrollHeight / clientHeight);
+          setMaxPages(Math.floor(scrollHeight / clientHeight));
 
         }
     } 

@@ -36,6 +36,7 @@ export const StyledInnerBottomHead = styled.div`
   padding: 1px;
   height: 40px;
   width: 100%;
+  border-top: 1px solid ${({ theme }) => theme.border};
   background: ${({ theme }) => theme.bgUI};
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -78,9 +79,9 @@ export const StyledButtonPrimary = styled(Button)`
     font-weight: 700;
     border-radius: 15px;
     border:1px solid #727272;
-    background: #11A860;
+    background: ${({ theme }) => theme.buttonPrimaryBG};
     height: 100%;
-    color: #ECECEC;
+    color: ${({ theme }) => theme.buttonPrimaryColor};
     &:hover {
         background: #788;
     }
@@ -90,9 +91,9 @@ export const StyledButtonSecondary = styled(Button)`
     font-weight: 700;
     border-radius:15px;
     border:1px solid #727272;
-    background: #A2E1CA;
+    background: ${({ theme }) => theme.buttonSecondaryBG};
     height: 100%;
-    color: #11A860;
+    color: ${({ theme }) => theme.buttonSecondaryColor};
     &:hover {
         background: #788;
     }
