@@ -2,14 +2,6 @@ import * as courseTypes from './courseTypes';
 
 import CourseClass from '../../componenets/model/CourseClass';
 
-const initialState = {
-    courses: [[]], // 2d array, 1st dim = terms, 2nd dim = courses
-    filteredCourses: [], // array of courses to highlight
-    prereq: {}, // will be treated as a map/dictionary, stores all prerequisites for each course, values are arrays
-    coreq: [], // will be treated as an array of sets(but implmented as a 2d array)
-    selectedCourse: null, // current selected course
-    selectedTerm: null
-}
 
 // These are sample of the data that could be in the state
 const SAMPLE_COURSES = [
@@ -40,6 +32,16 @@ const SAMPLE_COURSES = [
   const SAMPLE_COREQ = [
     ["PROG32758", "DBAS27198"],
   ]
+
+const initialState = {
+    courses: SAMPLE_COURSES , // 2d array, 1st dim = terms, 2nd dim = courses
+    filteredCourses: [], // array of courses to highlight
+    prereq: SAMPLE_PREREQ, // will be treated as a map/dictionary, stores all prerequisites for each course, values are arrays
+    coreq: SAMPLE_COREQ, // will be treated as an array of sets(but implmented as a 2d array)
+    selectedCourse: null, // current selected course
+    selectedTerm: null
+}
+
 
 
 const concatAtIndex = (list, index, item) => {
