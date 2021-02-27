@@ -20,6 +20,7 @@ import { notify } from './Notification';
 import App from '../App';
 import * as CourseActionCreators from '../redux';
 import SideViewHeader from './SideViewHeader';
+import CourseAnalyzer from './CourseAnalyzer';
 
 
 class Home extends Component {
@@ -96,6 +97,11 @@ class Home extends Component {
                 />
                 <ResetChanges 
                     onResetClick={() => this.resetChanges()}
+                />
+                <CourseAnalyzer 
+                  courses={this.props.courses}
+                  prereq={this.props.prereq}
+                  coreq={this.props.coreq}
                 />
                 <GradeFilter
                     onClickFilterByCategory={this.props.filterByCategory}
