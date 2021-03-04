@@ -11,7 +11,8 @@ const schools = {
 const initialState = {
     darkmode: false,
     schools,
-    currentSchool: 'none'
+    currentSchool: 'none',
+    stickyHeader: false
 }
 
 
@@ -23,6 +24,11 @@ const settingsReducer = (state = initialState, action) => {
                 ...state,
                 darkmode: action.payload.darkmode
             };
+        case settingsTypes.TOGGLE_STICKY_HEADER:
+            return {
+                ...state,
+                stickyHeader: action.payload.stickyHeader
+            }
         case settingsTypes.SET_CURRENT_SCHOOL:
             return {
                 ...state,

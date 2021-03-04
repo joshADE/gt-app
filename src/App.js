@@ -85,6 +85,7 @@ class App extends Component {
     this.props.loadSettings(
       {
         darkmode: localStorage.getItem(App.localStorageKey+"darkmode")? JSON.parse(localStorage.getItem(App.localStorageKey+"darkmode")): this.props.darkmode,
+        stickyHeader: localStorage.getItem(App.localStorageKey+"stickyHeader")? JSON.parse(localStorage.getItem(App.localStorageKey+"stickyHeader")): this.props.stickyHeader,
         currentSchool: currentSchool
       }
     );
@@ -147,6 +148,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     darkmode: state.settings.darkmode,
+    stickyHeader: state.settings.stickyHeader,
     schools: state.settings.schools,
     currentSchool: state.settings.currentSchool,
     prereq: state.courses.prereq,

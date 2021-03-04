@@ -40,7 +40,7 @@ export const ProgramMap = ({
     //const [currentFocusedElm, setCurrentFocusedElm] = useState(null);
     //const [style, setStyle] = useState(null);
     const { currentFocusedElm, style } = useSelector(state => state.focus);
-   
+    const { stickyHeader } = useSelector(state => state.settings);
 
     const toggleFocus = (element, focusedCourse) => {
         console.log(element);
@@ -110,7 +110,9 @@ export const ProgramMap = ({
                 size="sm"
 
             > 
-                <StyledMapHead>
+                <StyledMapHead 
+                    stickyHeader={stickyHeader}
+                >
                     <StyledMapRowResponsive>
                         <StyledMapHeading>Term</StyledMapHeading>
                         <StyledMapHeading 
@@ -121,7 +123,10 @@ export const ProgramMap = ({
                         </StyledMapHeading>
                     </StyledMapRowResponsive>
                 </StyledMapHead>
-                <StyledMapBody style={{width: '100%', height:'100%'}}>
+                <StyledMapBody 
+                    stickyHeader={stickyHeader}
+                    style={{width: '100%', height:'100%'}}
+                >
                     <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
                         <StyledFocusElement 
                             className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}

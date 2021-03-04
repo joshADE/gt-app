@@ -33,14 +33,9 @@ export const StyledFocusElement = styled.td`
 
 `;
 
-export const StyledMapHead = styled.thead`
-    text-align: center;
-    
-`; 
 
-export const StyledMapBody = styled.tbody`
-    height: 100%;
-`; 
+
+
 
 
 export const StyledMapHeading = styled.th`
@@ -68,6 +63,33 @@ export const StyledMapHeading = styled.th`
     @media screen and (max-width: ${({ theme }) => theme.breakpoint}){
         max-height: 70px;
     }
+`; 
+
+export const StyledMapHead = styled.thead`
+    text-align: center;
+
+    ${({ stickyHeader, theme }) => stickyHeader && `
+        & ${StyledMapHeading}:first-of-type {
+            position: sticky;
+            left: 0;
+            background-color: ${theme.bg};
+        }
+    `}
+    
+`; 
+
+export const StyledMapBody = styled.tbody`
+    height: 100%;
+
+
+    ${({ stickyHeader, theme }) => stickyHeader && `
+        & ${StyledMapHeading} {
+            position: sticky;
+            left: 0;
+            background-color: ${theme.bg};
+        }
+    `}
+
 `; 
 
 export const StyledMapData = styled.td`

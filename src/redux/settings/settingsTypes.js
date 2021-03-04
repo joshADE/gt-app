@@ -1,4 +1,5 @@
 export const TOGGLE_DARKMODE = 'TOGGLE_DARKMODE';
+export const TOGGLE_STICKY_HEADER = 'TOGGLE_STICKY_HEADER';
 
 
 // School Settings

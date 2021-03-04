@@ -15,6 +15,21 @@ export const toggleDarkmode = (toggleState = 'not_specified') => {
     } 
 }
 
+export const toggleStickyHeader = (toggleState = 'not_specified') => {
+    if (toggleState === "not_specified") {
+		return (dispatch, getState) => {
+			dispatch({
+				type: settingsTypes.TOGGLE_STICKY_HEADER,
+				payload: { stickyHeader: !getState().settings.stickyHeader },
+			});
+        }
+    } else {
+        return (dispatch, getState) => {
+			dispatch({ type: settingsTypes.TOGGLE_STICKY_HEADER, payload: { stickyHeader: toggleState } });
+		};
+    } 
+}
+
 
 export const setCurrentSchool = (currentSchool) => {
 	return {
