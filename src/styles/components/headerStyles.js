@@ -1,17 +1,26 @@
 import styled from 'styled-components';
 
-export const StyledHeader = styled.header`
-    border: 1px solid ${({ theme }) => theme.border};
-    background-color: ${({ theme }) => theme.button};
-    text-align: center;
-    border-radius: 5px 5px 0 0;
-    color: #fff;
+export const StyledHeaderWrapper = styled.div`
     padding: 5px;
+    background-color: ${({ theme }) => theme.panelColor};
     height: 10vh;
+`;
+
+export const StyledHeader = styled.header`
+    
+    background-color: ${({ theme }) => theme.panelAlt};
+    text-align: center;
+    border-radius: 5px;
+    color: ${({ theme }) => theme.textColor};
+    padding: 1px;
+    height: 100%;
 
     & a {
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 5px;
+        color: #B6B2B3;
+        border-radius: 5px;
+        text-decoration: none;
+        outline: none;
+        padding: 5px 10px;
         font-weight: 700;
         border-radius: 5px;
         display: inline-block;
@@ -20,16 +29,22 @@ export const StyledHeader = styled.header`
         }
     }
 
+    & a.current-link {
+        background-color: ${({ theme }) => theme.primaryColor};
+        color: #fff;
+
+        & svg {
+            fill: #fff;
+        }
+    }
+
     
 
     & svg {
-        width: 3vmin;
-        height: 3vmin;
+        width: 10px;
+        height: 10px;
+    
+        fill: #B6B2B3;
         
-        fill: white;
-        transition: all 1s ease;
-        &:hover {
-            fill: rgb(196, 243, 231);
-        }
     }
 `;

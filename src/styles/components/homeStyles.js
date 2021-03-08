@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 
 export const StyledInner = styled.div`
     display: flex;
@@ -15,13 +15,47 @@ export const StyledInnerTop = styled.div`
     overflow-y: scroll;
     max-height: 80%;
     max-width: 100%;
-    padding-bottom: 20%;
     border-left: 1px solid ${({ theme }) => theme.border};
     border-right: 1px solid ${({ theme }) => theme.border};
 `;
 
+export const StyledInnerBottomHeadItem = styled.form`
+    padding: 0px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    background: ${({ theme }) => theme.panelColor};
+    color: ${({ theme }) => theme.textColor};
+    height: 100%;
+    font-weight: 700;
+`;
+
+export const StyledButton = styled.input`
+    display: inline-block;
+    border: 1px solid #9C9C9C;
+    background: ${({ theme }) => theme.tertiaryColor};
+    border-radius: 15px;
+    color: #fff;
+    padding: 2px 10px;
+    cursor: pointer;
+    height: auto;
+    margin: 1px 10px;
+`;
+
+export const StyledInput = styled(Input)`
+    background: darkgrey;
+    border-radius: 5px;
+    height: auto;
+    width: auto;
+    margin: 1px 10px;
+`;
+
 export const StyledInnerBottomHeadContainer = styled.div`
-    background: ${({ theme }) => theme.bgUI};
+    background: ${({ theme }) => theme.panelAlt};
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,11 +70,10 @@ export const StyledInnerBottomHead = styled.div`
   padding: 1px;
   height: 40px;
   width: 100%;
-  border-top: 1px solid ${({ theme }) => theme.border};
-  background: ${({ theme }) => theme.bgUI};
+  background: ${({ theme }) => theme.panelAlt};
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   overflow-y: scroll;
   ${'' /* border-bottom: 1px solid black; */}
   ${'' /* transition: height 1s ease-in; */}
@@ -54,7 +87,7 @@ export const StyledInnerBottomFoot = styled.div`
 `;
 
 export const StyledInnerBottom = styled.div`
-  height: ${({ expanded }) => expanded?"300px":"100px"};
+  height: ${({ expanded }) => expanded?"310px":"110px"};
   max-height: 20%;
   ${'' /* border: 1px solid ${({ theme }) => theme.border}; */}
   ${'' /* background: black; */}
@@ -62,15 +95,21 @@ export const StyledInnerBottom = styled.div`
   /* used for animation of sideview, not implemented */
   transition: height 0.5s ease-out;
 
-    & > ${StyledInnerBottomHead} {
+    & ${StyledInnerBottomHead} {
         height: ${({ expanded }) => expanded?"40px":"40px"};
     }
 
-    & > ${StyledInnerBottomFoot} {
+    & ${StyledInnerBottomFoot} {
         height: ${({ expanded }) => expanded?"250px":"50px"};
     }
   
  
+`;
+
+export const StyledInnerBottomWrapper = styled.div`
+    background-color: ${({ theme }) => theme.panelColor};
+    padding: 5px;
+    height: 100%;
 `;
 
 
@@ -78,10 +117,9 @@ export const StyledInnerBottom = styled.div`
 export const StyledButtonPrimary = styled(Button)`
     font-weight: 700;
     border-radius: 15px;
-    border:1px solid #727272;
-    background: ${({ theme }) => theme.buttonPrimaryBG};
+    background: ${({ theme }) => theme.primaryColor};
     height: 100%;
-    color: ${({ theme }) => theme.buttonPrimaryColor};
+    color: #FFF;
     &:hover {
         background: #788;
     }
@@ -90,10 +128,9 @@ export const StyledButtonPrimary = styled(Button)`
 export const StyledButtonSecondary = styled(Button)`
     font-weight: 700;
     border-radius:15px;
-    border:1px solid #727272;
-    background: ${({ theme }) => theme.buttonSecondaryBG};
+    background: ${({ theme }) => theme.secondaryColor};
     height: 100%;
-    color: ${({ theme }) => theme.buttonSecondaryColor};
+    color: #FFF;
     &:hover {
         background: #788;
     }

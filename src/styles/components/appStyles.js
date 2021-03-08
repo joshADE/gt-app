@@ -6,8 +6,8 @@ export const StyledAppContainer = styled.div`
   min-height: 100vh;
 
   &  input:focus, & select:focus {
-    border-color: #3CB371;
-    box-shadow: 0 0 0 .2rem rgba(60,179,113, 0.2);
+    border-color: #16123a;
+    box-shadow: 0 0 0 .2rem rgba(128, 119, 212, 0.2);
   }
 `;
 

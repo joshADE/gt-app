@@ -5,13 +5,13 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-size: 1.5vmin;
+    font-size: 10px;
     }
 
     body{
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.4;
-    font-size: 1.5vmin;
+    font-size: 10px;
     ${'' /* background: ${({ theme }) => theme.bgBody}; */}
     }
 

@@ -57,6 +57,7 @@ function SideViewHeader(props) {
             >
                 {pageNumber}/{maxPages}
             </div>
+            <span className="divider"></span>
             <StyledInnerBottomHead
                 
                 ref={sideViewHeaderContainer}
@@ -75,8 +76,9 @@ export default SideViewHeader
 
 
 const pageIndicatorStyle = {
-    
-    color:'#fff',
+    width: '30px',
+    color:'#000',
+    backgroundColor: '#e5e5e5',
     borderRadius: '5px',
     border: '2px solid grey',
     padding: '5px',

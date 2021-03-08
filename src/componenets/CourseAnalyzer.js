@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Label } from 'reactstrap';
+import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
 const types = [
     "Course with worst grade and highest credit",
@@ -34,7 +35,7 @@ function CourseAnalyzer({
 
         let highestGrade = Math.max(...allCourses.map(c => c.grade));
         highestGrade *= highestGrade;
-        switch(type){
+        switch(type.toString()){
             case '0':
                 allCourses.sort((courseA, courseB) => courseA.credits * (highestGrade - courseA.grade) - courseB.credits * (highestGrade - courseB.grade));
                 break;
@@ -58,77 +59,43 @@ function CourseAnalyzer({
     }
     return (
        
-        <form style={gradeFinderStyle}
+        <StyledInnerBottomHeadItem
         onSubmit={onSubmit}
         >
             <Label> Type:</Label>
-            <Input 
+            <StyledInput 
                 type="select" 
-                id="typeSelect"
-                style={inputStyle} 
+                id="typeSelect" 
                 name="type"
                 onChange={e => setType(e.target.value)}
                 defaultValue={type}
             >
                 {typeOptions}
-            </Input>
+            </StyledInput>
             
             {/* For some reason type evaluates to a string */}
             {type === '4' &&
             <>
             <Label> Term:</Label>
-            <Input 
+            <StyledInput 
                 type="select" 
                 id="termSelect"
-                style={inputStyle} 
                 name="term"
                 onChange={e => setTerm(e.target.value)}
                 defaultValue={term}
             >
                 {termOptions}
-            </Input>
+            </StyledInput>
             </>}
 
             
-            <input type="submit" style={btnStyle} value="Find course"/>
+            <StyledButton type="submit" value="Find course"/>
             
             <Label style={{width: 'auto' }}>Course: {recommendedCourse}</Label>
-        </form>
+        </StyledInnerBottomHeadItem>
     )
 }
 
 
-const gradeFinderStyle = {
-    padding: '0px 15px',
-    borderRadius:'5px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 'auto',
-    background: '#727272',
-    // border: '2px outset black',
-    color: 'white',
-    height: '100%',
-    fontWeight: 700,
-};
-
-const btnStyle = {
-    display: 'inline-block',
-    border: '1px solid #9C9C9C',
-    background: '#64AA8E',
-    borderRadius: '15px',
-    color: '#fff',
-    padding: '2px 10px',
-    cursor: 'pointer',
-    height: 'auto',
-    margin: '1px 10px',
-};
-
-const inputStyle = {
-    background: 'lightgrey',
-    borderRadius: '5px',
-    height: 'auto',
-    width: 'auto',
-    margin: '1px 10px',
-}
 
 export default CourseAnalyzer

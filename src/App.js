@@ -16,10 +16,10 @@ import Settings from './componenets/Settings';
 import { customSchoolName } from './redux/settings/settingsReducer';
 
 const defaultTheme = {
-  bg: "#eee",
+  bg: "#fff",
   bgAlt: '#999',
-  button: '#64AA8E',
-  buttonHover: '#64AA8E',
+  button: '#5b50c8',
+  buttonHover: '#4F43C4',
   sidePanel: 'lightgrey',
   border: '#222',
   color: "#495057",
@@ -28,18 +28,18 @@ const defaultTheme = {
   selectedCourse: 'grey',
   bgBody: 'white',
   bgUI: '#414141',
-  buttonPrimaryBG: '#11A860',
-  buttonPrimaryColor: '#ECECEC',
-  buttonSecondaryBG: '#A2E1CA',
-  buttonSecondaryColor: '#11A860'
+  panelColor: '#D5D5D5',
+  panelAlt: '#FFF',
+  textColor: '#000',
+  primaryColor: '#4F43C4',
+  secondaryColor: '#AAA0F8',
+  tertiaryColor: '#a49ee1',
 }
 
 const darkmodeTheme = {
   ...defaultTheme,
   bg: '#0d1117',
   bgAlt: '#161b22',
-  button: '#30363d',
-  buttonHover: '#777',
   sidePanel: 'darkgrey',
   border: '#ced4da',
   color: "white",
@@ -47,10 +47,9 @@ const darkmodeTheme = {
   selectedCourse: 'white',
   bgBody: 'darkgrey',
   bgUI: '#30363d',
-  buttonPrimaryBG: '#7bb',
-  buttonPrimaryColor: '#fff',
-  buttonSecondaryBG: '#7aa',
-  buttonSecondaryColor: '#fff'
+  panelColor: '#222',
+  panelAlt: '#30363D',
+  textColor: '#FFF',
 }
 
 class App extends Component {

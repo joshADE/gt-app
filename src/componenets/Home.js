@@ -6,6 +6,7 @@ import {
   StyledInnerTop,
   StyledInnerBottom,
   StyledInnerBottomHead,
+  StyledInnerBottomWrapper,
   StyledInnerBottomFoot
 } from '../styles/components/homeStyles';
 
@@ -89,6 +90,7 @@ class Home extends Component {
             <StyledInnerBottom 
               expanded={(this.props.selectedCourse !== null)}
             >
+            <StyledInnerBottomWrapper>
               {/* Contains StyledInnerBottomHead */}
               <SideViewHeader> 
 
@@ -127,6 +129,7 @@ class Home extends Component {
                     handleClickShowCoreq={this.props.showCoreq}
                 />
               </StyledInnerBottomFoot>
+              </StyledInnerBottomWrapper>
             </StyledInnerBottom>
           </StyledInner>
         </React.Fragment>

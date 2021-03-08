@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Label } from 'reactstrap';
 //import * as AllActionsCreators from '../redux/index';
-
+import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
 export class CGPACalculator extends Component {
     constructor(props){
@@ -80,7 +80,7 @@ export class CGPACalculator extends Component {
 
         return (
             
-            <form style={gradeFinderStyle}
+            <StyledInnerBottomHeadItem
             onSubmit={this.onSubmit}
             >
                 <Label>Using {!schools[currentSchool] ||schools[currentSchool].length === 0? 'no grade point conversion': currentSchool + '\'s grade point conversion'}, </Label>
@@ -92,19 +92,18 @@ export class CGPACalculator extends Component {
                 {' '}
                 <Label>|term:</Label>
                 
-                <Input type="select" id="exampleSelect"
-                style={inputStyle} 
+                <StyledInput type="select" id="exampleSelect" 
                 name="term"
                 onChange={this.onChange}
                 defaultValue={term}
                 >
                     {options}
-                </Input>
+                </StyledInput>
                 
-                <input type="submit" style={btnStyle} value="Calculate"/>
+                <StyledButton type="submit" value="Calculate"/>
                 
                 <Label style={{width: 'auto' }}>{(this.state.type === 'up to' ? 'CGPA': 'GPA')}: {this.state.CGPA}</Label>
-            </form>
+            </StyledInnerBottomHeadItem>
             
         )
     }
@@ -115,38 +114,7 @@ CGPACalculator.propType = {
     courses: PropTypes.array.isRequired,
 }
 
-const gradeFinderStyle = {
-    padding: '0px 15px',
-    borderRadius:'5px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 'auto',
-    background: '#727272',
-    // border: '2px outset black',
-    color: 'white',
-    height: '100%',
-    fontWeight: 700,
-};
 
-const btnStyle = {
-    display: 'inline-block',
-    border: '1px solid #9C9C9C',
-    background: '#64AA8E',
-    borderRadius: '15px',
-    color: '#fff',
-    padding: '2px 10px',
-    cursor: 'pointer',
-    height: 'auto',
-    margin: '1px 10px',
-};
-
-const inputStyle = {
-    background: 'lightgrey',
-    borderRadius: '5px',
-    height: 'auto',
-    width: 'auto',
-    margin: '1px 10px',
-}
 
 
 const mapStateToProps = state => {

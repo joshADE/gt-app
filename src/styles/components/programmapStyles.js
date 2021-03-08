@@ -102,7 +102,7 @@ export const StyledMapData = styled.td`
 
 export const StyledCourseData = styled(StyledMapData)`
     transition: height 0.5s ease;
-    height: ${({ isEditing }) => isEditing?'57vh':'30vh'};
+    height: ${({ isEditing }) => isEditing?'450px':'200px'};
     animation: ${fadeinbottom} 1s ease once;
 `;
 
@@ -170,27 +170,27 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledButtonAdd = styled(StyledButton)`
-    &:hover {
+    ${'' /* &:hover {
         background: rgb(130, 230, 210);
-    }
+    } */}
 `;
 
 export const StyledButtonDelete = styled(StyledButton)`
-    &:hover {
+    ${'' /* &:hover {
         background: rgb(247, 154, 154);
-    }
+    } */}
 `;
 
 export const StyledButtonSave = styled(StyledButton)`
-    &:hover {
+    ${'' /* &:hover {
         background: rgb(180, 200, 200);
-    }
+    } */}
 `;
 
 export const StyledButtonReset = styled(StyledButton)`
-    &:hover {
+    ${'' /* &:hover {
         background: rgb(228, 27, 27);
-    }
+    } */}
 `;
 
 

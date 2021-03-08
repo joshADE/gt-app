@@ -6,7 +6,7 @@ const outlineElementStyle = (element, style) => {
         ? {
               width: `${element.offsetWidth}px`,
               height: `${element.offsetHeight}px`,
-              transform: `translateX(${element.offsetLeft}px) translateY(${element.offsetTop}px)`,
+              transform: `translateX(${element.offsetLeft}px) translateY(${element.offsetTop + 5}px)`,
             
         }
         : style;

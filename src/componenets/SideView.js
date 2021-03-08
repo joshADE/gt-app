@@ -330,7 +330,7 @@ const customStyles = {
         ...provided,
         overflowY: 'scroll',
         height: 30,
-        boxShadow: state.isFocused? '0 0 0 1px #3CB371': 'none',
+        boxShadow: state.isFocused? '0 0 0 1px #16123a': 'none',
         //borderColor: state.isFocused || state.isSelected || state.isActive ? '#3CB371': 'transparent',
         //boxShadow: state.isFocused || state.isSelected || state.isActive ? '0 0 0 .2rem rgba(60,179,113, 0.2)': 'none',
         //outline: state.isFocused || state.isSelected ||  state.isActive ? '1px solid rgba(60,179,113, 0.2)': 'none',

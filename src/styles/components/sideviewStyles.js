@@ -3,10 +3,13 @@ import { Button } from 'reactstrap';
 import Select from 'react-select'
 
 export const StyledContainer = styled.div`
-    background: ${({theme})=>theme.sidePanel};
+    
+    background: ${({ theme }) => theme.panelAlt};
+    border-radius: 5px;
+    color: ${({ theme }) => theme.textColor};
     width: 100%;
     text-align: center;
-    border: 2px solid grey;   
+    border: 1px solid #EEE;   
     overflow-y: scroll;
     height: 100%; 
 `;
@@ -25,6 +28,7 @@ export const StyledButtonShow = styled(Button)`
 
 export const StyledSelect = styled(Select)`
     margin: 10px 20%;
+    color: #000;
     @media screen and (max-width: ${({ theme }) => theme.breakpoint}){
         margin: 10px 10%;
     }
