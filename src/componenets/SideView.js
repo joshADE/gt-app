@@ -1,10 +1,8 @@
-import React, { Component, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { StyledButtonShow, StyledSelect, StyledContainer, StyleResponsiveContainer } from '../styles/components/sideviewStyles';
 import { StyledButtonSave } from '../styles/components/programmapStyles';
-import Progression from './Progression';
-import { NonceProvider } from 'react-select';
+// import Progression from './Progression';
 
 
 function SideView ({
@@ -165,7 +163,7 @@ function SideView ({
         if (!shouldShow){
             return (
                 <StyledContainer>
-                    <h2>Advanced Course Edit</h2>
+                    <h2>Course Details</h2>
                     <p>You must select a course first</p>
                     
                 </StyledContainer>
@@ -269,7 +267,7 @@ function SideView ({
         return (
             <StyledContainer>
                 
-                <h2>Advanced Course Edit</h2>
+                <h2>Course Details</h2>
                 <h3>For course: {selectedCourse.code}</h3>
                     
                 <StyleResponsiveContainer>

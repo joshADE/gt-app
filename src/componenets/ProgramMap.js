@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
@@ -181,8 +181,7 @@ const focusParentElmStyle = {
     position: 'relative', 
     width:'100%', 
     height:'100%', 
-    position:'relative', 
-    top:'-4vmin', 
+    top:'-32px', 
     left:'0px'
 } 
 

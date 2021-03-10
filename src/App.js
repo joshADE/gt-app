@@ -43,7 +43,7 @@ const darkmodeTheme = {
   sidePanel: 'darkgrey',
   border: '#ced4da',
   color: "white",
-  selectedTerm: 'rgba(240, 240, 240, 0.2)',
+  selectedTerm: '#444',
   selectedCourse: 'white',
   bgBody: 'darkgrey',
   bgUI: '#30363d',

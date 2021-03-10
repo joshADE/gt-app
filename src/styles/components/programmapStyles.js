@@ -86,6 +86,7 @@ export const StyledMapBody = styled.tbody`
         & ${StyledMapHeading} {
             position: sticky;
             left: 0;
+            z-index: 5;
             background-color: ${theme.bg};
         }
     `}
