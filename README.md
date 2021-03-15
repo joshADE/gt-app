@@ -27,4 +27,4 @@ A simple React app that can help keep track of grades throughout the school year
 
 
 ## Screenshot
-![Screenshot of app](screenshot2.PNG)
+![Screenshot of app](screenshots/screenshot3.PNG)
