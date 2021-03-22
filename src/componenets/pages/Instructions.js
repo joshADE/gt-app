@@ -3,7 +3,10 @@ import React from 'react'
 function Instructions() {
     return (
         <React.Fragment>
+            <div className="padding-left font-large font-bold">
             <h1>Instructions</h1> 
+            </div>
+            <div className="padding-left font-medium">
             <h2>Adding a course</h2>
             <p>To add a course:</p>
             <ol style={listStyle}>
@@ -13,8 +16,9 @@ function Instructions() {
                 <li>If the course ws successfully added, a cell should appear with the course code in the table.</li>
                 <li>You can change the name, course code, and credits by edit the remaining fields then clicking 'Set changes'</li>
             </ol> 
+            </div>
 
-            
+            <div className="padding-left font-medium">
             <h2>Adding/Editing prerequisites</h2>
             <p>To change prerequisite courses:</p>
             <ol style={listStyle}>
@@ -29,7 +33,8 @@ function Instructions() {
 
       
             </ol> 
-            
+            </div>
+            <div className="padding-left font-medium">
             <h2>Adding/Editing corequisites</h2>
             <p>To change corequisites courses:</p>
             <ol style={listStyle}>
@@ -45,6 +50,7 @@ function Instructions() {
                 <strong>Trying to combine a set with a single course without specifying all the courses in the set will delete the previous set and create a new set.</strong>
       
             </ol>
+            </div>
         </React.Fragment>
     )
 }

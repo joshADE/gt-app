@@ -11,6 +11,27 @@
   font-size: 24px;
 }
 
+.font-medium *, .font-medium {
+  font-size: medium;
+}
+
+.font-medium h2 {
+  font-size: large;
+}
+
+.font-large {
+  font-size: large;
+}
+
+.padding-left {
+  padding: 5px;
+  padding-left: 15px;
+}
+
+.font-bold * {
+  font-weight: bold;
+}
+
 
 .current {
   background-color: transparent;
