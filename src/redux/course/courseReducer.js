@@ -6,19 +6,19 @@ import CourseClass from '../../componenets/model/CourseClass';
 // These are sample of the data that could be in the state
 const SAMPLE_COURSES = [
     [
-      new CourseClass("OO Prog", "PROG10082", 3.3, 6),
-      new CourseClass("Intro to Data.", "TELE13167", 2.6, 3),
-      new CourseClass("Web Dev.", "SYST10049", 3.5, 3)
+      new CourseClass("OO Prog", "PROG10082", 95, 6),
+      new CourseClass("Intro to Data.", "TELE13167", 80, 3),
+      new CourseClass("Web Dev.", "SYST10049", 82, 3)
     ],
     [
-      new CourseClass("OO Prog 2", "PROG24178", 3.0, 6),
-      new CourseClass("Data Netw. Design", "TELE33324", 2.2, 3),
-      new CourseClass("Web Prog.", "SYST10199", 2.6, 3)
+      new CourseClass("OO Prog 2", "PROG24178", 77, 6),
+      new CourseClass("Data Netw. Design", "TELE33324", 50, 3),
+      new CourseClass("Web Prog.", "SYST10199", 65, 3)
     ],
     [
-      new CourseClass("JAVA", "PROG32758", 3.3, 6),
-      new CourseClass("Comp. Sec.", "INFO24178", 3.3, 3),
-      new CourseClass("Databases", "DBAS27198", 3.3, 3)
+      new CourseClass("JAVA", "PROG32758", 82, 6),
+      new CourseClass("Comp. Sec.", "INFO24178", 45, 3),
+      new CourseClass("Databases", "DBAS27198", 70, 3)
     ]
   ]
   

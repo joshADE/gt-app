@@ -3,10 +3,12 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 
-import * as AllActionsCreators from './redux/index';
+// import * as AllActionsCreators from './redux/index';
+import { toggleDarkmode, loadSettings, loadCourses, loadCustomSchool, toggleSelectCourse, changeStyle } from './redux/index';
 import './App.css';
 import { StyledAppContainer } from './styles/components/appStyles';
 import GlobalStyles from '../src/styles/base/base';
+import { defaultTheme, darkmodeTheme } from './styles/themes/themes';
 import Header from './componenets/layout/Header';
 import About from './componenets/pages/About';
 import Notification from './componenets/Notification';
@@ -15,102 +17,82 @@ import Home from './componenets/Home';
 import Settings from './componenets/Settings';
 import { customSchoolName } from './redux/settings/settingsReducer';
 
-const defaultTheme = {
-  bg: "#fff",
-  bgAlt: '#999',
-  button: '#5b50c8',
-  buttonHover: '#4F43C4',
-  sidePanel: 'lightgrey',
-  border: '#222',
-  color: "#495057",
-  breakpoint: "200px",
-  selectedTerm: '#ddd',
-  selectedCourse: 'grey',
-  bgBody: 'white',
-  bgUI: '#414141',
-  panelColor: '#D5D5D5',
-  panelAlt: '#FFF',
-  textColor: '#000',
-  primaryColor: '#4F43C4',
-  secondaryColor: '#AAA0F8',
-  tertiaryColor: '#a49ee1',
-}
-
-const darkmodeTheme = {
-  ...defaultTheme,
-  bg: '#0d1117',
-  bgAlt: '#161b22',
-  sidePanel: 'darkgrey',
-  border: '#ced4da',
-  color: "white",
-  selectedTerm: '#444',
-  selectedCourse: 'white',
-  bgBody: 'darkgrey',
-  bgUI: '#30363d',
-  panelColor: '#222',
-  panelAlt: '#30363D',
-  textColor: '#FFF',
-}
 
 class App extends Component {
-  static apiurlpartial = '';
+
   static localStorageKey = 'courses';
 
   componentDidMount = () => {
     this.restoreSettings();
     this.populateCourseData();
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('resize', this.handleWindowResize);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('resize', this.handleWindowResize);
   }
 
-  onWindowResize = () => {
-    //if (this.props.currentFocusedElm){
-      // another fix
-      setTimeout(() => {
-        this.props.changeStyle();
-      }, 500);
-    //}
+  handleWindowResize = () => {
+    // timeout is a fix to readjust the focus element
+    setTimeout(() => {
+      this.props.changeStyle();
+    }, 500);
   }
 
   restoreSettings = () => {
 
-    let currentSchool = localStorage.getItem(App.localStorageKey+"currentSchool")? JSON.parse(localStorage.getItem(App.localStorageKey+"currentSchool")): this.props.currentSchool;
-    if (!this.props.schools[currentSchool]){
-      currentSchool = customSchoolName;
+    const { darkmode, stickyHeader, schools, currentSchool } = this.props.settings; // settings from props is the settings reducer state
+
+    let currentSchoolFromLS = localStorage.getItem(App.localStorageKey + "currentSchool"); // currentSchool should be a string indicating the name of the current school in the setting page
+    currentSchoolFromLS = currentSchoolFromLS ? JSON.parse(currentSchoolFromLS) : currentSchool; // I know I don't have to parse a string from the localStorage but this is just convention
+    
+    if (!schools[currentSchoolFromLS]){ // if there is no school grading data for the current school set it to the custom school name
+      currentSchoolFromLS = customSchoolName; // the school grading data file might be missing and entry for the current school retrieved from the localStorage but the school grading data for the custom school has been set programmatically so it wouldn't be missing
     }
-    this.props.loadSettings(
-      {
-        darkmode: localStorage.getItem(App.localStorageKey+"darkmode")? JSON.parse(localStorage.getItem(App.localStorageKey+"darkmode")): this.props.darkmode,
-        stickyHeader: localStorage.getItem(App.localStorageKey+"stickyHeader")? JSON.parse(localStorage.getItem(App.localStorageKey+"stickyHeader")): this.props.stickyHeader,
-        currentSchool: currentSchool
-      }
-    );
-    this.props.loadCustomSchool(
-      localStorage.getItem(App.localStorageKey+customSchoolName)? JSON.parse(localStorage.getItem(App.localStorageKey+customSchoolName)): this.props.schools[customSchoolName]
-    );
+
+    let stickyHeaderFromLS = localStorage.getItem(App.localStorageKey + "stickyHeader"); // stickyHeader should be a boolean indicating whether the row headings are sticky
+    stickyHeaderFromLS = stickyHeaderFromLS ? JSON.parse(stickyHeaderFromLS) : stickyHeader;
+
+    let darkmodeFromLS = localStorage.getItem(App.localStorageKey + "darkmode"); // darkmode should be a boolean indicating whether there is darkmode
+    darkmodeFromLS = darkmodeFromLS ? JSON.parse(darkmodeFromLS) : darkmode;
+
+    this.props.loadSettings({
+      darkmode: darkmodeFromLS,
+      stickyHeader: stickyHeaderFromLS,
+      currentSchool: currentSchoolFromLS,
+    });
+
+    // load the custom school's grading data from localStorage (should be the same type as the schools in the school data file)
+    let customSchoolData = localStorage.getItem(App.localStorageKey + customSchoolName);
+    customSchoolData = customSchoolData ? JSON.parse(customSchoolData): schools[customSchoolName];
+
+    this.props.loadCustomSchool(customSchoolData);
   }
 
+  // this will not only be called the first time when the user loads the app, but also when they click the reset changes button
   populateCourseData = () =>{
+
+    const { prereq, coreq } = this.props.courses; // courses from props is the course reducer state
+
+
     const dataStringCourses = localStorage.getItem(App.localStorageKey);
-    const dataStringPrereq = localStorage.getItem(App.localStorageKey+"prereq");
-    const dataStringCoreq = localStorage.getItem(App.localStorageKey+"coreq");
+    const dataStringPrereq = localStorage.getItem(App.localStorageKey + "prereq");
+    const dataStringCoreq = localStorage.getItem(App.localStorageKey + "coreq");
+
 
     if (!dataStringCourses){
       // this.props.loadCourses([[]], {}, []);
       return;
     }
-    const dataObjectCourses = JSON.parse(dataStringCourses);
-    const dataObjectPrereq = JSON.parse(dataStringPrereq);
-    const dataObjectCoreq = JSON.parse(dataStringCoreq);
+    const dataObjectCourses = JSON.parse(dataStringCourses); // should be a 2d array, 1st dimension represent the terms, 2nd dimension represents the courses in a term
+    const dataObjectPrereq = JSON.parse(dataStringPrereq); // should be an object, keys are the course codes, values are an array of course codes representing prereq courses
+    const dataObjectCoreq = JSON.parse(dataStringCoreq); // should be an array of arrays, each sub array represents a grouping of coreq course codes
 
 
     this.props.loadCourses(
-      dataObjectCourses, 
-      (dataObjectPrereq)?dataObjectPrereq:this.props.prereq,
-      (dataObjectCoreq)?dataObjectCoreq:this.props.coreq
+      dataObjectCourses,
+      dataObjectPrereq ? dataObjectPrereq : prereq,
+      dataObjectCoreq ? dataObjectCoreq : coreq
     );
 
   }
@@ -119,7 +101,7 @@ class App extends Component {
   render(){
 
       return(
-        <ThemeProvider theme={this.props.darkmode?darkmodeTheme:defaultTheme}>
+        <ThemeProvider theme={this.props.settings.darkmode?darkmodeTheme:defaultTheme}>
           <GlobalStyles />
           <Router>
             <div className="App">
@@ -144,30 +126,43 @@ class App extends Component {
 
 
 
-const mapStateToProps = state => {
-  return {
-    darkmode: state.settings.darkmode,
-    stickyHeader: state.settings.stickyHeader,
-    schools: state.settings.schools,
-    currentSchool: state.settings.currentSchool,
-    prereq: state.courses.prereq,
-    coreq: state.courses.coreq
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     darkmode: state.settings.darkmode,
+//     stickyHeader: state.settings.stickyHeader,
+//     schools: state.settings.schools,
+//     currentSchool: state.settings.currentSchool,
+//     prereq: state.courses.prereq,
+//     coreq: state.courses.coreq,
+//     courses: state.courses.courses
+//   }
+// }
 
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleDarkmode: () => dispatch(AllActionsCreators.toggleDarkmode()),
-    loadSettings: (items) => dispatch(AllActionsCreators.loadSettings(items)),
-    loadCourses: (courses, prereq, coreq) => dispatch(AllActionsCreators.loadCourses(courses, prereq, coreq)),
-    loadCustomSchool: (customSchoolSettings) => dispatch(AllActionsCreators.loadCustomSchool(customSchoolSettings)),
-    toggleSelected: () => dispatch(AllActionsCreators.toggleSelectCourse()),
-    changeStyle: () => dispatch(AllActionsCreators.changeStyle())
-  }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     toggleDarkmode: () => dispatch(AllActionsCreators.toggleDarkmode()),
+//     loadSettings: (items) => dispatch(AllActionsCreators.loadSettings(items)),
+//     loadCourses: (courses, prereq, coreq) => dispatch(AllActionsCreators.loadCourses(courses, prereq, coreq)),
+//     loadCustomSchool: (customSchoolSettings) => dispatch(AllActionsCreators.loadCustomSchool(customSchoolSettings)),
+//     toggleSelected: () => dispatch(AllActionsCreators.toggleSelectCourse()),
+//     changeStyle: () => dispatch(AllActionsCreators.changeStyle())
+//   }
+// }
+
+const mapState = state => state;
+
+
+const actionCreators = {
+  toggleDarkmode,
+  loadSettings,
+  loadCourses,
+  loadCustomSchool,
+  toggleSelectCourse,
+  changeStyle
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapState,
+  actionCreators
 )(App);
