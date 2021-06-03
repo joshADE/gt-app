@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Grade-Tracker/static/css/main.2a74b3d0.chunk.css",
-    "main.js": "/Grade-Tracker/static/js/main.48ef2ec6.chunk.js",
-    "main.js.map": "/Grade-Tracker/static/js/main.48ef2ec6.chunk.js.map",
+    "main.js": "/Grade-Tracker/static/js/main.89801686.chunk.js",
+    "main.js.map": "/Grade-Tracker/static/js/main.89801686.chunk.js.map",
     "runtime-main.js": "/Grade-Tracker/static/js/runtime-main.2039763e.js",
     "runtime-main.js.map": "/Grade-Tracker/static/js/runtime-main.2039763e.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/Grade-Tracker/static/css/2.ae9f1eb3.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.ae9f1eb3.chunk.css",
     "static/js/2.805c7797.chunk.js",
     "static/css/main.2a74b3d0.chunk.css",
-    "static/js/main.48ef2ec6.chunk.js"
+    "static/js/main.89801686.chunk.js"
   ]
 }
