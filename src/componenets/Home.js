@@ -5,7 +5,6 @@ import {
   StyledInner,
   StyledInnerTop,
   StyledInnerBottom,
-  StyledInnerBottomHead,
   StyledInnerBottomWrapper,
   StyledInnerBottomFoot
 } from '../styles/components/homeStyles';
@@ -19,7 +18,12 @@ import CGPACalculator from './CGPACalculator';
 import ProgramMap from './ProgramMap';
 import { notify } from './Notification';
 import App from '../App';
-import * as CourseActionCreators from '../redux';
+// import * as CourseActionCreators from '../redux';
+import { 
+  addCourse, editCourse, deleteCourse, addTerm, removeTerm, 
+  toggleSelectCourse, clearSelected, filterByCategory, clearFilter,
+  editPrereq, editCoreq, showPrereq, showCoreq, loadCourses   
+} from '../redux/index';
 import SideViewHeader from './SideViewHeader';
 import CourseAnalyzer from './CourseAnalyzer';
 
@@ -50,19 +54,18 @@ class Home extends Component {
     if (!confirmed){
       return;
     }
-    //alert("saving " + JSON.stringify(this.state.courses) + " into localStorage.");
-    localStorage.setItem(App.localStorageKey, JSON.stringify(this.props.courses));
-    localStorage.setItem(App.localStorageKey+"prereq", JSON.stringify(this.props.prereq));
-    localStorage.setItem(App.localStorageKey+"coreq", JSON.stringify(this.props.coreq));
+    const { courses, prereq, coreq } = this.props.courses;
+    localStorage.setItem(App.localStorageKey, JSON.stringify(courses));
+    localStorage.setItem(App.localStorageKey + "prereq", JSON.stringify(prereq));
+    localStorage.setItem(App.localStorageKey + "coreq", JSON.stringify(coreq));
     this.sendNotification('Changes saved');
   }
 
 
 
   // Finding the max number of courses out of all terms
-  getMaxCourseForYears = () => {
-      const max = Math.max(...this.props.courses.map((val, index) => val.length));
-      return max;
+  getMaxCourseForTerms = () => {
+      return Math.max(...this.props.courses.courses.map((val) => val.length));
   }
 
   sendNotification = (msg) => {
@@ -70,63 +73,70 @@ class Home extends Component {
   }
 
   render(){
+
+    const { addTerm, removeTerm, addCourse, editCourse, toggleSelectCourse, 
+      deleteCourse, filterByCategory, editPrereq, editCoreq, showPrereq, showCoreq } = this.props;
+
+    const { courses, selectedCourse, filteredCourses, prereq, coreq,
+       selectedTerm } = this.props.courses;
+
     return (
         <React.Fragment>
             <StyledInner>
               <StyledInnerTop>
                 <ProgramMap 
-                handleClickAddTerm={this.props.addTerm}
-                handleClickRemoveTerm={this.props.removeTerm}
-                handleClickAddCourse={this.props.addCourse}
-                handleClickEditCourse={this.props.editCourse}
-                handleClickSelectCourse={this.props.toggleSelect}
-                handleClickDeleteCourse={this.props.deleteCourse}
-                maxCourseYears={this.getMaxCourseForYears()}
-                courses={this.props.courses}
-                selectedCourse={this.props.selectedCourse}
-                filteredCourses={this.props.filteredCourses}
+                handleClickAddTerm={addTerm}
+                handleClickRemoveTerm={removeTerm}
+                handleClickAddCourse={addCourse}
+                handleClickEditCourse={editCourse}
+                handleClickSelectCourse={toggleSelectCourse}
+                handleClickDeleteCourse={deleteCourse}
+                maxCourseYears={this.getMaxCourseForTerms()}
+                courses={courses}
+                selectedCourse={selectedCourse}
+                filteredCourses={filteredCourses}
                 />
             </StyledInnerTop>
             <StyledInnerBottom 
-              expanded={(this.props.selectedCourse !== null)}
+              expanded={(selectedCourse !== null)}
             >
             <StyledInnerBottomWrapper>
               {/* Contains StyledInnerBottomHead */}
               <SideViewHeader> 
 
                 <SaveChanges
-                    onSaveClick={() => this.saveCourseData()}
+                    onSaveClick={this.saveCourseData}
                 />
                 <ResetChanges 
-                    onResetClick={() => this.resetChanges()}
-                />
-                <CourseAnalyzer 
-                  courses={this.props.courses}
-                  prereq={this.props.prereq}
-                  coreq={this.props.coreq}
-                />
-                <GradeFilter
-                    onClickFilterByCategory={this.props.filterByCategory}
+                    onResetClick={this.resetChanges}
                 />
                 <CGPACalculator 
-                    courses={this.props.courses}
+                    courses={courses}
                 /> 
+                <GradeFilter
+                    onClickFilterByCategory={filterByCategory}
+                />
+                <CourseAnalyzer 
+                  courses={courses}
+                  prereq={prereq}
+                  coreq={coreq}
+                />
+                
               </SideViewHeader>
               
               <StyledInnerBottomFoot>
                     
                 <SideView 
                     sendNotification={this.sendNotification}
-                    handleClickEditCourse={this.props.editCourse}
-                    courses={this.props.courses}
-                    selectedTerm={this.props.selectedTerm}
-                    selectedCourse={this.props.selectedCourse}
-                    prereq={this.props.prereq}
-                    coreq={this.props.coreq}
-                    handleClickEditPrereq={this.props.editPrereq}
-                    handleClickEditCoreq={this.props.editCoreq}
-                    handleClickShowPrereq={this.props.showPrereq}
-                    handleClickShowCoreq={this.props.showCoreq}
+                    courses={courses}
+                    selectedTerm={selectedTerm}
+                    selectedCourse={selectedCourse}
+                    prereq={prereq}
+                    coreq={coreq}
+                    handleClickEditPrereq={editPrereq}
+                    handleClickEditCoreq={editCoreq}
+                    handleClickShowPrereq={showPrereq}
+                    handleClickShowCoreq={showCoreq}
                 />
               </StyledInnerBottomFoot>
               </StyledInnerBottomWrapper>
@@ -139,36 +149,45 @@ class Home extends Component {
 
 
 
-const mapStateToProps = state => {
-    return {
-      courses: state.courses.courses,
-      filteredCourses: state.courses.filteredCourses,
-      selectedCourse: state.courses.selectedCourse,
-      selectedTerm: state.courses.selectedTerm,
-      prereq: state.courses.prereq,
-      coreq: state.courses.coreq
-    }
-  }
+// const mapStateToProps = state => {
+//     return {
+//       courses: state.courses.courses,
+//       filteredCourses: state.courses.filteredCourses,
+//       selectedCourse: state.courses.selectedCourse,
+//       selectedTerm: state.courses.selectedTerm,
+//       prereq: state.courses.prereq,
+//       coreq: state.courses.coreq
+//     }
+//   }
   
-  const mapDispatchToProps = dispatch => {
-    return {
-      addCourse: (term, courseCode) => dispatch(CourseActionCreators.addCourse(term, courseCode)),
-      editCourse: (term, editedCourse) => dispatch(CourseActionCreators.editCourse(term, editedCourse)),
-      deleteCourse: (term, courseCode) => dispatch(CourseActionCreators.deleteCourse(term, courseCode)),
-      addTerm: () => dispatch(CourseActionCreators.addTerm()),
-      removeTerm: () => dispatch(CourseActionCreators.removeTerm()),
-      toggleSelect: (courseCode) => dispatch(CourseActionCreators.toggleSelectCourse(courseCode)),
-      clearSelected: () => dispatch(CourseActionCreators.clearSelected()),
-      filterByCategory: (category, value) => dispatch(CourseActionCreators.filterByCategory(category, value)),
-      clearFilter: () => dispatch(CourseActionCreators.clearFilter()),
-      editPrereq: (courseCode, prereqCourses) => dispatch(CourseActionCreators.editPrereq(courseCode, prereqCourses)),
-      editCoreq: (courseCode, coreqCourses) => dispatch(CourseActionCreators.editCoreq(courseCode, coreqCourses)),
-      showPrereq: (courseCode) => dispatch(CourseActionCreators.showPrereq(courseCode)),
-      showCoreq: (courseCode) => dispatch(CourseActionCreators.showCoreq(courseCode)),
-      loadCourses: (courses, prereq, coreq) => dispatch(CourseActionCreators.loadCourses(courses, prereq, coreq))
-    }
-  }
+  // const mapDispatchToProps = dispatch => {
+  //   return {
+  //     addCourse: (term, courseCode) => dispatch(CourseActionCreators.addCourse(term, courseCode)),
+  //     editCourse: (term, editedCourse) => dispatch(CourseActionCreators.editCourse(term, editedCourse)),
+  //     deleteCourse: (term, courseCode) => dispatch(CourseActionCreators.deleteCourse(term, courseCode)),
+  //     addTerm: () => dispatch(CourseActionCreators.addTerm()),
+  //     removeTerm: () => dispatch(CourseActionCreators.removeTerm()),
+  //     toggleSelect: (courseCode) => dispatch(CourseActionCreators.toggleSelectCourse(courseCode)),
+  //     clearSelected: () => dispatch(CourseActionCreators.clearSelected()),
+  //     filterByCategory: (category, value) => dispatch(CourseActionCreators.filterByCategory(category, value)),
+  //     clearFilter: () => dispatch(CourseActionCreators.clearFilter()),
+  //     editPrereq: (courseCode, prereqCourses) => dispatch(CourseActionCreators.editPrereq(courseCode, prereqCourses)),
+  //     editCoreq: (courseCode, coreqCourses) => dispatch(CourseActionCreators.editCoreq(courseCode, coreqCourses)),
+  //     showPrereq: (courseCode) => dispatch(CourseActionCreators.showPrereq(courseCode)),
+  //     showCoreq: (courseCode) => dispatch(CourseActionCreators.showCoreq(courseCode)),
+  //     loadCourses: (courses, prereq, coreq) => dispatch(CourseActionCreators.loadCourses(courses, prereq, coreq))
+  //   }
+  // }
+  
+  const mapState = state => state;
+
+  const actionCreators = {
+    addCourse, editCourse, deleteCourse, addTerm, removeTerm, 
+    toggleSelectCourse, clearSelected, filterByCategory, clearFilter,
+    editPrereq, editCoreq, showPrereq, showCoreq, loadCourses  
+  };
+  
   export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapState,
+    actionCreators
   )(Home);
