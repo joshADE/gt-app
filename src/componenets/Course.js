@@ -85,7 +85,7 @@ export class Course extends Component{
     }
 
     render(){
-        const { termIndex, courseIndex, isEditing } = this.props;
+        const { courseIndex, isEditing } = this.props;
        const {code, name, grade, credits} = this.props.course;
         let appliedclasses = "course";
         appliedclasses += this.props.isHighlighted? " highlighted" : "";
@@ -95,7 +95,7 @@ export class Course extends Component{
             draggableId={`draggable-${code}`}
             index={courseIndex}
        >
-       {(provided, snapshot) => (
+       {(provided, _) => (
        <StyledCourseData 
                 className="course"
                 isEditing={isEditing}
