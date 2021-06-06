@@ -393,7 +393,7 @@ const courseReducer = (state = initialState, action) => {
                 coreq: action.payload.coreq
             }
 
-        case courseTypes.DRAG_ENTER:
+        case courseTypes.DRAG_END:
             const newCourses = JSON.parse(JSON.stringify(state.courses));
             const {params, currentItem} = action.payload;
             newCourses[params.termI].splice(params.courseI, 0, newCourses[currentItem.termI].splice(currentItem.courseI, 1)[0]);

@@ -23,4 +23,4 @@ export const SHOW_COREQ = 'SHOW_COREQ';
 export const LOAD_COURSES = 'LOAD_COURSES';
 
 // dragging
-export const DRAG_ENTER = 'DRAG_ENTER';
+export const DRAG_END = 'DRAG_END';

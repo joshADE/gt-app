@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import Term from './Term';
-//import { v3, v4, v5 } from 'uuid'
 import PropTypes from 'prop-types';
 import AddTerm from './AddTerm';
 import RemoveTerm from './RemoveTerm';
-import { dragEnter, changeFocus, changeStyle } from '../redux';
+import { dragEnd, changeFocus, changeStyle, clearSelected, clearFilter } from '../redux';
 import { 
     StyledMap,
     StyledMapHead,
@@ -37,18 +36,18 @@ export const ProgramMap = ({
 
     
     const dispatch = useDispatch();
-    //const [currentFocusedElm, setCurrentFocusedElm] = useState(null);
-    //const [style, setStyle] = useState(null);
+
+    
     const { currentFocusedElm, style } = useSelector(state => state.focus);
     const { stickyHeader } = useSelector(state => state.settings);
 
     const toggleFocus = (element, focusedCourse) => {
-        console.log(element);
+        
         if(!selectedCourse || (selectedCourse !== focusedCourse && currentFocusedElm !== element)){
-            //setCurrentFocusedElm(element);
+            
             dispatch(changeFocus(element));
         }else{
-            //setCurrentFocusedElm(null);
+            
             dispatch(changeFocus(null));
         }
     }
@@ -56,110 +55,111 @@ export const ProgramMap = ({
     
     useEffect(() => {
         if (currentFocusedElm) {
-            //const style = outlineElementStyle(currentFocusedElm.current);
-            //setStyle(style);
-            //dispatch(changeStyle(style));
+            
             dispatch(changeStyle());
         }
-    }, [currentFocusedElm, courses]);
+    }, [currentFocusedElm, courses, dispatch]);
+
+
+    const handleDragStart = () => {
+        dispatch(clearFilter());
+        dispatch(clearSelected());
+    }
+
+    const handleDragEnd = (param) => {
+        if(param.destination){
+            dispatch(dragEnd(
+                {
+                    termI: Number(param.destination.droppableId),
+                    courseI: param.destination.index
+                }, 
+                {
+                    termI: Number(param.source.droppableId),
+                    courseI: param.source.index
+                }
+            ));
+        }
+    }
 
 
     const rows = courses.map((courseList, index) => {
-        const isSelected = selectedCourse && (courseList.findIndex(c => c.code === selectedCourse.code) !== -1);
-        
-        return (<Term 
-                    isSelected={isSelected}
-                    key={index}
-                    
+      const isSelected =
+        selectedCourse &&
+        courseList.findIndex((c) => c.code === selectedCourse.code) !== -1;
 
-                    toggleFocus={toggleFocus}
-
-                    selectedCourse={selectedCourse}
-                    termNumber={index}
-                    courseList={courseList}
-                    handleClickAddCourse={handleClickAddCourse}
-                    handleClickEditCourse={handleClickEditCourse}
-                    handleClickSelectCourse={handleClickSelectCourse}
-                    handleClickDeleteCourse={handleClickDeleteCourse}
-                    filteredCourses={filteredCourses}
-                />
-            
-        );
+      return (
+        <Term
+          isSelected={isSelected}
+          key={index}
+          toggleFocus={toggleFocus}
+          selectedCourse={selectedCourse}
+          termNumber={index}
+          courseList={courseList}
+          handleClickAddCourse={handleClickAddCourse}
+          handleClickEditCourse={handleClickEditCourse}
+          handleClickSelectCourse={handleClickSelectCourse}
+          handleClickDeleteCourse={handleClickDeleteCourse}
+          filteredCourses={filteredCourses}
+        />
+      );
     });
     return (
-        <DragDropContext 
-            onDragEnd={(param) => {
-                if(param.destination){
-                    dispatch(dragEnter(
-                        {
-                            termI: Number(param.destination.droppableId),
-                            courseI: param.destination.index
-                        }, 
-                        {
-                            termI: Number(param.source.droppableId),
-                            courseI: param.source.index
-                        }
-                    ));
-                }
-                console.log(param);
-            }}
-        >
-            <StyledMap
-                
-                bordered
-                size="sm"
-
-            > 
-                <StyledMapHead 
-                    stickyHeader={stickyHeader}
-                >
-                    <StyledMapRowResponsive>
-                        <StyledMapHeading>Term</StyledMapHeading>
-                        <StyledMapHeading 
-                        style={{width: '100%'}}
-                        colSpan={maxCourseYears + 1}
-                        >
-                            Courses
-                        </StyledMapHeading>
-                    </StyledMapRowResponsive>
-                </StyledMapHead>
-                <StyledMapBody 
-                    stickyHeader={stickyHeader}
-                    style={{width: '100%', height:'100%'}}
-                >
-                    <tr style={isChrome?focusParentElmStyleChrome:focusParentElmStyle}>
-                        <StyledFocusElement 
-                            className={`${selectedCourse && currentFocusedElm ? `active` : ``}`}
-                            style={style}
-                        />
-                    </tr>
-                    {rows}
-                    <StyledMapRow>
-                        <StyledMapData
-                        style={{width: '100%'}} 
-                        key={rows.length + 1}
-                        colSpan={maxCourseYears + 2}>
-                        <AddTerm 
-                        termNumber={rows.length + 1}
-                        handleClickAddTerm={handleClickAddTerm}
-                        />
-                        </StyledMapData>
-                    </StyledMapRow>
-                    <StyledMapRow>
-                        <StyledMapData 
-                        style={{width: '100%'}}
-                        key={rows.length + 2}
-                        colSpan={maxCourseYears + 2}>
-                        <RemoveTerm 
-                        termNumber={rows.length - 1}
-                        handleClickRemoveTerm={handleClickRemoveTerm}
-                        />
-                        </StyledMapData>
-                    </StyledMapRow>
-                </StyledMapBody>
-            </StyledMap>
-    </DragDropContext>
-    )
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+        <StyledMap bordered size="sm">
+          <StyledMapHead stickyHeader={stickyHeader}>
+            <StyledMapRowResponsive>
+              <StyledMapHeading>Term</StyledMapHeading>
+              <StyledMapHeading
+                style={{ width: "100%" }}
+                colSpan={maxCourseYears + 1}
+              >
+                Courses
+              </StyledMapHeading>
+            </StyledMapRowResponsive>
+          </StyledMapHead>
+          <StyledMapBody
+            stickyHeader={stickyHeader}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <tr
+              style={isChrome ? focusParentElmStyleChrome : focusParentElmStyle}
+            >
+              <StyledFocusElement
+                className={`${
+                  selectedCourse && currentFocusedElm ? `active` : ``
+                }`}
+                style={style}
+              />
+            </tr>
+            {rows}
+            <StyledMapRow>
+              <StyledMapData
+                style={{ width: "100%" }}
+                key={rows.length + 1}
+                colSpan={maxCourseYears + 2}
+              >
+                <AddTerm
+                  termNumber={rows.length + 1}
+                  handleClickAddTerm={handleClickAddTerm}
+                />
+              </StyledMapData>
+            </StyledMapRow>
+            <StyledMapRow>
+              <StyledMapData
+                style={{ width: "100%" }}
+                key={rows.length + 2}
+                colSpan={maxCourseYears + 2}
+              >
+                <RemoveTerm
+                  termNumber={rows.length - 1}
+                  handleClickRemoveTerm={handleClickRemoveTerm}
+                />
+              </StyledMapData>
+            </StyledMapRow>
+          </StyledMapBody>
+        </StyledMap>
+      </DragDropContext>
+    );
 }
 
 // PropTypes
