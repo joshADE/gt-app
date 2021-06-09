@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/Grade-Tracker/static/css/main.2a74b3d0.chunk.css",
-    "main.js": "/Grade-Tracker/static/js/main.56e78b0b.chunk.js",
-    "main.js.map": "/Grade-Tracker/static/js/main.56e78b0b.chunk.js.map",
-    "runtime-main.js": "/Grade-Tracker/static/js/runtime-main.2039763e.js",
-    "runtime-main.js.map": "/Grade-Tracker/static/js/runtime-main.2039763e.js.map",
-    "static/css/2.ae9f1eb3.chunk.css": "/Grade-Tracker/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.805c7797.chunk.js": "/Grade-Tracker/static/js/2.805c7797.chunk.js",
-    "static/js/2.805c7797.chunk.js.map": "/Grade-Tracker/static/js/2.805c7797.chunk.js.map",
+    "main.js": "/Grade-Tracker/static/js/main.eb2d5081.chunk.js",
+    "main.js.map": "/Grade-Tracker/static/js/main.eb2d5081.chunk.js.map",
+    "runtime-main.js": "/Grade-Tracker/static/js/runtime-main.817a8c7e.js",
+    "runtime-main.js.map": "/Grade-Tracker/static/js/runtime-main.817a8c7e.js.map",
+    "static/css/2.4c97ca4f.chunk.css": "/Grade-Tracker/static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.451c7078.chunk.js": "/Grade-Tracker/static/js/2.451c7078.chunk.js",
+    "static/js/2.451c7078.chunk.js.map": "/Grade-Tracker/static/js/2.451c7078.chunk.js.map",
     "index.html": "/Grade-Tracker/index.html",
-    "static/css/2.ae9f1eb3.chunk.css.map": "/Grade-Tracker/static/css/2.ae9f1eb3.chunk.css.map",
+    "static/css/2.4c97ca4f.chunk.css.map": "/Grade-Tracker/static/css/2.4c97ca4f.chunk.css.map",
     "static/css/main.2a74b3d0.chunk.css.map": "/Grade-Tracker/static/css/main.2a74b3d0.chunk.css.map",
-    "static/js/2.805c7797.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.805c7797.chunk.js.LICENSE.txt"
+    "static/js/2.451c7078.chunk.js.LICENSE.txt": "/Grade-Tracker/static/js/2.451c7078.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2039763e.js",
-    "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.805c7797.chunk.js",
+    "static/js/runtime-main.817a8c7e.js",
+    "static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.451c7078.chunk.js",
     "static/css/main.2a74b3d0.chunk.css",
-    "static/js/main.56e78b0b.chunk.js"
+    "static/js/main.eb2d5081.chunk.js"
   ]
 }
