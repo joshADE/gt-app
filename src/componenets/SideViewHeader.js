@@ -77,8 +77,10 @@ function SideViewHeader(props) {
             <span className="divider"></span>
             <StyledHorizontalNavButton
                 onMouseDown={() => startMove(-10)}
+                onTouchStart={() => startMove(-10)}
                 onMouseUp={stopMove}
                 onMouseLeave={stopMove}
+                onTouchEnd={stopMove}
             >
                 {'<'}
             </StyledHorizontalNavButton>
@@ -92,8 +94,10 @@ function SideViewHeader(props) {
             </StyledInnerBottomHead>
             <StyledHorizontalNavButton
                 onMouseDown={() => startMove(10)}
+                onTouchStart={() => startMove(10)}
                 onMouseUp={stopMove}
                 onMouseLeave={stopMove}
+                onTouchEnd={stopMove}
             >
                 {'>'}
             </StyledHorizontalNavButton>
