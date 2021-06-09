@@ -1,21 +1,22 @@
-import React, { useState, useRef, useEffect, Fragment } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import useWindowSize from '../hooks/useWindowSize';
 import { 
     StyledInnerBottomHead,
-    StyledInnerBottomHeadContainer
+    StyledInnerBottomHeadContainer,
+    StyledHorizontalNavButton,
+    StyledScrollIndicator
   } from '../styles/components/homeStyles';
 
 
 function SideViewHeader(props) {
     const [pageNumber, setPageNumber] = useState(1);
     const [maxPages, setMaxPages] = useState(1);
-    //const [lastScrollTop, setLastScrollTop] = useState(0);
-    //const [canScroll, setCanScroll] = useState(true);
 
     const size = useWindowSize();
 
     const sideViewHeaderContainer = useRef(null);
+    const intervalRef = useRef(null);
 
 
     useEffect(() => {
@@ -24,11 +25,9 @@ function SideViewHeader(props) {
 
     const resetScrollProperties = () => {
         if (sideViewHeaderContainer.current){
-            let { scrollHeight, clientHeight, scrollTop } = sideViewHeaderContainer.current;
+            let { scrollHeight, clientHeight } = sideViewHeaderContainer.current;
             
             setMaxPages(Math.floor(scrollHeight / clientHeight));
-            //setPageNumber(Math.floor(scrollTop / clientHeight) + 1);
-            //setLastScrollTop(0);
             sideViewHeaderContainer.current.scrollTo({
                 top: 0,
                 left: 0,
@@ -49,15 +48,40 @@ function SideViewHeader(props) {
         }
     } 
 
+    const startMove = (distance) => {
+        if (intervalRef.current) return;
+        intervalRef.current = setInterval(() => {
+            scrollHorizontally(distance);
+        }, 10)
+    }
+
+    const stopMove = (distance) => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    }
+
+    const scrollHorizontally = (distance) => {
+        if (sideViewHeaderContainer.current){
+            sideViewHeaderContainer.current.scrollLeft += distance;
+        }
+    }
+
 
     return (
         <StyledInnerBottomHeadContainer>
-            <div 
-                style={pageIndicatorStyle}
-            >
+            <StyledScrollIndicator>
                 {pageNumber}/{maxPages}
-            </div>
+            </StyledScrollIndicator>
             <span className="divider"></span>
+            <StyledHorizontalNavButton
+                onMouseDown={() => startMove(-10)}
+                onMouseUp={stopMove}
+                onMouseLeave={stopMove}
+            >
+                {'<'}
+            </StyledHorizontalNavButton>
             <StyledInnerBottomHead
                 
                 ref={sideViewHeaderContainer}
@@ -66,7 +90,13 @@ function SideViewHeader(props) {
             >
                 {props.children}
             </StyledInnerBottomHead>
-            
+            <StyledHorizontalNavButton
+                onMouseDown={() => startMove(10)}
+                onMouseUp={stopMove}
+                onMouseLeave={stopMove}
+            >
+                {'>'}
+            </StyledHorizontalNavButton>
         </StyledInnerBottomHeadContainer>
         
     )
@@ -75,12 +105,3 @@ function SideViewHeader(props) {
 export default SideViewHeader
 
 
-const pageIndicatorStyle = {
-    width: '30px',
-    color:'#000',
-    backgroundColor: '#e5e5e5',
-    borderRadius: '5px',
-    border: '2px solid grey',
-    padding: '5px',
-    margin: '5px',
-}

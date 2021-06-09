@@ -29,6 +29,10 @@ export const StyledInnerBottomHeadItem = styled.form`
     color: ${({ theme }) => theme.textColor};
     height: 100%;
     font-weight: 700;
+
+    label {
+        white-space: nowrap;
+    }
 `;
 
 export const StyledButton = styled.input`
@@ -69,14 +73,37 @@ export const StyledInnerBottomHead = styled.div`
   }
   padding: 1px;
   height: 40px;
-  width: 100%;
   background: ${({ theme }) => theme.panelAlt};
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   ${'' /* border-bottom: 1px solid black; */}
   ${'' /* transition: height 1s ease-in; */}
+`;
+
+export const StyledHorizontalNavButton = styled.button`
+    margin: 0 5px;
+    width: 20px;
+    border-radius: 10px;
+    height: 30px;
+    display: block;
+    border: 2px solid grey;
+    outline: none;
+    font-weight: bolder;
+    font-size: 15px;
+    color: grey;
+`;
+
+export const StyledScrollIndicator = styled.div`
+    width: 30px;
+    color: #000;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    border: 2px solid grey;
+    padding: 5px;
+    margin: 5px;
 `;
 
 export const StyledInnerBottomFoot = styled.div`

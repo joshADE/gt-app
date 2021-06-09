@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Label } from 'reactstrap';
+import { Label } from 'reactstrap';
 import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
 const types = [
@@ -91,7 +91,7 @@ function CourseAnalyzer({
             
             <StyledButton type="submit" value="Find course"/>
             
-            <Label style={{width: 'auto' }}>Course: {recommendedCourse}</Label>
+            <Label>Course: {recommendedCourse}</Label>
         </StyledInnerBottomHeadItem>
     )
 }

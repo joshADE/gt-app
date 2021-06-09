@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Label } from 'reactstrap';
+import { Label } from 'reactstrap';
 //import * as AllActionsCreators from '../redux/index';
 import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
@@ -83,14 +83,13 @@ export class CGPACalculator extends Component {
             <StyledInnerBottomHeadItem
             onSubmit={this.onSubmit}
             >
-                <Label>Using {!schools[currentSchool] ||schools[currentSchool].length === 0? 'no grade point conversion': currentSchool + '\'s grade point conversion'}, </Label>
-                <Label style={{width: 'auto' }}>GPA of the courses|</Label>
-                {' '}
-                <Label><input type="radio" name="type" value="up to" onChange={this.onChange} checked={this.state.type === 'up to'} /> up to </Label>{' '} 
-                {' '}
-                <Label><input type="radio" name="type" value="at" onChange={this.onChange} checked={this.state.type === 'at'} /> at </Label>{' '}
-                {' '}
-                <Label>|term:</Label>
+                <Label>Using {!schools[currentSchool] ||schools[currentSchool].length === 0? 'no grade point conversion': currentSchool + '\'s'} grade point chart, GPA of the courses</Label>
+                
+                <Label className="mx-1"><input type="radio" name="type" value="up to" onChange={this.onChange} checked={this.state.type === 'up to'} /> up to </Label>
+                
+                <Label className="mx-1"><input type="radio" name="type" value="at" onChange={this.onChange} checked={this.state.type === 'at'} /> at </Label>
+                
+                <Label>term:</Label>
                 
                 <StyledInput type="select" id="exampleSelect" 
                 name="term"
@@ -102,7 +101,7 @@ export class CGPACalculator extends Component {
                 
                 <StyledButton type="submit" value="Calculate"/>
                 
-                <Label style={{width: 'auto' }}>{(this.state.type === 'up to' ? 'CGPA': 'GPA')}: {this.state.CGPA}</Label>
+                <Label>{(this.state.type === 'up to' ? 'CGPA': 'GPA')}: {this.state.CGPA}</Label>
             </StyledInnerBottomHeadItem>
             
         )
@@ -124,14 +123,6 @@ const mapStateToProps = state => {
     }
   }
   
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-
-    }
-  }
-  
   export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
   )(CGPACalculator);

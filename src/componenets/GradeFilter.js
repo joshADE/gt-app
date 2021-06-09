@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Input, Label } from 'reactstrap';
+import { Label } from 'reactstrap';
 import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
 export class GradeFilter extends Component {
@@ -30,7 +30,7 @@ export class GradeFilter extends Component {
             onSubmit={this.onSubmit}
 
             >
-                <Label style={{lineHeight: '15px', width: 'auto', alignSelf: 'center' }}>Courses with grade </Label>
+                <Label>Courses with grade </Label>
                 <StyledInput 
                 type="select"
                 id="filter"
