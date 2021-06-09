@@ -78,7 +78,7 @@ export const StyledInnerBottomHead = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow-y: scroll;
-  overflow-x: hidden;
+  ${'' /* overflow-x: hidden; */}
   ${'' /* border-bottom: 1px solid black; */}
   ${'' /* transition: height 1s ease-in; */}
 `;
