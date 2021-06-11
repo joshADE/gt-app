@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Table, Button } from 'reactstrap';
+import { Table, Button, Form } from 'reactstrap';
 import { fadeinbottom } from './animations';
 
 
@@ -192,6 +192,26 @@ export const StyledButtonReset = styled(StyledButton)`
     ${'' /* &:hover {
         background: rgb(228, 27, 27);
     } */}
+`;
+
+
+export const StyledAddCourseForm = styled(Form)`
+    display: flex; 
+    flex-direction: column;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    height: auto;
+    padding-top: 25%;
+    width: 100%;
+
+    .addCourseInput {
+        margin-top: 2px;
+    }
+
+    .addButton {
+        margin-top: 2px;
+    }
 `;
 
 
