@@ -215,5 +215,37 @@ export const StyledAddCourseForm = styled(Form)`
 `;
 
 
+export const StyledCourseForm = styled(Form)`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+
+    .courseInput {
+        width: 100%;
+        background: lightgrey;
+        border-radius: 5px;
+        padding: 2px 4px;
+    }
+
+    .dragholder {
+        width: 100%;
+        background: lightgrey;
+        height: 15px;
+        border-radius: 3px;
+        border: 1px solid black;
+    }
+
+    .courseButton {
+        margin-top: 2px;
+        border-radius: 5px;
+    }
+`;
+
 
 

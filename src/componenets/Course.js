@@ -10,6 +10,7 @@ import {
   StyledButtonDelete,
   StyledButton,
   StyledButtonSave,
+  StyledCourseForm,
 } from "../styles/components/programmapStyles";
 
 export class Course extends Component {
@@ -106,17 +107,12 @@ export class Course extends Component {
             ref={composeRefs(provided.innerRef, this.theContainer)}
             {...provided.draggableProps}
           >
-            <form
+            <StyledCourseForm
               onSubmit={this.onSubmit}
-              style={courseStyle}
               className={appliedclasses}
               ref={this.theForm}
             >
-              <span
-                className="dragholder"
-                style={dragholder}
-                {...provided.dragHandleProps}
-              />
+              <span className="dragholder" {...provided.dragHandleProps} />
               {isEditing && (
                 <Label style={{ alignSelf: "center" }}>
                   {this.state.message}
@@ -137,7 +133,7 @@ export class Course extends Component {
                     <Label for="newNameInput">New Name:</Label>{" "}
                     <Input
                       id="newNameInput"
-                      style={inputStyle}
+                      className="courseInput"
                       type="text"
                       name="courseName"
                       value={this.state.courseName}
@@ -155,7 +151,7 @@ export class Course extends Component {
                     <Label for="newGradeInput">New Grade:</Label>{" "}
                     <Input
                       id="newGradeInput"
-                      style={inputStyle}
+                      className="courseInput"
                       type="text"
                       name="grade"
                       value={this.state.grade}
@@ -173,7 +169,7 @@ export class Course extends Component {
                     <Label for="newCreditInput">New Credits:</Label>{" "}
                     <Input
                       id="newCreditInput"
-                      style={inputStyle}
+                      className="courseInput"
                       type="text"
                       name="credits"
                       value={this.state.credits}
@@ -183,31 +179,31 @@ export class Course extends Component {
                 )}
               </FormGroup>
               <StyledButton
-                style={buttonStyle}
+                className="courseButton"
                 type="button"
                 onClick={this.onSelect}
               >
                 {this.props.isSelected ? "Deselect" : "Select"}
               </StyledButton>
               {isEditing && (
-                <StyledButtonSave style={buttonStyle} type="submit">
-                  Set changes
-                </StyledButtonSave>
+                <>
+                  <StyledButtonSave className="courseButton" type="submit">
+                    Set changes
+                  </StyledButtonSave>
+                  <StyledButtonDelete
+                    className="courseButton"
+                    type="button"
+                    onClick={this.props.handleClickDeleteCourse.bind(
+                      this,
+                      this.props.term,
+                      this.props.course.code
+                    )}
+                  >
+                    Delete(-)
+                  </StyledButtonDelete>
+                </>
               )}
-              {isEditing && (
-                <StyledButtonDelete
-                  style={buttonStyle}
-                  type="button"
-                  onClick={this.props.handleClickDeleteCourse.bind(
-                    this,
-                    this.props.term,
-                    this.props.course.code
-                  )}
-                >
-                  Delete(-)
-                </StyledButtonDelete>
-              )}
-            </form>
+            </StyledCourseForm>
           </StyledCourseData>
         )}
       </Draggable>
@@ -217,6 +213,9 @@ export class Course extends Component {
 
 // PropTypes
 Course.propType = {
+  courseIndex: PropTypes.number.isRequired,
+  toggleFocus: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   handleClickEditCourse: PropTypes.func.isRequired,
   course: PropTypes.instanceOf(CourseClass).isRequired,
   term: PropTypes.number.isRequired,
@@ -224,38 +223,6 @@ Course.propType = {
   handleClickDeleteCourse: PropTypes.func.isRequired,
   handleClickSelectCourse: PropTypes.func.isRequired,
   isHighlighted: PropTypes.bool.isRequired,
-};
-const dragholder = {
-  width: "100%",
-  background: "lightgrey",
-  height: "15px",
-  borderRadius: "3px",
-  cursor: "grab",
-  border: "1px solid black",
-};
-
-const inputStyle = {
-  width: "100%",
-  background: "lightgrey",
-  borderRadius: "5px",
-  padding: "2px 4px",
-};
-
-const courseStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  overflow: "hidden",
-  borderRadius: "5px",
-  fontWeight: "bold",
-  height: "100%",
-  width: "100%",
-  padding: "5px",
-};
-
-const buttonStyle = {
-  marginTop: "2px",
-  borderRadius: "5px",
 };
 
 export default Course;
