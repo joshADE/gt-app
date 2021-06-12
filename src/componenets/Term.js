@@ -71,6 +71,7 @@ export const Term = ({
             return (
               <Course
                 key={course.code}
+                term={termNumber}
                 courseIndex={ind}
                 toggleFocus={toggleFocus}
                 handleClickEditCourse={handleClickEditCourse}
