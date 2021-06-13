@@ -6,6 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 import { changeStyle } from "../redux/index";
 import AddCourse from "./AddCourse";
 import Course from "./Course";
+import CourseClass from "./model/CourseClass";
 import {
   StyledTermRow,
   StyledMapHeading,
@@ -39,7 +40,6 @@ export const Term = ({
         >
           <StyledMapHeading
             key={termNumber + "x" + -1}
-            style={termDisplayStyle}
             isEditing={editing}
           >
             {termNumber + 1}
@@ -99,18 +99,17 @@ export const Term = ({
 
 // PropTypes
 Term.propType = {
+  isSelected: PropTypes.bool.isRequired,
+  toggleFocus: PropTypes.func.isRequired,
   courseList: PropTypes.array.isRequired,
   termNumber: PropTypes.number.isRequired,
   handleClickAddCourse: PropTypes.func.isRequired,
   handleClickEditCourse: PropTypes.func.isRequired,
   handleClickDeleteCourse: PropTypes.func.isRequired,
   handleClickSelectCourse: PropTypes.func.isRequired,
-  selectedCourse: PropTypes.object.isRequired,
+  selectedCourse: PropTypes.instanceOf(CourseClass).isRequired,
   filteredCourses: PropTypes.array.isRequired,
 };
 
-const termDisplayStyle = {
-  textAlign: "center",
-};
 
 export default Term;
