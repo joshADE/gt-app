@@ -14,6 +14,21 @@ import {
 } from "../styles/components/programmapStyles";
 
 export class Course extends Component {
+
+  static propTypes = {
+    courseIndex: PropTypes.number.isRequired,
+    toggleFocus: PropTypes.func.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    handleClickEditCourse: PropTypes.func.isRequired,
+    course: PropTypes.object.isRequired,
+    term: PropTypes.number.isRequired,
+    isSelected: PropTypes.bool,
+    handleClickDeleteCourse: PropTypes.func.isRequired,
+    handleClickSelectCourse: PropTypes.func.isRequired,
+    isHighlighted: PropTypes.bool.isRequired,
+  }
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +85,7 @@ export class Course extends Component {
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  onSelect = (e) => {
+  onSelect = () => {
     if (this.theContainer.current && !this.props.isSelected) {
       if (this.timeout) clearTimeout(this.timeout);
 
@@ -100,7 +115,7 @@ export class Course extends Component {
     appliedclasses += isSelected ? " selected" : "";
     return (
       <Draggable draggableId={`draggable-${code}`} index={courseIndex}>
-        {(provided, _) => (
+        {(provided) => (
           <StyledCourseData
             className="course"
             isEditing={isEditing}
@@ -211,18 +226,5 @@ export class Course extends Component {
   }
 }
 
-// PropTypes
-Course.propType = {
-  courseIndex: PropTypes.number.isRequired,
-  toggleFocus: PropTypes.func.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  handleClickEditCourse: PropTypes.func.isRequired,
-  course: PropTypes.instanceOf(CourseClass).isRequired,
-  term: PropTypes.number.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  handleClickDeleteCourse: PropTypes.func.isRequired,
-  handleClickSelectCourse: PropTypes.func.isRequired,
-  isHighlighted: PropTypes.bool.isRequired,
-};
 
 export default Course;

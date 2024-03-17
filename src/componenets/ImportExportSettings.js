@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import FileSaver, { saveAs } from 'file-saver';
+import FileSaver from 'file-saver';
 import { Button, Input, Label, FormGroup } from 'reactstrap'
 import { loadCourses } from '../redux/course/courseActions';
 import CourseClass from './model/CourseClass';
@@ -34,7 +34,7 @@ function import_csv(input, callback) {
 }
 
 function parseCSVData(data) {
-    let csvData = [];
+    // let csvData = [];
     let lbreak = data.split("\n");
     let currentRead = "";
     let courses = [];
@@ -92,7 +92,7 @@ function export_csv(arrayHeader, terms, prereq, coreq, delimiter, fileName) {
         term.forEach(course => {
             let row = [];
             for (let index in arrayHeader){
-                if (course.hasOwnProperty(arrayHeader[index])) {
+                if (course.hasOwn(arrayHeader[index])) {
                     row.push(course[arrayHeader[index]]);
                 }
             }
@@ -103,7 +103,7 @@ function export_csv(arrayHeader, terms, prereq, coreq, delimiter, fileName) {
 
     csv += "PREREQ\n";
     for (let key in prereq) {
-        if (prereq.hasOwnProperty(key)){
+        if (prereq.hasOwn(key)){
             let row = [];
             row.push(key);
             prereq[key].forEach(coursecode => {

@@ -7,7 +7,7 @@ import {
     StyledHorizontalNavButton,
     StyledScrollIndicator
   } from '../styles/components/homeStyles';
-
+import PropTypes from 'prop-types';
 
 function SideViewHeader(props) {
     const [pageNumber, setPageNumber] = useState(1);
@@ -37,7 +37,7 @@ function SideViewHeader(props) {
     }
 
 
-    const scrollContainer = (e) => {
+    const scrollContainer = () => {
         
         if (sideViewHeaderContainer.current){
           let { scrollTop, clientHeight, scrollHeight } = sideViewHeaderContainer.current;
@@ -55,7 +55,7 @@ function SideViewHeader(props) {
         }, 10)
     }
 
-    const stopMove = (distance) => {
+    const stopMove = () => {
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
@@ -104,6 +104,10 @@ function SideViewHeader(props) {
         </StyledInnerBottomHeadContainer>
         
     )
+}
+
+SideViewHeader.propTypes = {
+    children: PropTypes.node.isRequired,
 }
 
 export default SideViewHeader

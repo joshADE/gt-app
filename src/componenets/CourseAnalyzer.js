@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Label } from 'reactstrap';
 import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
+import PropTypes from 'prop-types';
 
 const types = [
     "Course with worst grade and highest credit",
@@ -12,8 +13,6 @@ const types = [
 
 function CourseAnalyzer({
     courses,
-    prereq,
-    coreq
 }) {
     const [recommendedCourse, setRecommendedCourse] = useState('');
     const [type, setType] = useState(0);
@@ -94,6 +93,12 @@ function CourseAnalyzer({
             <Label>Course: {recommendedCourse}</Label>
         </StyledInnerBottomHeadItem>
     )
+}
+
+CourseAnalyzer.propTypes = {
+    courses: PropTypes.array.isRequired,
+    prereq: PropTypes.object.isRequired,
+    coreq: PropTypes.array.isRequired
 }
 
 

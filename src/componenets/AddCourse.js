@@ -9,6 +9,14 @@ import {
 } from "../styles/components/programmapStyles";
 
 export class AddCourse extends Component {
+
+  static propTypes = {
+    handleClickAddCourse: PropTypes.func.isRequired,
+    term: PropTypes.number.isRequired,
+    courses: PropTypes.object.isRequired,
+    addCourse: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -77,11 +85,6 @@ export class AddCourse extends Component {
   }
 }
 
-// PropTypes
-AddCourse.propType = {
-  handleClickAddCourse: PropTypes.func.isRequired,
-  term: PropTypes.number.isRequired,
-};
 
 const mapState = (state) => state;
 

@@ -11,4 +11,4 @@ export default class CourseClass {
   {
       return new CourseClass('NA', 'NA', 0.0, 1.0);
   }
-};
+}

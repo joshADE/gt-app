@@ -26,7 +26,7 @@ function SideView ({
 
     
     // New onChange(for 'react-select' component)
-    const onChange = (value, { name, action, removedValue }) => {
+    const onChange = (value, { name, action }) => {
         switch (action) {
           case 'remove-value':
             break;
@@ -207,7 +207,7 @@ function SideView ({
         const form = 
                 <form
                 onSubmit={onSubmit}
-                sytle={formStyle}
+                style={formStyle}
                 className="sideViewForm"
                 >
                     
@@ -287,11 +287,11 @@ function SideView ({
 // PropTypes
 SideView.propType = {
     sendNotification: PropTypes.func.isRequired,
-    handleClickEditCourse: PropTypes.func.isRequired,
+    handleClickEditCourse: PropTypes.func,
     courses: PropTypes.array.isRequired,
-    selectedTerm: PropTypes.number.isRequired,
-    selectedCourse: PropTypes.object.isRequired,
-    prereq: PropTypes.array.isRequired,
+    selectedTerm: PropTypes.number,
+    selectedCourse: PropTypes.object,
+    prereq: PropTypes.object.isRequired,
     coreq: PropTypes.array.isRequired,
     handleClickEditPrereq: PropTypes.func.isRequired,
     handleClickEditCoreq: PropTypes.func.isRequired,
@@ -318,7 +318,7 @@ const formStyle = {
 
 // Custom style for 'react-select', uses Emotion JS
 const customStyles = {
-    container: (provided, state) => ({
+    container: (provided) => ({
         ...provided,
         // none of react-select's styles are passed to <Control />
         
@@ -333,11 +333,25 @@ const customStyles = {
         //boxShadow: state.isFocused || state.isSelected || state.isActive ? '0 0 0 .2rem rgba(60,179,113, 0.2)': 'none',
         //outline: state.isFocused || state.isSelected ||  state.isActive ? '1px solid rgba(60,179,113, 0.2)': 'none',
     }),
-      input: (provided, state) => ({
+      input: (provided) => ({
           ...provided,
       })
 
 
+}
+
+SideView.propTypes = {
+    sendNotification: PropTypes.func.isRequired,
+    handleClickEditCourse: PropTypes.func.isRequired,
+    courses: PropTypes.array.isRequired,
+    selectedTerm: PropTypes.number.isRequired,
+    selectedCourse: PropTypes.object.isRequired,
+    prereq: PropTypes.array.isRequired,
+    coreq: PropTypes.array.isRequired,
+    handleClickEditPrereq: PropTypes.func.isRequired,
+    handleClickEditCoreq: PropTypes.func.isRequired,
+    handleClickShowPrereq: PropTypes.func.isRequired,
+    handleClickShowCoreq: PropTypes.func.isRequired,
 }
 
 

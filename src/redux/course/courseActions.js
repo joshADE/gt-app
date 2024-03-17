@@ -58,7 +58,7 @@ export const toggleSelectCourse = (courseCode = "not_specified") => {
 			});
         }
     } else {
-        return (dispatch, getState) => {
+        return (dispatch) => {
 			dispatch({ type: courseTypes.TOGGLE_SELECT, payload: courseCode });
 		};
     } 

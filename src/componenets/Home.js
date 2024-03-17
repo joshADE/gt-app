@@ -20,15 +20,33 @@ import { notify } from './Notification';
 import App from '../App';
 // import * as CourseActionCreators from '../redux';
 import { 
-  addCourse, editCourse, deleteCourse, addTerm, removeTerm, 
+  addCourse, editCourse, deleteCourse, 
   toggleSelectCourse, clearSelected, filterByCategory, clearFilter,
   editPrereq, editCoreq, showPrereq, showCoreq, loadCourses   
 } from '../redux/index';
 import SideViewHeader from './SideViewHeader';
 import CourseAnalyzer from './CourseAnalyzer';
+import PropTypes from 'prop-types';
 
 
 class Home extends Component {
+
+  static propTypes = {
+    courses: PropTypes.object.isRequired,
+    addCourse: PropTypes.func.isRequired,
+    editCourse: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired,
+    toggleSelectCourse: PropTypes.func.isRequired,
+    clearSelected: PropTypes.func.isRequired,
+    filterByCategory: PropTypes.func.isRequired,
+    clearFilter: PropTypes.func.isRequired,
+    editPrereq: PropTypes.func.isRequired,
+    editCoreq: PropTypes.func.isRequired,
+    showPrereq: PropTypes.func.isRequired,
+    showCoreq: PropTypes.func.isRequired,
+    loadCourses: PropTypes.func.isRequired,
+    populateCourseData: PropTypes.func.isRequired,
+  }
 
   componentWillUnmount = () => {
     // this is a temporary fix for the problems that I'm getting with
@@ -74,7 +92,7 @@ class Home extends Component {
 
   render(){
 
-    const { addTerm, removeTerm, addCourse, editCourse, toggleSelectCourse, 
+    const { addCourse, editCourse, toggleSelectCourse, 
       deleteCourse, filterByCategory, editPrereq, editCoreq, showPrereq, showCoreq } = this.props;
 
     const { courses, selectedCourse, filteredCourses, prereq, coreq,
@@ -85,8 +103,6 @@ class Home extends Component {
             <StyledInner>
               <StyledInnerTop>
                 <ProgramMap 
-                handleClickAddTerm={addTerm}
-                handleClickRemoveTerm={removeTerm}
                 handleClickAddCourse={addCourse}
                 handleClickEditCourse={editCourse}
                 handleClickSelectCourse={toggleSelectCourse}
@@ -165,8 +181,6 @@ class Home extends Component {
   //     addCourse: (term, courseCode) => dispatch(CourseActionCreators.addCourse(term, courseCode)),
   //     editCourse: (term, editedCourse) => dispatch(CourseActionCreators.editCourse(term, editedCourse)),
   //     deleteCourse: (term, courseCode) => dispatch(CourseActionCreators.deleteCourse(term, courseCode)),
-  //     addTerm: () => dispatch(CourseActionCreators.addTerm()),
-  //     removeTerm: () => dispatch(CourseActionCreators.removeTerm()),
   //     toggleSelect: (courseCode) => dispatch(CourseActionCreators.toggleSelectCourse(courseCode)),
   //     clearSelected: () => dispatch(CourseActionCreators.clearSelected()),
   //     filterByCategory: (category, value) => dispatch(CourseActionCreators.filterByCategory(category, value)),
@@ -182,7 +196,7 @@ class Home extends Component {
   const mapState = state => state;
 
   const actionCreators = {
-    addCourse, editCourse, deleteCourse, addTerm, removeTerm, 
+    addCourse, editCourse, deleteCourse, 
     toggleSelectCourse, clearSelected, filterByCategory, clearFilter,
     editPrereq, editCoreq, showPrereq, showCoreq, loadCourses  
   };
