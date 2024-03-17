@@ -7,7 +7,7 @@ import { customSchoolName } from '../redux/settings/settingsReducer';
 
 const gradeLetters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'Not Set'];
 
-function GPASettings(props) 
+function GPASettings() 
 {
     
     const { currentSchool, schools } = useSelector(state => state.settings);
@@ -38,7 +38,7 @@ function GPASettings(props)
         setState({...state, [e.currentTarget.name]:e.currentTarget.value});
     }
 
-    const saveSchoolData = (e) => {
+    const saveSchoolData = () => {
         dispatch(AllActionCreators.setSchoolGrades(currentSchool, GPAStops));
         
     }
@@ -157,6 +157,10 @@ function GPASettings(props)
             </Form>
         </div>
     )
+}
+
+GPASettings.propTypes = {
+
 }
 
 export default GPASettings

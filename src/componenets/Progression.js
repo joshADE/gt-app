@@ -167,7 +167,7 @@ function Progression(props) {
 }
 
 // PropTypes
-Progression.propType = {
+Progression.propTypes = {
     prereq: PropTypes.object.isRequired,
     selectedCourse: PropTypes.objectOf(CourseClass).isRequired,
 }

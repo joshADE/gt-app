@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import ee from 'event-emitter';
 
-const Container = styled.div
-`
+const Container = styled.div`
     background-color: ${props => props.type.backColor};
     color: ${props => props.type.textColor};
     padding: 10px 20px;

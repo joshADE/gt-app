@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -27,9 +28,7 @@ export const ProgramMap = ({
     handleClickSelectCourse,
     handleClickDeleteCourse,
     filteredCourses,
-    maxCourseYears,
-    handleClickAddTerm,
-    handleClickRemoveTerm
+    maxCourseYears
 
 }) => {
     const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
@@ -110,7 +109,7 @@ export const ProgramMap = ({
             <StyledMapRowResponsive>
               <StyledMapHeading>Term</StyledMapHeading>
               <StyledMapHeading
-                style={{ width: "100%" }}
+                className="w-100"
                 colSpan={maxCourseYears + 1}
               >
                 Courses
@@ -119,7 +118,7 @@ export const ProgramMap = ({
           </StyledMapHead>
           <StyledMapBody
             stickyHeader={stickyHeader}
-            style={{ width: "100%", height: "100%" }}
+            className="w-100 h-100"
           >
             <tr
               style={isChrome ? focusParentElmStyleChrome : focusParentElmStyle}
@@ -134,26 +133,20 @@ export const ProgramMap = ({
             {rows}
             <StyledMapRow>
               <StyledMapData
-                style={{ width: "100%" }}
+                className="w-100"
                 key={rows.length + 1}
                 colSpan={maxCourseYears + 2}
               >
-                <AddTerm
-                  termNumber={rows.length + 1}
-                  handleClickAddTerm={handleClickAddTerm}
-                />
+                <AddTerm />
               </StyledMapData>
             </StyledMapRow>
             <StyledMapRow>
               <StyledMapData
-                style={{ width: "100%" }}
+                className="w-100"
                 key={rows.length + 2}
                 colSpan={maxCourseYears + 2}
               >
-                <RemoveTerm
-                  termNumber={rows.length - 1}
-                  handleClickRemoveTerm={handleClickRemoveTerm}
-                />
+                <RemoveTerm />
               </StyledMapData>
             </StyledMapRow>
           </StyledMapBody>
@@ -163,16 +156,14 @@ export const ProgramMap = ({
 }
 
 // PropTypes
-ProgramMap.propType = {
-    handleClickAddTerm: PropTypes.func.isRequired,
-    handleClickRemoveTerm: PropTypes.func.isRequired,
+ProgramMap.propTypes = {
     handleClickAddCourse: PropTypes.func.isRequired,
     handleClickEditCourse: PropTypes.func.isRequired,
     handleClickDeleteCourse: PropTypes.func.isRequired,
     handleClickSelectCourse: PropTypes.func.isRequired,
     maxCourseYears: PropTypes.number.isRequired,
     courses: PropTypes.array.isRequired,
-    selectedCourse: PropTypes.object.isRequired,
+    selectedCourse: PropTypes.object,
     filteredCourses: PropTypes.array.isRequired
 }
 

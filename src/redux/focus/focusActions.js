@@ -29,7 +29,7 @@ export const changeStyle = (newStyle = "not_specified") => {
 			});
         }
     } else {
-        return (dispatch, getState) => {
+        return (dispatch) => {
 			dispatch({ type: focusTypes.CHANGE_STYLE, payload: newStyle });
 		};
     } 

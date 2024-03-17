@@ -168,7 +168,7 @@ const courseReducer = (state = initialState, action) => {
             }
             
 
-        case courseTypes.ADD_COURSE:
+        case courseTypes.ADD_COURSE: {
             courseCode = action.payload.courseCode;
             term = action.payload.term;
             const course = CourseClass.EmptyCourse();
@@ -179,7 +179,8 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 courses: termList
             }
-        case courseTypes.EDIT_COURSE:
+        }
+        case courseTypes.EDIT_COURSE: {
             let { editedCourse } = action.payload;
             term = action.payload.term;
             termList = state.courses.slice();
@@ -195,8 +196,8 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 courses: termList
             }
-
-        case courseTypes.DELETE_COURSE:
+        }
+        case courseTypes.DELETE_COURSE: {
             termList = state.courses.slice();
             term = action.payload.term;
             i = termList[term].findIndex(course => course.code === action.payload.courseCode);
@@ -209,7 +210,8 @@ const courseReducer = (state = initialState, action) => {
                 selectedCourse: (state.selectedCourse && action.payload.courseCode === state.selectedCourse.code)? null: state.selectedCourse,
                 selectedTerm: (state.selectedCourse && action.payload.courseCode === state.selectedCourse.code)? null: state.selectedTerm,
             }
-        case courseTypes.FILTER:
+        }
+        case courseTypes.FILTER: {
             let { category, value } = action.payload;
             const unfiltered = [].concat.apply([], state.courses);
             let filtered;
@@ -231,12 +233,13 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 filteredCourses: filtered
             }
+        }
         case courseTypes.CLEAR_FILTER:
             return {
                 ...state,
                 filteredCourses: []
             }
-        case courseTypes.TOGGLE_SELECT:
+        case courseTypes.TOGGLE_SELECT: {
             const { selectedCourse } = state;
             if(selectedCourse && selectedCourse.code === action.payload){
                 return {
@@ -265,14 +268,15 @@ const courseReducer = (state = initialState, action) => {
         
 
               return state;
-        case courseTypes.CLEAR_SELECT:
+            }
+        case courseTypes.CLEAR_SELECT: {
             return {
                 ...state,
                 selectedCourse: null,
                 selectedTerm: null
             }
-
-        case courseTypes.EDIT_PREREQ:
+        }
+        case courseTypes.EDIT_PREREQ: {
             let prereqcopy = state.prereq;
             prereqcopy[action.payload.courseCode] = action.payload.prereqCourses;
             if (prereqcopy[action.payload.courseCode].length === 0){
@@ -282,7 +286,9 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 prereq: prereqcopy
             }
+        }
         case courseTypes.EDIT_COREQ:
+            {
             courseCode = action.payload.courseCode;
             let coreqCourses = action.payload.coreqCourses;
             let coreqcopy = state.coreq.slice();
@@ -351,8 +357,8 @@ const courseReducer = (state = initialState, action) => {
                 // as that code deletes the previous set
                 coreq: combineCoreqSets(coreqcopy), 
             };
-
-        case courseTypes.SHOW_PREREQ:
+        }
+        case courseTypes.SHOW_PREREQ: {
             const val = state.prereq[action.payload];
             if (val !== undefined){
                 let filtered = getCoursesFromCodes(val, state.courses);
@@ -365,8 +371,8 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 filteredCourses: []
             };
-
-        case courseTypes.SHOW_COREQ:
+        }
+        case courseTypes.SHOW_COREQ:{
             
             let selectedCoreqIndex = state.coreq
             .findIndex(cl => cl.includes(action.payload));
@@ -384,7 +390,7 @@ const courseReducer = (state = initialState, action) => {
                 ...state,
                 filteredCourses: []
             };
-
+        }
         case courseTypes.LOAD_COURSES:
             return {
                 ...state,
@@ -393,7 +399,7 @@ const courseReducer = (state = initialState, action) => {
                 coreq: action.payload.coreq
             }
 
-        case courseTypes.DRAG_END:
+        case courseTypes.DRAG_END: {
             const newCourses = JSON.parse(JSON.stringify(state.courses));
             const {params, currentItem} = action.payload;
             newCourses[params.termI].splice(params.courseI, 0, newCourses[currentItem.termI].splice(currentItem.courseI, 1)[0]);
@@ -404,7 +410,7 @@ const courseReducer = (state = initialState, action) => {
                 selectedTerm: null,
                 filteredCourses: []
             }
-
+        }
         default: return state
     }
 }

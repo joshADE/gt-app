@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyledButtonSecondary } from '../styles/components/homeStyles';
+import PropTypes from 'prop-types';
 function ResetChanges(props) {
     return (
         <StyledButtonSecondary
@@ -15,6 +16,10 @@ function ResetChanges(props) {
 }
 const buttonStyle = {
     fontSize: '1.1rem',
+};
+
+ResetChanges.propTypes = {
+    onResetClick: PropTypes.func.isRequired,
 };
 
 export default ResetChanges;

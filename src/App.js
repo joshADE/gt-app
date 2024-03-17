@@ -16,9 +16,21 @@ import Instructions from './componenets/pages/Instructions';
 import Home from './componenets/Home';
 import Settings from './componenets/Settings';
 import { customSchoolName } from './redux/settings/settingsReducer';
+import PropTypes from 'prop-types';
 
 
 class App extends Component {
+
+  static propTypes = {
+    settings: PropTypes.object.isRequired,
+    courses: PropTypes.object.isRequired,
+    toggleDarkmode: PropTypes.func.isRequired,
+    loadSettings: PropTypes.func.isRequired,
+    loadCourses: PropTypes.func.isRequired,
+    loadCustomSchool: PropTypes.func.isRequired,
+    toggleSelectCourse: PropTypes.func.isRequired,
+    changeStyle: PropTypes.func.isRequired,
+}
 
   static localStorageKey = 'courses';
 
@@ -108,7 +120,7 @@ class App extends Component {
               <StyledAppContainer>
                 <Header />
                 <Notification />
-                <Route exact path="/" render={props => (
+                <Route exact path="/" render={() => (
                   <Home 
                   populateCourseData={this.populateCourseData}
                   />

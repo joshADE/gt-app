@@ -6,7 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 import { changeStyle } from "../redux/index";
 import AddCourse from "./AddCourse";
 import Course from "./Course";
-import CourseClass from "./model/CourseClass";
+
 import {
   StyledTermRow,
   StyledMapHeading,
@@ -31,7 +31,7 @@ export const Term = ({
 
   return (
     <Droppable droppableId={`${termNumber}`} direction={"horizontal"}>
-      {(provided, _) => (
+      {(provided) => (
         <StyledTermRow
           ref={provided.innerRef}
           {...provided.droppableProps}
@@ -98,8 +98,8 @@ export const Term = ({
 };
 
 // PropTypes
-Term.propType = {
-  isSelected: PropTypes.bool.isRequired,
+Term.propTypes = {
+  isSelected: PropTypes.bool,
   toggleFocus: PropTypes.func.isRequired,
   courseList: PropTypes.array.isRequired,
   termNumber: PropTypes.number.isRequired,
@@ -107,7 +107,7 @@ Term.propType = {
   handleClickEditCourse: PropTypes.func.isRequired,
   handleClickDeleteCourse: PropTypes.func.isRequired,
   handleClickSelectCourse: PropTypes.func.isRequired,
-  selectedCourse: PropTypes.instanceOf(CourseClass).isRequired,
+  selectedCourse: PropTypes.object,
   filteredCourses: PropTypes.array.isRequired,
 };
 

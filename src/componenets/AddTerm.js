@@ -1,34 +1,30 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react'
-import { StyledButtonAdd } from '../styles/components/programmapStyles';
-
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { addTerm } from "../redux";
+import { connect } from "react-redux";
+import { StyledButtonAdd } from "../styles/components/programmapStyles";
 
 export class AddTerm extends Component {
-    render() {
-        return (
-            
-        <StyledButtonAdd 
-        type="button" 
-        onClick={this.props.handleClickAddTerm} 
-        style={addNewTermStyle}
-        >
-            Add a new term
-        </StyledButtonAdd>
-        )
-    }
+  static propTypes = {
+    addTerm: PropTypes.func.isRequired
+  };
+  
+  render() {
+    return (
+      <StyledButtonAdd
+        type="button"
+        onClick={() => this.props.addTerm()}
+        className="w-100"
+      >
+        Add a new term
+      </StyledButtonAdd>
+    );
+  }
 }
 
 
-
-// PropTypes
-AddTerm.propType = {
-    termNumber: PropTypes.number.isRequired,
-    handleClickAddTerm: PropTypes.func.isRequired,
-}
-
-const addNewTermStyle = {
-    width:'100%',
+const actionCreators = {
+  addTerm
 };
 
-
-export default  AddTerm;
+export default connect(null, actionCreators)(AddTerm);

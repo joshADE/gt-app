@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyledButtonSave } from '../styles/components/programmapStyles';
 import { StyledButtonShow, StyledSelect } from '../styles/components/sideviewStyles';
+import PropTypes from 'prop-types';
 
 function SideViewForm({
     sendNotification,
@@ -22,7 +23,7 @@ function SideViewForm({
 
     
     // New onChange(for 'react-select' component)
-    const onChange = (value, { name, action, removedValue }) => {
+    const onChange = (value, { name, action }) => {
         switch (action) {
           case 'remove-value':
             break;
@@ -181,7 +182,7 @@ function SideViewForm({
     return (
         <form
             onSubmit={onSubmit}
-            sytle={formStyle}
+            style={formStyle}
             className="sideViewForm"
         > 
             <div>
@@ -246,19 +247,32 @@ const formStyle = {
 
 // Custom style for 'react-select', uses Emotion JS
 const customStyles = {
-    container: (provided, state) => ({
+    container: (provided) => ({
         ...provided,
         // none of react-select's styles are passed to <Control />
         
       }),
 
-      control: (provided, state) => ({
+      control: (provided) => ({
         ...provided,
         overflowY: 'scroll',
         height: 30,
       }),
 
 
+}
+
+SideViewForm.propTypes = {
+    sendNotification: PropTypes.func,
+    selectedCourse: PropTypes.object,
+    selectedTerm: PropTypes.number,
+    handleClickEditPrereq: PropTypes.func,
+    handleClickEditCoreq: PropTypes.func,
+    prereq: PropTypes.array,
+    coreq: PropTypes.array,
+    courses: PropTypes.array,
+    handleClickShowPrereq: PropTypes.func,
+    handleClickShowCoreq: PropTypes.func
 }
 
 export default SideViewForm

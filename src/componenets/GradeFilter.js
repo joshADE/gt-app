@@ -5,6 +5,9 @@ import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/
 
 export class GradeFilter extends Component {
         
+    static propTypes = {  
+        onClickFilterByCategory: PropTypes.func.isRequired,
+    }
 
     constructor(props){
         super(props);
@@ -52,10 +55,6 @@ export class GradeFilter extends Component {
     }
 }
 
-// PropTypes
-GradeFilter.propType = {
-    onClickFilterByCategory: PropTypes.func.isRequired,
-}
 
 
 export default GradeFilter

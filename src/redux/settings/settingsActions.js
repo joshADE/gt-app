@@ -9,7 +9,7 @@ export const toggleDarkmode = (toggleState = 'not_specified') => {
 			});
         }
     } else {
-        return (dispatch, getState) => {
+        return (dispatch) => {
 			dispatch({ type: settingsTypes.TOGGLE_DARKMODE, payload: { nightmode: toggleState } });
 		};
     } 
@@ -24,7 +24,7 @@ export const toggleStickyHeader = (toggleState = 'not_specified') => {
 			});
         }
     } else {
-        return (dispatch, getState) => {
+        return (dispatch) => {
 			dispatch({ type: settingsTypes.TOGGLE_STICKY_HEADER, payload: { stickyHeader: toggleState } });
 		};
     } 

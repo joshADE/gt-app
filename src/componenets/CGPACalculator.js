@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,6 +7,10 @@ import { Label } from 'reactstrap';
 import { StyledInnerBottomHeadItem, StyledButton, StyledInput } from '../styles/components/homeStyles';
 
 export class CGPACalculator extends Component {
+    static propTypes = {
+        courses: PropTypes.array.isRequired,
+    }
+    
     constructor(props){
         super(props);
         this.state = {
@@ -108,10 +113,6 @@ export class CGPACalculator extends Component {
     }
 }
 
-// PropTypes
-CGPACalculator.propType = {
-    courses: PropTypes.array.isRequired,
-}
 
 
 
